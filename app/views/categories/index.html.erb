@@ -3,7 +3,7 @@
     <li>
       <div class='category ui-state-default'>
         <%= category.name %>
-        <%= image_tag category.image.url(:detail) %>
+        <%= image_tag category.image.url(:thumb) %>
         <%= link_to 'edit','#', 'data-target' => "#edit_category_#{category.id}", 'class'=> 'edit' %>
         <%= form_for category, html: { :class => 'edit', multipart: true, hidden: true} do |f| %>
         <%= f.label :name %>

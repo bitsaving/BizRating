@@ -20,7 +20,7 @@ Category.prototype.bindEvents = function() {
   
   this.categoryList.sortable({
     revert: false,
-    distance: 20
+    distance: 40
   });
 };
 

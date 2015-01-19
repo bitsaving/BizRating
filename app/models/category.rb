@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
   #   :whiny_thumbnails => true
 
   has_attached_file :image, {
-    styles: { detail: '330>', list: '169>' },
+    styles: { thumb: '80x80>' },
     default_url: '/assets/missing_product.png'
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 

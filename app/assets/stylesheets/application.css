@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-ui
  */
+
+div.log_user {
+  display: inline-block;
+  float: right;
+  padding-top: 8px;
+}

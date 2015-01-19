@@ -1,0 +1,29 @@
+<ul class='categoryList'>
+  <% @categories.each do |category| %>
+    <li>
+      <div class='category ui-state-default'>
+        <%= category.name %>
+        <%= image_tag category.image.url(:detail) %>
+        <%= link_to 'edit','#', 'data-target' => "#edit_category_#{category.id}", 'class'=> 'edit' %>
+        <%= form_for category, html: { :class => 'edit', multipart: true, hidden: true} do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.file_field :image %>
+        <%= f.submit %>
+        <% end %>
+        <%= form_for category, remote: true, method: :delete, html: { :class => 'delete'} do |f| %>
+        <%= f.submit 'Delete' %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Add New Category','#' ,'data-target' => "#new_category", 'class'=> 'new' %>
+
+<%= form_for Category.new, html: { :class => 'new', multipart: true, hidden: true} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.file_field :image %>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,7 @@
+/*div.category {
+  display: inline-block;
+}
+*/
+ul li.category {
+  display: inline-block;
+}

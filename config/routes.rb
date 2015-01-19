@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers =>
+             { :registrations => "users/registrations",
+              :sessions => "users/sessions" },
+             skip: [:sessions]
+  as :user do 
+    get "/login" => "users/sessions#new", as: :new_user_session
+    delete "/logout" => "users/sessions#destroy", as: :destroy_user_session
+    post "/login" => "users/sessions#create", as: :user_session
+  end
+
+  resources :home
+  resources :categories
+  resource :password, only: [:edit, :update]
+  root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

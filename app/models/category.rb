@@ -1,10 +1,5 @@
 class Category < ActiveRecord::Base
 
-  # has_attached_file :image, styles: { thumb: "80x80" },
-  # path: ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
-  # url: ":rails_root/public/system/:attachment/:id/:basename_:style.:extension",
-  #   :whiny_thumbnails => true
-
   has_attached_file :image, {
     styles: { thumb: '80x80>' },
     default_url: '/assets/missing_product.png'

@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates_presence_of :address, :state,
-                        :pin_code, :phone_number,
-                        if: "roles.where(name: 'admin').exists?"
+                       :pin_code, :phone_number,
+                       if: "roles.where(name: 'admin').exists?"
 
   def role
     roles.pluck(:name)

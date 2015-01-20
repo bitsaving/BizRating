@@ -9,3 +9,10 @@
 Role::VALID_ROLES.each do |role|
   Role.create(name: role)
 end
+
+admin = User.new(first_name: 'Vinayak', last_name: 'Solution',
+  password: '123456', password_confirmation: '123456',
+  email: 'vinsol2011@gmail.com');
+admin.skip_confirmation!
+admin.roles = Role.where(name: 'admin')
+admin.save(validate: false)

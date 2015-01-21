@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_admin?
-      categories_path
+      businesses_path
     else
       new_home_path
     end

@@ -88,14 +88,20 @@
   <div class='navigation'>
     <% if user_signed_in? %>
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Bussinesses</a></li>
-        <li role="presentation"><a href="#">Categories</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <li role="presentation" class="<%= add_class('businesses') %>">
+          <%= link_to 'Bussinesses', :businesses %>
+        </li>
+        <li role="presentation" class="<%= add_class('categories') %>">
+          <%= link_to 'Categories', :categories %>
+        </li>
+        <li role="presentation" class="<%= add_class('users') %>"
+          ><a href="#">Users</a>
+        </li>
       </ul>
     <% end %>
 
     <%= bootstrap_flash %>
-    <div class="container-fluid">
+    <div class="container-fluid" id='content'>
       <%= yield %>
     </div>
 

@@ -7,7 +7,7 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true, allow_blank: true
-  validates_attachment :image,
+  validates_attachment :image, presence: true,
    content_type: { content_type: ["image/jpg",
     "image/jpeg", "image/png", "image/gif"] }
 

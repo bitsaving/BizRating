@@ -1,7 +1,10 @@
-/*div.category {
-  display: inline-block;
+button.add-category {
+  /*display: inline-block;*/
+  margin: 5px 40px;
+  float: right;
 }
-*/
+
 ul li.category {
   display: inline-block;
 }
+

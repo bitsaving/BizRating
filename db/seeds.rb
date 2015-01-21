@@ -9,6 +9,9 @@
 Role::VALID_ROLES.each do |role|
   Role.create(name: role)
 end
+p 'Enter Admin email'
+p 'Enter Admin first_name'
+p 'Enter Admin second_name'
 
 admin = User.new(first_name: 'Vinayak', last_name: 'Solution',
   password: '123456', password_confirmation: '123456',

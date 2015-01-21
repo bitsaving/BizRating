@@ -60,7 +60,7 @@ class CategoriesController < ApplicationController
         return false
       else
         return true
-      end          
+      end
     end
 
     def set_category

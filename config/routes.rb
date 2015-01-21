@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resource :password, only: [:edit, :update]
   resources :businesses
   post "categories/valid" => 'categories#valid'
+  post "categories/update_status" => 'categories#update_status'
   root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

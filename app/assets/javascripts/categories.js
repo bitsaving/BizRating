@@ -1,10 +1,18 @@
 function Category (input) {
   this.newForm = input.newForm;
   this.categoryList = input.categoryList;
+  this.statusLink = input.statusLink;
 }
 
 Category.prototype.initialize = function() {
+  this.addStatus();
   this.bindEvents();
+};
+
+Category.prototype.addStatus = function() {
+  this.statusLink.each(function(index, link) {
+    link.text = ($(link).data('categoryStatus') ? 'Disable' : "Enable");
+  });
 };
 
 Category.prototype.bindEvents = function() {
@@ -13,7 +21,32 @@ Category.prototype.bindEvents = function() {
     revert: false,
     distance: 40
   });
+  this.bindStatusEvent();
   this.bindFormEvent();
+};
+
+Category.prototype.bindStatusEvent = function() {
+  this.statusLink.on('click', function() {
+  var linkdata = $(this).data(), 
+  _this = this;
+  confirmText = 'You want to' + (linkdata['categoryStatus'] ? ' disable ' : ' enable ') + linkdata['categoryName'];
+  if (confirm(confirmText)) {
+    $.ajax({
+        url: "categories/update_status",
+        dataType: 'json',
+        type: 'post',
+        data: linkdata,
+        success: function (e) {
+          $(_this).data('categoryStatus', e[0]);
+          _this.text = (e[0] ? 'Disable' : "Enable");
+        },
+        error: function (e) {
+          errors = $.parseJSON(e.responseText);
+            alert(2);
+        }
+      });
+    }
+  });
 };
 
 Category.prototype.bindFormEvent = function() {
@@ -21,8 +54,8 @@ Category.prototype.bindFormEvent = function() {
   this.newForm.on('submit', function(e) {
     e.preventDefault();
     _this.validateForm();
-  });  
-}
+  });
+};
 
 Category.prototype.validateForm = function() {
   var input_file = this.newForm.find('#category_image'),
@@ -81,8 +114,9 @@ Category.prototype.fileValid = function() {
 
 $(function(){
   var input = {
-    newForm : $('#new_category'),
-    categoryList : $('ul.categoryList')
+    newForm : $('form#new_category'),
+    categoryList : $('ul.categoryList'),
+    statusLink : $('td.btn-just a:nth-child(2)')
   },
   category = new Category(input);
   category.initialize();

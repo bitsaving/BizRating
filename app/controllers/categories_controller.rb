@@ -12,6 +12,7 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to :categories
     else
+      flash[:notice] = @categories.errors
       redirect_to :categories
     end
   end
@@ -20,6 +21,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       redirect_to :categories
     else
+      flash[:notice] = @categories.errors
       redirect_to :categories
     end
   end
@@ -37,6 +39,15 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def update_status
+    @category = Category.find_by(id: params[:categoryId])
+    @category.status = params[:categoryStatus] == 'true' ? false : true
+    if @category.save
+      render json: [@category.status]
+    else
+      render json: @category.errors, status: :unprocessable_entity
+    end
+  end
 
   private
     def valid_name?

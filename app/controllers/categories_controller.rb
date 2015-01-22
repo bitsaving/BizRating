@@ -4,11 +4,12 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:create, :valid]
 
   def index
-    @categories = Category.all.reverse
+    @categories = Category.order(:position)
   end
 
   def create
     @category = Category.new(category_params)
+    @category.position = (Category.minimum(:position) || 0) - 1
     if @category.save
       redirect_to :categories
     else
@@ -47,6 +48,13 @@ class CategoriesController < ApplicationController
     else
       render json: @category.errors, status: :unprocessable_entity
     end
+  end
+
+  def update_position
+    params[:position].each_with_index do |id, index|
+      Category.find_by(id: id).update_columns(position: index)
+    end
+    render json: []
   end
 
   private

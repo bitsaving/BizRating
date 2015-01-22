@@ -23,7 +23,7 @@ Rails.application.configure do
     domain: "127.0.0.0",
     authentication: "plain",
     user_name: "paras1992testt",
-    password: "vinsol123",
+    password: "9871772150a",
     enable_starttls_auto: true
   }
 

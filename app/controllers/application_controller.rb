@@ -13,8 +13,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_confirmation_path_for(resource)
+    root_path
+  end
+
   def authenticate_admin!
-    if !user_signed_in? && current_user.is_admin?
+    if !(user_signed_in? && current_user.is_admin?)
       redirect_to new_user_session_path
     end
   end

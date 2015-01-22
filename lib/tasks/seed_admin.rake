@@ -17,5 +17,3 @@ task :seed_admin => :environment do
   admin.roles = Role.where(name: 'admin')
   admin.save(validate: false)
 end
-task :blah_blah => :input_test do 
-end

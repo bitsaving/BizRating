@@ -19,7 +19,23 @@ Category.prototype.bindEvents = function() {
   var _this = this;
   this.categoryList.sortable({
     revert: false,
-    distance: 40
+    // distance: 40,
+    // tolerance: 'pointer',
+    stop: function() {
+    // console.log($(this).sortable("toArray")),
+      $.ajax({
+        url: "categories/update_position",
+        dataType: 'json',
+        type: 'post',
+        data: {position : $(this).sortable("toArray")},
+        success: function() {
+          alert('updated');
+        },
+        error: function() {
+          alert('failed to update');
+        }
+      });
+    }
   });
   this.bindStatusEvent();
   this.bindFormEvent();
@@ -115,7 +131,7 @@ Category.prototype.fileValid = function() {
 $(function(){
   var input = {
     newForm : $('form#new_category'),
-    categoryList : $('ul.categoryList'),
+    categoryList : $('tbody.sortable'),
     statusLink : $('td.btn-just a:nth-child(2)')
   },
   category = new Category(input);

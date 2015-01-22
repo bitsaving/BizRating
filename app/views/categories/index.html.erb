@@ -1,10 +1,10 @@
-
 <button type="button" class="btn btn-primary add-category" data-toggle="modal" data-target="#add_category">New Category</button>
 <%- model_class = Category -%>
+
 <table class="table table-striped">
-  <tbody>
+  <tbody class="sortable">
     <% @categories.each do |category| %>
-      <tr>
+      <tr id="<%=category.id%>">
         <td><%= image_tag category.image.url(:thumb) %></td>
         <td><%= category.name %></td>
         <td class="btn-just">
@@ -12,16 +12,14 @@
           <%= link_to 'Disable', '#', :data => { :'category_status' => category.status,
              :'category_id' => category.id, :'category_name' => category.name },
              :class => 'btn btn-xs btn-danger edit' %>
-          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      category_path(category), :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), remote: true },
-                      :class => 'btn btn-xs btn-danger' %>
-
         </td>
       </tr>
     <% end %>
+    </ul>
   </tbody>
 </table>
+
+<%= 'There are no categories available, please add categories'  if @categories.length == 0 %>
 
 <div class='container'>
   <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,7 +52,6 @@
     </div>
   </div>
 </div>
-
 
 <% @categories.each do |category| %>
   <div class='container'>
@@ -90,4 +87,7 @@
     </div>
   </div>
 <% end %>
-
+          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      category_path(category), :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), remote: true },
+                      :class => 'btn btn-xs btn-danger' %>

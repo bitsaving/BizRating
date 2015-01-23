@@ -1,4 +1,9 @@
 module Admin
+
   class SessionsController < Devise::SessionsController
-  layout 'admin'
+
+    layout 'admin'
+
+  end
+
 end

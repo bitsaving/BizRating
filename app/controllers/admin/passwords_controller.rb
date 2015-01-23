@@ -1,3 +1,4 @@
+## FIXME_NISH I think we don't require this method.
 class Admin::PasswordsController < Admin::BaseController
 
   def edit

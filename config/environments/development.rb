@@ -52,8 +52,4 @@ Rails.application.configure do
 
   #Paper default path
   Paperclip.options[:command_path] = "/usr/local/bin/"
-   PAPERCLIP_STORAGE_OPTIONS = {
-     :url => "/system/:class/:attachment/:id/:style/:basename.:extension",
-     :path => "public/system/:class/:attachment/:id/:style/:basename.:extension"
-  }
 end

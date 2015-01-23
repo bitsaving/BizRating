@@ -2,11 +2,22 @@ function Category (input) {
   this.newForm = input.newForm;
   this.categoryList = input.categoryList;
   this.statusLink = input.statusLink;
+  this.formErrors = null;
+  this.categoryNameInput = input.categoryNameInput;
+  this.editForms = input.editForms;
 }
 
 Category.prototype.initialize = function() {
   this.addStatus();
+  this.getCategoryNames();
   this.bindEvents();
+};
+
+Category.prototype.getCategoryNames = function() {
+  var _this = this;
+  categoryNameInput.each( function(index, field) {
+    _this.categoryNameArray.push(field.value);
+  })
 };
 
 Category.prototype.addStatus = function() {
@@ -17,12 +28,15 @@ Category.prototype.addStatus = function() {
 
 Category.prototype.bindEvents = function() {
   var _this = this;
+  this.bindSortableEvents();
+  this.bindStatusEvent();
+  this.bindFormEvent();
+};
+
+Category.prototype.bindSortableEvents = function() {
   this.categoryList.sortable({
     revert: false,
-    // distance: 40,
-    // tolerance: 'pointer',
     stop: function() {
-    // console.log($(this).sortable("toArray")),
       $.ajax({
         url: "categories/update_position",
         dataType: 'json',
@@ -37,8 +51,6 @@ Category.prototype.bindEvents = function() {
       });
     }
   });
-  this.bindStatusEvent();
-  this.bindFormEvent();
 };
 
 Category.prototype.bindStatusEvent = function() {
@@ -57,8 +69,7 @@ Category.prototype.bindStatusEvent = function() {
           _this.text = (e[0] ? 'Disable' : "Enable");
         },
         error: function (e) {
-          errors = $.parseJSON(e.responseText);
-            alert(2);
+          alert($.parseJSON(e.responseText));
         }
       });
     }
@@ -71,9 +82,11 @@ Category.prototype.bindFormEvent = function() {
     e.preventDefault();
     _this.validateForm();
   });
+  this.edit-form
 };
 
 Category.prototype.validateForm = function() {
+  this.validateNameInput
   var input_file = this.newForm.find('#category_image'),
     _this = this;
     $.ajax({
@@ -108,22 +121,23 @@ Category.prototype.validateForm = function() {
     });
 };
 
-Category.prototype.nameValid = function() {
-  if(inputs[0].value.trim().length == 0) {
-      $(inputs[0]).parents('div.form-group').addClass('has-error');
+Category.prototype.validateNameInput = function(field) {
+  
+  if(field.value.trim().length == 0) {
+      $(field).parents('div.form-group').addClass('has-error');
       return false
   } else {
-    $(inputs[0]).parents('div.form-group').removeClass('has-error');
+    $(field).parents('div.form-group').removeClass('has-error');
     return true
   }
 };
 
-Category.prototype.fileValid = function() {
-  if(inputs[1].value.trim().length == 0) {
-      $(inputs[1]).parents('div.form-group').addClass('has-error')
+Category.prototype.validateFieldInput = function(field) {
+  if(field.value.trim().length == 0) {
+      $(field).parents('div.form-group').addClass('has-error')
       return false
   } else {
-    $(inputs[1]).parents('div.form-group').removeClass('has-error');
+    $(field).parents('div.form-group').removeClass('has-error');
     return true
   }
 };
@@ -132,7 +146,9 @@ $(function(){
   var input = {
     newForm : $('form#new_category'),
     categoryList : $('tbody.sortable'),
-    statusLink : $('td.btn-just a:nth-child(2)')
+    statusLink : $('td.btn-just a:nth-child(2)'),
+    editForms : $('form.edit-form'),
+    categoryNameInput : editForms.find('input[type=text]')
   },
   category = new Category(input);
   category.initialize();

@@ -10,7 +10,7 @@
         <td class="btn-just">
           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
           <%= link_to 'Disable', '#', :data => { :'category_status' => category.status,
-             :'category_id' => category.id, :'category_name' => category.name },
+             :'id' => category.id, :'category_name' => category.name },
              :class => 'btn btn-xs btn-danger edit' %>
         </td>
       </tr>
@@ -64,7 +64,7 @@
           </div>
           <div class="modal-body container-fluid">
 
-            <%= form_for category, html: {class: 'form-horizontal'} do |f| %>
+            <%= form_for category, html: {class: 'form-horizontal edit-form'} do |f| %>
                 <div class="field form-group">
                   <%= f.label :name, class: 'control-label col-sm-3' %>
                   <div class="col-sm-6">
@@ -87,7 +87,3 @@
     </div>
   </div>
 <% end %>
-          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      category_path(category), :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), remote: true },
-                      :class => 'btn btn-xs btn-danger' %>

@@ -67,7 +67,7 @@
             <%#= button_tag 'Logout', class: "btn btn-primary", data: {toggle: "modal", target: "#logout"} %>
         </div>
       <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? && current_user.is_admin? %> 
+        <% if user_signed_in? && current_user.admin? %> 
           <li><%= link_to "Home", :categories %></li>
         <% else %>
           <li><%= link_to "Home", :root %></li>
@@ -230,7 +230,7 @@
 <!--   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p> -->
   <% if user_signed_in? %>
-    <% if current_user.is_admin? %>
+    <% if current_user.admin? %>
       Admin
     <% else %>
       Customer

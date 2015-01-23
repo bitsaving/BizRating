@@ -1,19 +1,29 @@
 <div class="col-sm-offset-2 col-sm-10">
   <h2>Log in</h2>
 </div>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal'}) do |f| %>
+<% if flash[:notice] %>
+          <!-- <p class="alert"><%= flash[:notice] %></p> -->
+ <% end %>
+ <% if flash[:alert] %>
+          <!-- <p class="alert"><%= flash[:alert] %></p> -->
+ <% end %>
+<%#= devise_error_messages! %>
+<%= form_for(resource, as: resource_name, url: :admin_session, html: {class: 'form-horizontal'}) do |f| %>
 
     <div class="field form-group">
       <%= f.label :email, class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
-      <%= f.email_field :email, class: 'form-control', autofocus: true %></div>
+      <%= f.email_field :email, class: 'form-control', autofocus: true %>
+     </div>
     </div>
+    <%= flash[:alert][:email] if flash[:alert] && flash[:alert][:email] %>
 
     <div class="field form-group">
       <%= f.label :password, class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
       <%= f.password_field :password, autocomplete: "off", class: 'form-control' %></div>
     </div>
+    <%#= flash[:alert] if flash[:alert][:password] %>
 
   <% if devise_mapping.rememberable? -%>
     <div class="field form-group">
@@ -35,4 +45,4 @@
   </div>
   
 <% end %>
-<%= render "devise/shared/links" %>
+

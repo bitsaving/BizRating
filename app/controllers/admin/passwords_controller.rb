@@ -1,6 +1,4 @@
-class PasswordsController < ApplicationController
-
-  before_filter :authenticate_user!
+class Admin::PasswordsController < Admin::BaseController
 
   def edit
     @user = current_user
@@ -21,4 +19,5 @@ class PasswordsController < ApplicationController
   def user_params
     params.required(:user).permit(:password, :password_confirmation, :current_password)
   end
+
 end

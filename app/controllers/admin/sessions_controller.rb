@@ -20,8 +20,4 @@ class Admin::SessionsController < Devise::SessionsController
   def load_user
     @user = User.find_by(email: params[:user][:email])
   end
-
-  def valid_password
-    @user.valid_password?()
-  end
 end

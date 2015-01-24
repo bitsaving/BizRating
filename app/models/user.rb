@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
 
   ## FIXME_NISH Rename this method.
-  def roles_name_array
+  def roles_names
     roles.pluck(:name)
   end
 
   def admin?
-    roles_name_array.include? 'admin'
+    roles_names.include? 'admin'
   end
 
 end

@@ -2,8 +2,7 @@ function Category (input) {
   this.newForm = input.newForm;
   this.categoryList = input.categoryList;
   this.statusLink = input.statusLink;
-  this.formErrors = null;
-  this.categoryNameInput = input.categoryNameInput;
+  this.categoryNames = [];
   this.editForms = input.editForms;
 }
 
@@ -15,9 +14,9 @@ Category.prototype.initialize = function() {
 
 Category.prototype.getCategoryNames = function() {
   var _this = this;
-  categoryNameInput.each( function(index, field) {
-    _this.categoryNameArray.push(field.value);
-  })
+  this.editForms.find('input[type=text]').each( function(index, field) {
+    _this.categoryNames.push(field.value);
+  });
 };
 
 Category.prototype.addStatus = function() {
@@ -79,66 +78,41 @@ Category.prototype.bindStatusEvent = function() {
 Category.prototype.bindFormEvent = function() {
   var _this = this;
   this.newForm.on('submit', function(e) {
-    e.preventDefault();
-    _this.validateForm();
+    _this.validateNewForm()
+    if (!_this.formValid) {
+      e.preventDefault();
+    }
   });
-  this.edit-form
 };
 
-Category.prototype.validateForm = function() {
-  this.validateNameInput
-  var input_file = this.newForm.find('#category_image'),
-    _this = this;
-    $.ajax({
-      url: "categories/valid",
-      dataType: 'json',
-      type: 'post',
-      data: this.newForm.serialize(),
-      success: function () {
-        if ($('#new_category #category_image')[0].value == ""){
-          _this.newForm.find('div.form-group').addClass('has-error');
-          _this.newForm.find('div.form-group').first().removeClass('has-error');
-        } else {
-          _this.newForm.off('submit');
-          _this.newForm.submit();
-        }
-      },
-      error: function (e) {
-        errors = $.parseJSON(e.responseText);
-        _this.newForm.find('div.form-group').removeClass('has-error');
-        $.each(errors, function(key, value) {
-          var input = _this.newForm.find('#category_'+ key)
-          if (key == 'image' && input[0].value != "") {
-            input[0].placeholder = 'No file selected';
-            input.parents('div.form-group').addClass('has-error');
-          } else {
-            input[0].placeholder = input[0].value + ' ' + value;
-            input[0].value = "";
-            input.parents('div.form-group').addClass('has-error');
-          }
-        });
-      }
-    });
+Category.prototype.validateNewForm = function() {
+  this.validateNameInput(this.newForm.find('#category_name'));
+  this.validateFieldInput(this.newForm.find('#category_image'));
 };
 
 Category.prototype.validateNameInput = function(field) {
-  
-  if(field.value.trim().length == 0) {
+  if (field[0].value.trim().length == 0) {
       $(field).parents('div.form-group').addClass('has-error');
-      return false
-  } else {
-    $(field).parents('div.form-group').removeClass('has-error');
-    return true
-  }
+      field[0].placeholder = "Can't be blank"
+    this.formValid = false;
+    } else if ($.inArray(field[0].value, this.categoryNames) > -1) {
+      field[0].placeholder = field[0].value + ' is already taken';
+      field[0].value = "";
+      $(field).parents('div.form-group').addClass('has-error');
+      this.formValid = false;
+    } else {
+      $(field).parents('div.form-group').removeClass('has-error');
+      this.formValid = true;
+    }
 };
 
 Category.prototype.validateFieldInput = function(field) {
-  if(field.value.trim().length == 0) {
-      $(field).parents('div.form-group').addClass('has-error')
-      return false
+  if(field[0].value.trim().length == 0) {
+    $(field).parents('div.form-group').addClass('has-error');
+    this.formValid = this.formValid && false;
   } else {
     $(field).parents('div.form-group').removeClass('has-error');
-    return true
+    this.formValid = this.formValid && true;
   }
 };
 
@@ -147,8 +121,7 @@ $(function(){
     newForm : $('form#new_category'),
     categoryList : $('tbody.sortable'),
     statusLink : $('td.btn-just a:nth-child(2)'),
-    editForms : $('form.edit-form'),
-    categoryNameInput : editForms.find('input[type=text]')
+    editForms : $('form.edit-form')
   },
   category = new Category(input);
   category.initialize();

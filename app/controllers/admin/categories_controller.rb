@@ -4,7 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     ## FIXME_NISH Please don't run the query in views.
-    @categories = Category.order(:position)
+    @categories = Category.order(:position).load
   end
 
   def create
@@ -14,9 +14,9 @@ class Admin::CategoriesController < Admin::BaseController
     else
       ## FIXME_NISH Please use to_sentence.
       ## FIXME_NISH Please use alert instead of all.
-      flash[:all] = @category.errors.full_messages
+      flash[:alert] = @category.errors.full_messages.to_sentence
     end
-    redirect_to :categories
+    redirect_to categories_path
   end
 
   def update
@@ -25,9 +25,9 @@ class Admin::CategoriesController < Admin::BaseController
     else
       ## FIXME_NISH Please use to_sentence.
       ## FIXME_NISH Please use alert instead of notice.
-      flash[:notice] = @category.errors.full_messages
+      flash[:alert] = @category.errors.full_messages.to_sentence
     end
-    redirect_to :categories
+    redirect_to categories_path
   end
 
   def update_status
@@ -53,6 +53,10 @@ class Admin::CategoriesController < Admin::BaseController
     def load_category
       ## FIXME_NISH Please check that the category is present or not.
       @category = Category.find_by(id: params[:id])
+      unless @category
+        flash[:alert] = 'No category'
+        redirect_to categories_path
+      end
     end
 
     def category_params

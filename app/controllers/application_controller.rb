@@ -17,12 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   ## FIXME_NISH Please move it to base_controller.
-  def authorised_admin!
-    if !(user_signed_in? && current_user.admin?)
-      redirect_to new_user_session_path
-    end
-  end
-
   private
     def update_sanitized_params
       ## FIXME_NISH Please proivde space before and after brackets.

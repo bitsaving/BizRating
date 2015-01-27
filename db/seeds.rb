@@ -1,4 +1,4 @@
-Role::VALID_ROLES.each do |role|
+Role::VALID_NAMES.each do |role|
   Role.create(name: role)
 end
 
@@ -11,7 +11,7 @@ password = STDIN.gets.chomp
 STDOUT.puts "admin name"
 name = STDIN.gets.chomp
 
-admin = User.new(email: email, password: password, password_confirmation: password, first_name: name)
+admin = User.new(email: email, password: password, password_confirmation: password, name: name)
 admin.skip_confirmation!
 admin.roles = Role.where(name: 'admin')
 admin.save

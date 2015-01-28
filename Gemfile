@@ -17,6 +17,7 @@ gem 'paperclip',                     '~> 4.2'
 gem 'rmagick'
 gem 'devise',                        '3.4.1'
 gem 'carmen',                        '1.0.1'
+gem 'nested_form'
 group :development, :test do
   gem 'byebug'
   gem 'web-console',                 '~> 2.0'

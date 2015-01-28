@@ -9,8 +9,8 @@ class Business < ActiveRecord::Base
   has_many :images
   has_many :timmings
 
-  accepts_nested_attributes_for :address, :emails, :phone_numbers, :images, :website, :timmings
+  accepts_nested_attributes_for :address, :emails, :phone_numbers, :images, :website, :timmings, allow_destroy: true
 
-  validates :name, :category_id, presence: true
+  validates :name, presence: true
 
 end

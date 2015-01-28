@@ -1,4 +1,4 @@
-<%= form_for @business, url: (send "update_step#{params[:step]}_business_path".to_sym, @business),:html => { :class => "form-horizontal business", multipart: true } do |f| %>
+<%= nested_form_for @business, url: (send "update_step#{params[:step]}_business_path".to_sym, @business),:html => { :class => "form-horizontal business", multipart: true } do |f| %>
 
   <% if @business.errors.any? %>
     <div id="error_expl" class="panel panel-danger">

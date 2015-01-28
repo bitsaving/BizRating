@@ -15,7 +15,7 @@
 
 //= require jquery-ui
 //= require twitter/bootstrap
-
+//= require jquery_nested_form
 $(document).ready(function() {
   $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal

@@ -6,33 +6,59 @@
   </div>
 
   <%= f.fields_for :timmings do |t| %>
-    <div class="control-group">
-      <%= t.label 'to', :class => 'control-label' %>
-      <div class="controls">
-        <%= t.time_select :to, :class => 'form-control' %>
+    <div class='time'>
+      <div class="control-group">
+        <%= t.label 'to', :class => 'control-label' %>
+        <div class="controls">
+          <%= t.time_select :to, :class => 'form-control' %>
+        </div>
+        <%= error_span(@business['to']) %>
       </div>
-      <%= error_span(@business['to']) %>
-    </div>
-    <div class="control-group">
-      <%= t.label :from, :class => 'control-label' %>
-      <div class="controls">
-        <%= t.time_select :from, :class => 'form-control' %>
+      <div class="control-group">
+        <%= t.label :from, :class => 'control-label' %>
+        <div class="controls">
+          <%= t.time_select :from, :class => 'form-control' %>
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <%= t.label :days, :class => 'control-label' %>
-      <div class="controls">
-        <%= t.text_field :days, :class => 'form-control' %>
+      <div class="control-group">
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 0, nil %>
+          <%= t.label :days, 'Sunday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 1, nil %>
+          <%= t.label :days, 'monday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 2, nil %>
+          <%= t.label :days, 'tuesday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 3, nil %>
+          <%= t.label :days, 'wednessday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 4, nil %>
+          <%= t.label :days, 'thrusday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 5, nil %>
+          <%= t.label :days, 'friday', :class => 'control-label' %>
+        </div>
+        <div class="controls">
+          <%= t.check_box :days, {multiple: true}, 6, nil %>
+          <%= t.label :days, 'Saturday', :class => 'control-label' %>
+        </div>
       </div>
     </div>
   <%end%>
-
+<p><%= f.link_to_add "Add a timmings", :timmings %></p>
   <%= f.fields_for :images do |i| %>
     <div class="control-group image">
       <%= i.label :image, :class => 'control-label' %>
       <div class="controls">
         <%= i.file_field :image, :class => 'form-control' %>
       </div>
-    <%= link_to 'Add', '#', id: 'add_image' %>
     </div>
   <% end %>
+  <p><%= f.link_to_add "Add a images", :images %></p>

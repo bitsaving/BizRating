@@ -22,9 +22,9 @@
       <div class="controls">
         <%= pn.text_field :details, :class => 'form-control' %>
       </div>
-    <%= link_to 'Add', '#', id: 'add_phone' %>
     </div>
   <% end %>
+  <p><%= f.link_to_add "Add a phone number", :phone_numbers %></p>
 
   <%= f.fields_for :emails do |e| %>
     <div class="control-group email">
@@ -35,3 +35,4 @@
     <%= link_to 'Add', '#', id: 'add_email' %>
     </div>
   <% end %>
+  <p><%= f.link_to_add "Add a emails", :emails %></p>

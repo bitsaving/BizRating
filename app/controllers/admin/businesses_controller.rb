@@ -25,8 +25,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def update
-    p @business
-    if @business.update(business_params)
+    if @business.update(set_params)
       case params[:step]
       when 1
         redirect_to edit_step2_business_path(@business)
@@ -78,18 +77,31 @@ class Admin::BusinessesController < Admin::BaseController
       @business = Business.find_by(id: params[:id])
     end
 
+    def set_params
+      if (business_params[:category])
+        parameters = business_params
+        parameters[:category] = load_category
+        parameters
+      else
+        business_params
+      end
+    end
+
+    def load_category
+      Category.find_by(id: business_params[:category].to_i)
+    end
+
     def set_business
       parameters = business_params
-      parameters[:category] = Category.find_by(id: parameters[:category].to_i)
+      parameters[:category] = load_category
       @business = Business.new(parameters)
     end
 
     def business_params
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
-        address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area],
+        address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: :details, emails_attributes: :details, phone_numbers_attributes: :details,
-        timmings_attributes: [:to, :from, :days],
-        images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image])
+        images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id])
     end
 
 end

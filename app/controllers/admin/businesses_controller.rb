@@ -1,10 +1,11 @@
 class Admin::BusinessesController < Admin::BaseController
   before_action :set_business, only: :create
-  before_action :load_business, only: [:update, :edit, :destroy]
+  before_action :load_business, only: [:update, :edit, :update_status]
+  before_action :set_status, only: :update_status
   before_action :setup, only: :edit
 
   def index
-    @businesses = Business.all.load
+    @businesses = Business.includes(:images).all
   end
 
   def new
@@ -17,7 +18,7 @@ class Admin::BusinessesController < Admin::BaseController
 
   def create
     if @business.save
-      redirect_to edit_step2_business_path(@business)
+      redirect_to step2_admin_business_path(@business)
     else
       flash.now[:alert] = @business.errors.full_messages.to_sentence
       render :new
@@ -26,23 +27,36 @@ class Admin::BusinessesController < Admin::BaseController
 
   def update
     if @business.update(set_params)
-      redirect_to [:edit, "step#{ params[:step] }", @business]
+      redirect_to ["step#{ params[:step] }",:admin, @business]
     else
       flash.now[:alert] = @business.errors.full_messages.to_sentence
       render :edit
     end
   end
 
-  def update_states
+  def get_states
     render json: Carmen::Country.named(params[:country]).subregions.map {|regions| regions.name }
   end
 
   def destroy
     @business.destroy
-    redirect_to businesses_path
+    redirect_to admin_businesses_path
   end
 
+  def update_status
+    if @business.save
+      render json: [@business.status]
+    else
+      render json: @business.errors, status: :unprocessable_entity
+    end
+  end
+
+
   private
+
+    def set_status
+      @business.status = params[:businessStatus] == 'true' ? false : true
+    end
 
     def setup()
       step = params[:step] || 1
@@ -86,8 +100,9 @@ class Admin::BusinessesController < Admin::BaseController
     def business_params
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
-        website_attributes: :details, emails_attributes: :details, phone_numbers_attributes: :details,
-        images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id])
+        website_attributes: :details, emails_attributes: [:details, :id, :_destroy],
+        phone_numbers_attributes: [:details, :id, :_destroy], timmings_attributes: [:to, :from, :id, :_destroy, days: []],
+        images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end
 
 end

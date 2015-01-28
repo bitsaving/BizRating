@@ -1,16 +1,15 @@
-<%= link_to 'New Business', :new_step1_businesses, class: 'btn btn-primary add-business' %>
+<%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
 
 <table class="table table-striped">
   <tbody class="sortable">
     <% @businesses.each do |business| %>
+      <td><%= image_tag business.images.first.image.url(:thumb) %></td>
       <td><%= business.name %></td>
       <td class="btn-just">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    edit_step1_business_path(business), :class => 'btn btn-default btn-xs' %>
-        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                    business_path(business), :method => :delete,
-                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                    :class => 'btn btn-xs btn-danger' %>
+                    step1_admin_business_path(business), :class => 'btn btn-default btn-xs' %>
+         <%= link_to 'Disable', '#', :data => { :'business_status' => business.status, :'id' => business.id, :'business_name' => business.name },
+             :class => 'btn btn-xs btn-danger edit' %>
         </td>
       </tr>
     <% end %>

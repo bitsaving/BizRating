@@ -69,7 +69,7 @@
             <%#= button_tag 'Logout', class: "btn btn-primary", data: {toggle: "modal", target: "#logout"} %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? && current_user.admin? %> 
-          <li><%= link_to "Home", :categories %></li>
+          <li><%= link_to "Home", admin_businesses_path %></li>
         <% else %>
           <li><%= link_to "Home", :root %></li>
         <% end -%>
@@ -90,7 +90,7 @@
               <% end %>
             <li class="divider"></li>
             <li>
-              <%= link_to "Edit Password", :edit_password %>
+              <%= link_to "Edit Password", :edit_admin_password %>
             </li>
             <!-- <li>
               <a href="#">Separated link</a>

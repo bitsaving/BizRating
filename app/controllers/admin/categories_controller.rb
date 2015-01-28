@@ -16,7 +16,7 @@ class Admin::CategoriesController < Admin::BaseController
       ## FIXME_NISH Please use alert instead of all.
       flash[:alert] = @category.errors.full_messages.to_sentence
     end
-    redirect_to categories_path
+    redirect_to admin_categories_path
   end
 
   def update
@@ -27,7 +27,7 @@ class Admin::CategoriesController < Admin::BaseController
       ## FIXME_NISH Please use alert instead of notice.
       flash[:alert] = @category.errors.full_messages.to_sentence
     end
-    redirect_to categories_path
+    redirect_to admin_categories_path
   end
 
   def update_status
@@ -58,7 +58,7 @@ class Admin::CategoriesController < Admin::BaseController
       @category = Category.find_by(id: params[:id])
       unless @category
         flash[:alert] = 'No category'
-        redirect_to categories_path
+        redirect_to admin_categories_path
       end
     end
 

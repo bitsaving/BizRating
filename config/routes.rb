@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :home
 
-  scope module: :admin do
+  namespace :admin do
     resources :categories, only: [:index, :update, :create] do
       collection do
         ## FIXME_NISH Use patch.
@@ -22,18 +22,19 @@ Rails.application.routes.draw do
     end
 
     resource :password, only: [:edit, :update]
-    resources :businesses, except: :new do
+    resources :businesses, path_names: { new: :step1 } do
       collection do
-        get 'step1' => 'businesses#new', defaults: {step: 1}
-        post :update_states
+        post :get_states
+        patch :update_status
       end
+      
       member do
-        get 'step1' => 'businesses#edit', defaults: {step: 1}
-        get 'step2' => 'businesses#edit', defaults: {step: 2}
-        get 'step3' => 'businesses#edit', defaults: {step: 3}
-        patch 'step1' => 'businesses#update', defaults: {step: 1}
-        patch 'step2' => 'businesses#update', defaults: {step: 2}
-        patch 'step3' => 'businesses#update', defaults: {step: 3}
+        get :step1, to: :edit, defaults: { step: 1 }
+        get :step2, to: :edit, defaults: { step: 2 }
+        get :step3, to: :edit, defaults: { step: 3 }
+        patch :step1, to: :update, defaults: { step: 1 }
+        patch :step2, to: :update, defaults: { step: 2 }
+        patch :step3, to: :update, defaults: { step: 3 }
       end
     end
   end

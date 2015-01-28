@@ -10,14 +10,13 @@
       <div class="control-group">
         <%= t.label 'to', :class => 'control-label' %>
         <div class="controls">
-          <%= t.time_select :to, :class => 'form-control' %>
+          <%= t.time_select :to, { ampm: true, minute_step: 15 }, :class => 'form-control' %>
         </div>
-        <%= error_span(@business['to']) %>
       </div>
       <div class="control-group">
         <%= t.label :from, :class => 'control-label' %>
         <div class="controls">
-          <%= t.time_select :from, :class => 'form-control' %>
+          <%= t.time_select :from, { ampm: true, minute_step: 15 }, :class => 'form-control' %>
         </div>
       </div>
       <div class="control-group">

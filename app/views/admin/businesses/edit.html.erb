@@ -1,4 +1,4 @@
-<%= nested_form_for @business, url: (send "update_step#{params[:step]}_business_path".to_sym, @business),:html => { :class => "form-horizontal business", multipart: true } do |f| %>
+<%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business", multipart: true } do |f| %>
 
   <% if @business.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,9 +16,11 @@
   <% end %>
 
   <%= render partial: 'step' + params[:step].to_s, locals: { f: f } %>
-  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to 'previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default' if params[:step] > 1 %>
+  <%= link_to 'next', [step(params[:step] + 1), :admin, @business], class: 'btn btn-default' if params[:step] < 3  %>
+  <%= f.submit 'Save', :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-      businesses_path, :class => 'btn btn-default' %>
+      admin_businesses_path, :class => 'btn btn-danger' %>
 
 <% end %>
 

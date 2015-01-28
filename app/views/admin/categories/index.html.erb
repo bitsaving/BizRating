@@ -30,7 +30,7 @@
           <h4 class="modal-title" id="exampleModalLabel">New Category</h4>
         </div>
         <div class="modal-body container-fluid">
-          <%= form_for Category.new, html: {class: 'form-horizontal'} do |f| %>
+          <%= form_for Category.new,url: admin_categories_path, html: {class: 'form-horizontal'} do |f| %>
               <div class="field form-group">
                 <%= f.label :name, class: 'control-label col-sm-3' %>
                 <div class="col-sm-6">
@@ -64,7 +64,7 @@
           </div>
           <div class="modal-body container-fluid">
 
-            <%= form_for category, html: {class: 'form-horizontal edit-form'} do |f| %>
+            <%= form_for category,url: admin_categories_path, html: {class: 'form-horizontal edit-form'} do |f| %>
                 <div class="field form-group">
                   <%= f.label :name, class: 'control-label col-sm-3' %>
                   <div class="col-sm-6">

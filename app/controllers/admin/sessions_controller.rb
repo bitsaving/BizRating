@@ -7,7 +7,7 @@ class Admin::SessionsController < Devise::SessionsController
     ## FIXME_NISH Refactor this code.
     if @user && @user.valid_password?(params[:user][:password])
       sign_in(:user, @user)
-      redirect_to :businesses
+      redirect_to admin_businesses_path
     else
       flash[:alert] = 'invalid password'
       redirect_to :new_admin_session

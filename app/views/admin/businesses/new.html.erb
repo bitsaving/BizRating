@@ -1,6 +1,4 @@
-<% url = "update_step#{params[:step]}_businesses_path" %>
-
-<%= form_for @business, :html => { :class => "form-horizontal business" } do |f| %>
+<%= nested_form_for [:admin, @business], :html => { :class => "form-horizontal business" } do |f| %>
 
   <% if @business.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -17,11 +15,11 @@
     </div>
   <% end %>
 
-  <%= render partial: 'step' + params[:step].to_s, locals: {f: f } %>
+  <%= render partial: 'step1', locals: { f: f } %>
   <%= f.submit 'Create' ,:class => 'btn btn-primary' %>
 
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-      businesses_path, :class => 'btn btn-warning' %>
+      admin_businesses_path, :class => 'btn btn-warning' %>
 
 <% end %>
 <% content_for :head do javascript_include_tag :businesses end %>

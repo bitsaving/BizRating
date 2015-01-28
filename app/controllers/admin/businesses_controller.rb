@@ -19,31 +19,17 @@ class Admin::BusinessesController < Admin::BaseController
     if @business.save
       redirect_to edit_step2_business_path(@business)
     else
-      flash[:alert] = @business.errors.full_messages.to_sentence
-      redirect_to new_step1_businesses_path
+      flash.now[:alert] = @business.errors.full_messages.to_sentence
+      render :new
     end
   end
 
   def update
     if @business.update(set_params)
-      case params[:step]
-      when 1
-        redirect_to edit_step2_business_path(@business)
-      when 2
-        redirect_to edit_step3_business_path(@business)
-      when 3
-        redirect_to :businesses
-      end
+      redirect_to [:edit, "step#{ params[:step] }", @business]
     else
-      flash[:alert] = @business.errors.full_messages.to_sentence
-      case params[:step]
-      when 1
-        redirect_to edit_step1_business_path(@business)
-      when 2
-        redirect_to edit_step2_business_path(@business)
-      when 3
-        redirect_to edit_step3_business_path(@business)
-      end
+      flash.now[:alert] = @business.errors.full_messages.to_sentence
+      render :edit
     end
   end
 

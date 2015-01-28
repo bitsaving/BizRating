@@ -1,0 +1,37 @@
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%= error_span(@business[:description]) %>
+  </div>
+
+  <%= f.fields_for :website do |web| %>
+    <div class="control-group">
+      <%= web.label :details, 'website', :class => 'control-label' %>
+      <div class="controls">
+        <%= web.text_field :details, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:details]) %>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :phone_numbers do |pn| %>
+    <div class="control-group phone">
+      <%= pn.label :details, 'Phone Number', :class => 'control-label' %>
+      <div class="controls">
+        <%= pn.text_field :details, :class => 'form-control' %>
+      </div>
+    <%= link_to 'Add', '#', id: 'add_phone' %>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :emails do |e| %>
+    <div class="control-group email">
+      <%= e.label :details, 'Email', :class => 'control-label' %>
+      <div class="controls">
+        <%= e.text_field :details, :class => 'form-control' %>
+      </div>
+    <%= link_to 'Add', '#', id: 'add_email' %>
+    </div>
+  <% end %>

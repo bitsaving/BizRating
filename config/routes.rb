@@ -16,14 +16,28 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :update, :create] do
       collection do
         ## FIXME_NISH Use patch.
-        post :update_status
-        post :update_position
+        patch :update_status
+        patch :update_position
       end
     end
 
     resource :password, only: [:edit, :update]
-    resources :businesses, only: :index
+    resources :businesses, except: :new do
+      collection do
+        get '/new/step1' => 'businesses#new', as: :new_step1, defaults: {step: 1}
+        post :update_states
+      end
+      member do
+        get 'edit/step1' => 'businesses#edit', as: :edit_step1, defaults: {step: 1}
+        get 'edit/step2' => 'businesses#edit', as: :edit_step2, defaults: {step: 2}
+        get 'edit/step3' => 'businesses#edit', as: :edit_step3, defaults: {step: 3}
+        patch 'update/step1' => 'businesses#update', as: :update_step1, defaults: {step: 1}
+        patch 'update/step2' => 'businesses#update', as: :update_step2, defaults: {step: 2}
+        patch 'update/step3' => 'businesses#update', as: :update_step3, defaults: {step: 3}
+      end
+    end
   end
 
   root 'home#index'
+
 end

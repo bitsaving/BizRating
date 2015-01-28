@@ -1,7 +1,7 @@
 class Admin::CategoriesController < Admin::BaseController
 
   before_action :load_category, only: [:update, :update_status]
-
+  before_action :set_status, only: :update_status
   def index
     ## FIXME_NISH Please don't run the query in views.
     @categories = Category.order(:position).load
@@ -32,7 +32,6 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update_status
     ## FIXME_NISH Refactor this code.
-    @category.status = params[:categoryStatus] == 'true' ? false : true
     if @category.save
       render json: [@category.status]
     else
@@ -49,6 +48,10 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   private
+
+    def set_status
+      @category.status = params[:categoryStatus] == 'true' ? false : true
+    end
 
     def load_category
       ## FIXME_NISH Please check that the category is present or not.

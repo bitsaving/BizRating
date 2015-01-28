@@ -1,0 +1,90 @@
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@business[:name]) %>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :owner_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :owner_name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@business[:owner_name]) %>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :category, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select(:category, Category.all, :id, :name) %>
+      <%#= f.text_field :category, :class => 'form-control' %>
+    </div>
+    <%= error_span(@business[:category]) %>
+  </div>
+
+  <%= f.fields_for :address do |l| %>
+    <div class="control-group">
+      <%= l.label :street, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :street, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:street]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :building, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :building, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:building]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :landmark, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :landmark, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:landmark]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :area, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :area, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:area]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :pin_code, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :pin_code, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:pin_code]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :city, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.text_field :city, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:city]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :country, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.collection_select :country, Carmen::Country.all, :name, :name %>
+      </div>
+      <%= error_span(@business[:country]) %>
+    </div>
+
+    <div class="control-group">
+      <%= l.label :state, :class => 'control-label' %>
+      <div class="controls">
+        <%= l.select :state,{}, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business[:state]) %>
+    </div>
+  <%end%>

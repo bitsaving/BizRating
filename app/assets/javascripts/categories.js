@@ -39,7 +39,7 @@ Category.prototype.bindSortableEvents = function() {
       $.ajax({
         url: "categories/update_position",
         dataType: 'json',
-        type: 'post',
+        type: 'patch',
         data: {position : $(this).sortable("toArray")},
         success: function() {
           alert('updated');
@@ -61,7 +61,7 @@ Category.prototype.bindStatusEvent = function() {
     $.ajax({
         url: "categories/update_status",
         dataType: 'json',
-        type: 'post',
+        type: 'patch',
         data: linkdata,
         success: function (e) {
           $(_this).data('categoryStatus', e[0]);

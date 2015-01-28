@@ -1,0 +1,38 @@
+  <div class="control-group">
+    <%= f.label :year_of_establishment, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :year_of_establishment, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <%= f.fields_for :timmings do |t| %>
+    <div class="control-group">
+      <%= t.label 'to', :class => 'control-label' %>
+      <div class="controls">
+        <%= t.time_select :to, :class => 'form-control' %>
+      </div>
+      <%= error_span(@business['to']) %>
+    </div>
+    <div class="control-group">
+      <%= t.label :from, :class => 'control-label' %>
+      <div class="controls">
+        <%= t.time_select :from, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= t.label :days, :class => 'control-label' %>
+      <div class="controls">
+        <%= t.text_field :days, :class => 'form-control' %>
+      </div>
+    </div>
+  <%end%>
+
+  <%= f.fields_for :images do |i| %>
+    <div class="control-group image">
+      <%= i.label :image, :class => 'control-label' %>
+      <div class="controls">
+        <%= i.file_field :image, :class => 'form-control' %>
+      </div>
+    <%= link_to 'Add', '#', id: 'add_image' %>
+    </div>
+  <% end %>

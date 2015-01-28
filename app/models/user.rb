@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
-  validates :first_name, presence: true
+  validates :name, presence: true
 
   ## FIXME_NISH Rename this method.
   def roles_names

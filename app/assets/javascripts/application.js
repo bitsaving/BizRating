@@ -15,7 +15,6 @@
 
 //= require jquery-ui
 //= require twitter/bootstrap
-//= require_tree .
 
 $(document).ready(function() {
   $('#exampleModal').on('show.bs.modal', function (event) {

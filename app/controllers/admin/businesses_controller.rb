@@ -17,6 +17,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def create
+    @business.normalize_business_keywords
     if @business.save
       redirect_to step2_admin_business_path(@business)
     else
@@ -70,6 +71,7 @@ class Admin::BusinessesController < Admin::BaseController
       when 3
         @business.timmings.build unless @business.timmings.exists?
         @business.images.build unless @business.images.exists?
+        @business.keywords.build unless @business.keywords.exists?
       end
     end
 
@@ -100,7 +102,7 @@ class Admin::BusinessesController < Admin::BaseController
     def business_params
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
-        website_attributes: :details, emails_attributes: [:details, :id, :_destroy],
+        website_attributes: :details, emails_attributes: [:details, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
         phone_numbers_attributes: [:details, :id, :_destroy], timmings_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end

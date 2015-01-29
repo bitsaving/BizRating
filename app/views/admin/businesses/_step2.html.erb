@@ -3,7 +3,6 @@
     <div class="controls">
       <%= f.text_field :description, :class => 'form-control' %>
     </div>
-    <%= error_span(@business[:description]) %>
   </div>
 
   <%= f.fields_for :website do |web| %>
@@ -12,7 +11,6 @@
       <div class="controls">
         <%= web.text_field :details, :class => 'form-control' %>
       </div>
-      <%= error_span(@business[:details]) %>
     </div>
   <% end %>
 

@@ -5,6 +5,18 @@
     </div>
   </div>
 
+  <%= f.fields_for :keywords do |keyword| %>
+    <div class="control-group">
+      <%= keyword.label :name, 'keyword', :class => 'control-label' %>
+      <div class="controls">
+        <%= keyword.text_field :name, :class => 'form-control' %>
+      </div>
+    </div>
+  <%= keyword.link_to_remove "Remove this task" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a keyword", :keywords %></p>
+
+
   <%= f.fields_for :timmings do |t| %>
     <div class='time'>
       <div class="control-group">

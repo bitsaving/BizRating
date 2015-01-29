@@ -1,4 +1,4 @@
-<%= nested_form_for [:admin, @business], :html => { :class => "form-horizontal business" } do |f| %>
+<%= nested_form_for [:admin, @business], :html => { :class => "form-horizontal business padding_top" } do |f| %>
 
   <%= render partial: 'step1', locals: { f: f } %>
   <%= f.submit 'Create' ,:class => 'btn btn-primary col-sm-offset-4' %>

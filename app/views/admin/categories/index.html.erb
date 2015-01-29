@@ -5,8 +5,8 @@
   <tbody class="sortable">
     <% @categories.each do |category| %>
       <tr id="<%=category.id%>">
-        <td><%= image_tag category.image.url(:thumb) %></td>
-        <td><%= category.name %></td>
+        <td class='col-sm-2'><%= image_tag category.image.url(:thumb) %></td>
+        <td class='col-sm-8 text'><%= category.name %></td>
         <td class="btn-just">
           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
           <%= link_to 'Disable', '#', :data => { :'category_status' => category.status,
@@ -32,19 +32,20 @@
         <div class="modal-body container-fluid">
           <%= form_for Category.new,url: admin_categories_path, html: {class: 'form-horizontal'} do |f| %>
               <div class="field form-group">
-                <%= f.label :name, class: 'control-label col-sm-3' %>
+                <%= f.label :name, 'Name*', class: 'control-label col-sm-3' %>
                 <div class="col-sm-6">
                 <%= f.text_field :name, class: 'form-control', autofocus: true %></div>
               </div>
               <div class="field form-group">
-                <%= f.label :image, class: 'control-label col-sm-3' %>
+                <%= f.label :image, 'Image*', class: 'control-label col-sm-3' %>
                 <div class='col-sm-6'>
                   <%= f.file_field :image, class: 'form-control col-sm-3' %>
                 </div>
               </div>
                <div class="actions modal-footer">
-                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
                 <%= f.submit "Add", class: "btn btn-primary btn-lg", id: 'new_category' %>
+                <%= f.submit "Reset", class: "btn btn-warning btn-lg", id: 'new_category', type: 'reset' %>
+                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
               </div>
             <% end %>
         </div>
@@ -64,7 +65,7 @@
           </div>
           <div class="modal-body container-fluid">
 
-            <%= form_for category,url: admin_categories_path, html: {class: 'form-horizontal edit-form'} do |f| %>
+            <%= form_for category,url: admin_category_path(category), html: {class: 'form-horizontal edit-form'} do |f| %>
                 <div class="field form-group">
                   <%= f.label :name, class: 'control-label col-sm-3' %>
                   <div class="col-sm-6">
@@ -75,10 +76,11 @@
                   <div class='col-sm-6'>
                     <%= f.file_field :image, class: 'form-control col-sm-3' %>
                   </div>
+                  <%= image_tag category.image.url(:thumb) %>
                 </div>
-                 <div class="actions modal-footer">
-                  <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
+                <div class="actions modal-footer">
                   <%= f.submit class: "btn btn-primary btn-lg" %>
+                  <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
                 </div>
               <% end %>
           </div>

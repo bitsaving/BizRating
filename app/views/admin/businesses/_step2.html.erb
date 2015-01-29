@@ -1,37 +1,37 @@
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
+  <div class="control-group field form-group <%= add_error_class :description %>">
+    <%= f.label :description, :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
       <%= f.text_field :description, :class => 'form-control' %>
     </div>
   </div>
 
   <%= f.fields_for :website do |web| %>
-    <div class="control-group">
-      <%= web.label :details, 'website', :class => 'control-label' %>
-      <div class="controls">
+    <div class="control-group field form-group <%= add_error_class :'website.details' %>">
+      <%= web.label :details, 'website', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
         <%= web.text_field :details, :class => 'form-control' %>
       </div>
     </div>
   <% end %>
 
   <%= f.fields_for :phone_numbers do |pn| %>
-    <div class="control-group phone">
-      <%= pn.label :details, 'Phone Number', :class => 'control-label' %>
-      <div class="controls">
+    <div class="control-group field form-group <%= add_error_class :'phone_numbers.details' %> phone">
+      <%= pn.label :details, 'Phone Number', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
         <%= pn.text_field :details, :class => 'form-control' %>
+        <%= pn.link_to_remove "Remove" %>
       </div>
     </div>
-     <%= pn.link_to_remove "Remove this task" %>
   <% end %>
-  <p><%= f.link_to_add "Add a phone number", :phone_numbers %></p>
+  <p><%= f.link_to_add "Add a phone number", :phone_numbers, class: 'col-sm-offset-3' %></p>
 
   <%= f.fields_for :emails do |e| %>
-    <div class="control-group email">
-      <%= e.label :details, 'Email', :class => 'control-label' %>
-      <div class="controls">
-        <%= e.text_field :details, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'emails.details' %> email">
+      <%= e.label :details, 'Email', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= e.email_field :details, :class => 'form-control' %>
+        <%= e.link_to_remove "Remove" %>
       </div>
     </div>
-    <%= e.link_to_remove "Remove this task" %>
   <% end %>
-  <p><%= f.link_to_add "Add a emails", :emails %></p>
+  <p><%= f.link_to_add "Add a emails", :emails, class: 'col-sm-offset-3' %></p>

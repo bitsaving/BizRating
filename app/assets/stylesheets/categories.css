@@ -1,4 +1,8 @@
 button.add-category {
-  margin: 5px 50px;
+  margin: 5px 60px;
   float: right;
+}
+
+.text {
+  overflow: hidden;
 }

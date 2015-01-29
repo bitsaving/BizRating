@@ -1,5 +1,5 @@
 class Contact < ActiveRecord::Base
 
-  belongs_to :business
+  belongs_to :business, required: true
 
 end

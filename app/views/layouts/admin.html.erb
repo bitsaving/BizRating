@@ -49,7 +49,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Biz-Rating<sub>admin</sub></a>
+      <a class="navbar-brand" href="/admin/businesses">Biz-Rating<sub>admin</sub></a>
         <%#= link_to "Biz-Rating", :root, class: "navbar-brand" %>
     </div>
 
@@ -64,13 +64,14 @@
 
       <% if user_signed_in? %>
       <ul class="nav navbar-nav navbar-right">
+        <li><a><%= current_user.name %> </a></li>
+        <li> <%= link_to "LogOut", :destroy_user_session, method: :delete %>
           <!-- <li><%#= link_to "Home", admin_businesses_path %></li> -->
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Account <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
               <li>
-                <%= link_to "LogOut", :destroy_user_session, method: :delete %>
-              </li>
+              </li> -->
             <!-- <li class="divider"></li>
             <li>
               <%#= link_to "Edit Password", :edit_admin_password %>
@@ -78,7 +79,7 @@
             <!-- <li>
               <a href="#">Separated link</a>
              </li>-->
-          </ul>
+          <!-- </ul> -->
         </li>
       </ul>
           <% end %>
@@ -108,9 +109,9 @@
       <%= yield %>
     </div>
 
-     <footer>
+<!--      <footer>
       <p>&copy; Company 2015</p>
-    </footer>
+    </footer> -->
   </div> <!-- /container -->
 
 

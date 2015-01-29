@@ -1,22 +1,7 @@
-<%= nested_form_for [:admin, @business], :html => { :class => "form-horizontal business" } do |f| %>
-
-  <% if @business.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @business.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+<%= nested_form_for [:admin, @business], :html => { :class => "form-horizontal business padding_top" } do |f| %>
 
   <%= render partial: 'step1', locals: { f: f } %>
-  <%= f.submit 'Create' ,:class => 'btn btn-primary' %>
+  <%= f.submit 'Create' ,:class => 'btn btn-primary col-sm-offset-4' %>
 
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
       admin_businesses_path, :class => 'btn btn-warning' %>

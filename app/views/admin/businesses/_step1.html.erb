@@ -1,79 +1,78 @@
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'form-control' %>
+  <div class="control-group field form-group <%= add_error_class :name %> }">
+    <%= f.label :name, 'Name*', :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
+      <%= f.text_field :name, :class => 'form-control', placeholder: "#{ error_placeholder_text :name }" %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :owner_name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :owner_name, :class => 'form-control' %>
+  <div class="control-group field form-group <%= add_error_class :owner_name %>">
+    <%= f.label :owner_name, :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
+      <%= f.text_field :owner_name, :class => 'form-control', placeholder: "#{ error_placeholder_text :owner_name }" %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :category, :class => 'control-label' %>
-    <div class="controls">
+  <div class="control-group field form-group <%= add_error_class :category %>">
+    <%= f.label :category, 'Category*', :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
       <%= f.collection_select(:category, Category.all, :id, :name) %>
-      <%#= f.text_field :category, :class => 'form-control' %>
     </div>
   </div>
 
   <%= f.fields_for :address do |l| %>
-    <div class="control-group">
-      <%= l.label :street, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :street, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.street' %>">
+      <%= l.label :street, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :street, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.street' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :building, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :building, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.building' %>">
+      <%= l.label :building, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :building, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.building' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :landmark, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :landmark, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.landmark' %>">
+      <%= l.label :landmark, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :landmark, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.landmark' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :area, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :area, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.area' %>">
+      <%= l.label :area, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :area, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.area' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :pin_code, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :pin_code, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.pin_code' %>">
+      <%= l.label :pin_code, 'Pin Code*', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :pin_code, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.pin_code' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :city, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.text_field :city, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.city' %>">
+      <%= l.label :city, 'City*', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :city, :class => 'form-control', placeholder: "#{ error_placeholder_text :'address.city' }" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :country, :class => 'control-label' %>
-      <div class="controls">
+    <div class="control-group field form-group <%= add_error_class :'address.country' %>">
+      <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
         <%= l.collection_select :country, Carmen::Country.all, :name, :name %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= l.label :state, :class => 'control-label' %>
-      <div class="controls">
-        <%= l.select :state,{}, :class => 'form-control' %>
+    <div class="control-group field form-group <%= add_error_class :'address.state' %>">
+      <%= l.label :state, 'State*', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.select :state,['--Select--',@business.address[:state]], :class => 'form-control' %>
       </div>
     </div>
   <%end%>

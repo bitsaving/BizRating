@@ -1,26 +1,11 @@
 <%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business", multipart: true } do |f| %>
 
-  <% if @business.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @business.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
   <%= render partial: 'step' + params[:step].to_s, locals: { f: f } %>
-  <%= link_to 'previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default' if params[:step] > 1 %>
-  <%= link_to 'next', [step(params[:step] + 1), :admin, @business], class: 'btn btn-default' if params[:step] < 3  %>
-  <%= f.submit 'Save', :class => 'btn btn-primary' %>
+  <%= link_to 'previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default col-sm-offset-1' if params[:step] > 1 %>
+  <%= f.submit 'Save', :class => 'btn btn-primary col-sm-offset-4' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-      admin_businesses_path, :class => 'btn btn-danger' %>
+      admin_businesses_path, :class => 'btn btn-danger',:data => { :confirm => t('.confirm', :default => "Changes are not saved yet. do you still want to quit") } %>
+  <%= link_to 'next', [step(params[:step] + 1), :admin, @business], class: 'btn btn-default col-sm-offset-2' if params[:step] < 3  %>
 
 <% end %>
 

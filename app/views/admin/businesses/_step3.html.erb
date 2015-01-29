@@ -1,65 +1,68 @@
-  <div class="control-group">
-    <%= f.label :year_of_establishment, :class => 'control-label' %>
-    <div class="controls">
+  <div class=" control-group field form-group <%= add_error_class :year_of_establishment %>">
+    <%= f.label :year_of_establishment, :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
       <%= f.text_field :year_of_establishment, :class => 'form-control' %>
     </div>
   </div>
 
   <%= f.fields_for :timmings do |t| %>
-    <div class='time'>
-      <div class="control-group">
-        <%= t.label 'to', :class => 'control-label' %>
-        <div class="controls">
-          <%= t.time_select :to, { ampm: true, minute_step: 15 }, :class => 'form-control' %>
+      <div class=" control-group field form-group <%= add_error_class :'timmings.to' %>">
+        <%= t.label 'to', :class => 'control-label col-sm-3' %>
+        <div class="controls col-sm-2">
+          <%= t.time_select :to, { ampm: true, minute_step: 15 } %>
         </div>
       </div>
-      <div class="control-group">
-        <%= t.label :from, :class => 'control-label' %>
-        <div class="controls">
-          <%= t.time_select :from, { ampm: true, minute_step: 15 }, :class => 'form-control' %>
+      <div class=" control-group field form-group <%= add_error_class :'timmings.form' %>">
+        <%= t.label :from, :class => 'control-label col-sm-3' %>
+        <div class="controls col-sm-2">
+          <%= t.time_select :from, { ampm: true, minute_step: 15 } %>
         </div>
       </div>
-      <div class="control-group">
-        <div class="controls">
+      <div class=" control-group field form-group <%= add_error_class :'timmings:days' %>">
+        <div class="controls col-sm-6 col-sm-offset-3">
+          <label>
           <%= t.check_box :days, {multiple: true}, 0, nil %>
-          <%= t.label :days, 'Sunday', :class => 'control-label' %>
+          Sunday
+          <%#= t.label :days.0, 'Sunday', :class => 'control-label col-sm-3' %>
+          </label>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 1, nil %>
-          <%= t.label :days, 'monday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3">
+          <label>
+          <%= t.check_box :days, {multiple: true}, 1, nil %>Monday
+        </label>
+          <%#= t.label :days, 'monday', :class => 'control-label col-sm-3' %>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 2, nil %>
-          <%= t.label :days, 'tuesday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3"><label>
+          <%= t.check_box :days, {multiple: true}, 2, nil %>Tuesday</label>
+          <%#= t.label :days, 'tuesday', :class => 'control-label col-sm-3' %>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 3, nil %>
-          <%= t.label :days, 'wednessday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3"><label>
+          <%= t.check_box :days, {multiple: true}, 3, nil %>Wednessday</label>
+          <%#= t.label :days, 'wednessday', :class => 'control-label col-sm-3' %>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 4, nil %>
-          <%= t.label :days, 'thrusday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3"><label>
+          <%= t.check_box :days, {multiple: true}, 4, nil %>Thrusday</label>
+          <%#= t.label :days, 'thrusday', :class => 'control-label col-sm-3' %>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 5, nil %>
-          <%= t.label :days, 'friday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3"><label>
+          <%= t.check_box :days, {multiple: true}, 5, nil %>Friday</label>
+          <%#= t.label :days, 'friday', :class => 'control-label col-sm-3' %>
         </div>
-        <div class="controls">
-          <%= t.check_box :days, {multiple: true}, 6, nil %>
-          <%= t.label :days, 'Saturday', :class => 'control-label' %>
+        <div class="controls col-sm-6 col-sm-offset-3"><label>
+          <%= t.check_box :days, {multiple: true}, 6, nil %>Saturday</label>
+          <%#= t.label :days, 'Saturday', :class => 'control-label col-sm-3' %>
         </div>
-      </div>
     </div>
-    <%= t.link_to_remove "Remove this task" %>
+    <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <%end%>
-<p><%= f.link_to_add "Add a timmings", :timmings %></p>
+<p><%= f.link_to_add "Add a timmings", :timmings, class: 'col-sm-offset-3' %></p>
   <%= f.fields_for :images do |i| %>
-    <div class="control-group image">
-      <%= i.label :image, :class => 'control-label' %>
-      <div class="controls">
+    <div class=" control-group field form-group <%= add_error_class :'images.image' %> image">
+      <%= i.label :image, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
         <%= i.file_field :image, :class => 'form-control' %>
+        <%= i.link_to_remove "Remove" %>
       </div>
     </div>
-    <%= i.link_to_remove "Remove this task" %>
   <% end %>
-  <p><%= f.link_to_add "Add a images", :images %></p>
+  <p><%= f.link_to_add "Add a images", :images, class: 'col-sm-offset-3' %></p>

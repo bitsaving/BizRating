@@ -1,3 +1,4 @@
+## FIXME_NISH Rename this model as TimeSlot.
 class Timming < ActiveRecord::Base
   serialize :days
   

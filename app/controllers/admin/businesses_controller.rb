@@ -37,6 +37,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def get_states
+    ## FIXME_NISH Please shift this controller to StatesController Index action.
     render json: Carmen::Country.named(params[:country]).subregions.map {|regions| regions.name }
   end
 
@@ -61,6 +62,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def setup
+      ## FIXME_NISH Move the method in model.
       step = params[:step] || 1
       case step
       when 1
@@ -77,6 +79,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def load_business
+      ## FIXME_NISH Redirect if business is not present.
       @business = Business.find_by(id: params[:id])
     end
 
@@ -97,6 +100,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def normalize_parameters
+      ## FIXME_NISH I think we don't require this method, you can directly pass category_id from view.
       parameters = business_params
       parameters[:category] = load_category
       parameters

@@ -24,11 +24,13 @@ Rails.application.routes.draw do
     resource :password, only: [:edit, :update]
     resources :businesses, path_names: { new: :step1 } do
       get :autocomplete_keyword_name, :on => :collection
+
       collection do
+        ## FIXME_NISH Use GET for this action and move this action to StatesController Index action.
         post :get_states
         patch :update_status
       end
-      
+
       member do
         get :step1, to: :edit, defaults: { step: 1 }
         get :step2, to: :edit, defaults: { step: 2 }

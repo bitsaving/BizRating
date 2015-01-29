@@ -2,7 +2,6 @@ class Category < ActiveRecord::Base
 
   has_many :business
 
-  ## FIXME_NISH Use new syntax of hash.
   has_attached_file :image, styles: { thumb: '80x80>' },
       url: "/system/:class/:attachment/:id/:style/:basename.:extension",
       path: "public/system/:class/:attachment/:id/:style/:basename.:extension"
@@ -18,6 +17,7 @@ class Category < ActiveRecord::Base
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
     size: { less_than: 5.megabyte }
 
+  ## FIXME_NISH Please run this validation only on create.
   before_validation :set_position
 
   private

@@ -23,12 +23,14 @@ class Business < ActiveRecord::Base
 
 
   def normalize_business_keywords
+    ## FIXME_NISH Use find_or_create_by
     self.keywords = keywords.to_a.map do |keyword|
       Keyword.where(name: keyword.name).exists? ? Keyword.find_by(name: keyword.name) : keyword
     end
   end
 
   def update(new_attributes)
+    ## FIXME_NISH Please don't override update. Instead create a method for keywords like keywords_sentence=.
     new_attributes[:keywords_attributes].each do |key, value|
       if ((!value.has_key? :id) && Keyword.where(name: value[:name]).exists?)
         keyword = Keyword.find_by(name: value[:name])

@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  ## FIXME_NISH Rename this method.
   def roles_names
     roles.pluck(:name)
   end

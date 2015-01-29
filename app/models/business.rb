@@ -13,7 +13,7 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :address, :images, :time_slots, :keywords, allow_destroy: true
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
-    reject_if: proc { |attributes| attributes[:details].blank? }
+    reject_if: proc { |attributes| attributes[:info].blank? }
 
 
   accepts_nested_attributes_for :keywords, allow_destroy: true,

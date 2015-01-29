@@ -1,4 +1,5 @@
 ## FIXME_NISH Rename this model as TimeSlot.
+## FIXED
 class TimeSlot < ActiveRecord::Base
   serialize :days
   

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :update, :create] do
       collection do
         ## FIXME_NISH Use patch.
+        ## FIXED
         patch :update_status
         patch :update_position
       end

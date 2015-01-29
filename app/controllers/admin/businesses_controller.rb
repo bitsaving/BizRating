@@ -112,8 +112,8 @@ class Admin::BusinessesController < Admin::BaseController
     def business_params
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
-        website_attributes: :details, emails_attributes: [:details, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
-        phone_numbers_attributes: [:details, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
+        website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
+        phone_numbers_attributes: [:info, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end
 

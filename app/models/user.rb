@@ -7,12 +7,14 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def roles_names
-    roles.pluck(:name)
-  end
-
   def admin?
     roles_names.include? 'admin'
   end
+
+  private
+
+    def roles_names
+      roles.pluck(:name)
+    end
 
 end

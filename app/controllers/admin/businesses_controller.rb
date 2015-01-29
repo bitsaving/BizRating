@@ -72,7 +72,7 @@ class Admin::BusinessesController < Admin::BaseController
         @business.emails.build unless @business.emails.exists?
         @business.build_website unless @business.website
       when 3
-        @business.timmings.build unless @business.timmings.exists?
+        @business.time_slots.build unless @business.time_slots.exists?
         @business.images.build unless @business.images.exists?
         @business.keywords.build unless @business.keywords.exists?
       end
@@ -110,7 +110,7 @@ class Admin::BusinessesController < Admin::BaseController
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: :details, emails_attributes: [:details, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
-        phone_numbers_attributes: [:details, :id, :_destroy], timmings_attributes: [:to, :from, :id, :_destroy, days: []],
+        phone_numbers_attributes: [:details, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end
 

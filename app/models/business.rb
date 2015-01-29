@@ -8,8 +8,9 @@ class Business < ActiveRecord::Base
   has_many :emails, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :timmings, dependent: :destroy
+  has_and_belongs_to_many :keywords
 
-  accepts_nested_attributes_for :address, :images, :timmings, allow_destroy: true
+  accepts_nested_attributes_for :address, :images, :timmings, :keywords, allow_destroy: true
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:details].blank? }

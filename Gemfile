@@ -18,6 +18,7 @@ gem 'rmagick'
 gem 'devise',                        '3.4.1'
 gem 'carmen',                        '1.0.1'
 gem 'nested_form'
+gem 'rails4-autocomplete'
 group :development, :test do
   gem 'byebug'
   gem 'web-console',                 '~> 2.0'

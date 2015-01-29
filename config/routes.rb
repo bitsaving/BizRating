@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
     resource :password, only: [:edit, :update]
     resources :businesses, path_names: { new: :step1 } do
+      get :autocomplete_keyword_name, :on => :collection
       collection do
         post :get_states
         patch :update_status

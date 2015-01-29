@@ -6,16 +6,15 @@
   </div>
 
   <%= f.fields_for :keywords do |keyword| %>
-    <div class="control-group">
-      <%= keyword.label :name, 'keyword', :class => 'control-label' %>
-      <div class="controls">
-        <%= keyword.text_field :name, :class => 'form-control' %>
+    <div class="control-group field form-group">
+      <%= keyword.label :name, 'keyword', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= keyword.autocomplete_field :name, autocomplete_keyword_name_admin_businesses_path, :class => 'form-control' %>
       </div>
     </div>
-  <%= keyword.link_to_remove "Remove this task" %>
+  <%= keyword.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <% end %>
-  <p><%= f.link_to_add "Add a keyword", :keywords %></p>
-
+  <p><%= f.link_to_add "Add a keyword", :keywords, class: 'col-sm-offset-3' %></p>
 
   <%= f.fields_for :timmings do |t| %>
       <div class=" control-group field form-group <%= add_error_class :'timmings.to' %>">

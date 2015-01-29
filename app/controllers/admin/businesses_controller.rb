@@ -3,6 +3,7 @@ class Admin::BusinessesController < Admin::BaseController
   before_action :load_business, only: [:update, :edit, :update_status]
   before_action :set_status, only: :update_status
   before_action :setup, only: :edit
+  autocomplete :keyword, :name
 
   def index
     @businesses = Business.includes(:images).all
@@ -59,7 +60,7 @@ class Admin::BusinessesController < Admin::BaseController
       @business.status = params[:businessStatus] == 'true' ? false : true
     end
 
-    def setup()
+    def setup
       step = params[:step] || 1
       case step
       when 1
@@ -81,9 +82,7 @@ class Admin::BusinessesController < Admin::BaseController
 
     def set_params
       if (business_params[:category])
-        parameters = business_params
-        parameters[:category] = load_category
-        parameters
+        normalize_parameters
       else
         business_params
       end
@@ -94,9 +93,13 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def set_business
+      @business = Business.new(normalize_parameters)
+    end
+
+    def normalize_parameters
       parameters = business_params
       parameters[:category] = load_category
-      @business = Business.new(parameters)
+      parameters
     end
 
     def business_params

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128190733) do
+ActiveRecord::Schema.define(version: 20150129135755) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",      limit: 255
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150128190733) do
 
   add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", using: :btree
 
-  create_table "timmings", force: :cascade do |t|
+  create_table "time_slots", force: :cascade do |t|
     t.time    "from",                      null: false
     t.time    "to",                        null: false
     t.text    "days",        limit: 65535, null: false

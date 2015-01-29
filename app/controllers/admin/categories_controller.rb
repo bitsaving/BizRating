@@ -50,6 +50,7 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
     def set_status
+      ## FIXME_NISH Move this to model.
       @category.status = params[:categoryStatus] == 'true' ? false : true
     end
 

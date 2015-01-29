@@ -16,20 +16,20 @@
   <% end %>
   <p><%= f.link_to_add "Add a keyword", :keywords, class: 'col-sm-offset-3' %></p>
 
-  <%= f.fields_for :timmings do |t| %>
-      <div class=" control-group field form-group <%= add_error_class :'timmings.to' %>">
+  <%= f.fields_for :time_slots do |t| %>
+      <div class=" control-group field form-group <%= add_error_class :'time_slots.to' %>">
         <%= t.label 'to', :class => 'control-label col-sm-3' %>
         <div class="controls col-sm-2">
           <%= t.time_select :to, { ampm: true, minute_step: 15 } %>
         </div>
       </div>
-      <div class=" control-group field form-group <%= add_error_class :'timmings.form' %>">
+      <div class=" control-group field form-group <%= add_error_class :'time_slots.form' %>">
         <%= t.label :from, :class => 'control-label col-sm-3' %>
         <div class="controls col-sm-2">
           <%= t.time_select :from, { ampm: true, minute_step: 15 } %>
         </div>
       </div>
-      <div class=" control-group field form-group <%= add_error_class :'timmings:days' %>">
+      <div class=" control-group field form-group <%= add_error_class :'time_slots:days' %>">
         <div class="controls col-sm-6 col-sm-offset-3">
           <label>
           <%= t.check_box :days, {multiple: true, checked: day_checked(0, t.object) }, 0, nil %>
@@ -59,7 +59,7 @@
     </div>
     <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <%end%>
-  <p><%= f.link_to_add "Add a timmings", :timmings, class: 'col-sm-offset-3' %></p>
+  <p><%= f.link_to_add "Add a time_slots", :time_slots, class: 'col-sm-offset-3' %></p>
   <%= f.fields_for :images do |i| %>
     <div class=" control-group field form-group <%= add_error_class :'images.image' %> image">
       <%= i.label :image, :class => 'control-label col-sm-3' %>

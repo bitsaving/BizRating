@@ -1,4 +1,5 @@
-class Timming < ActiveRecord::Base
+## FIXME_NISH Rename this model as TimeSlot.
+class TimeSlot < ActiveRecord::Base
   serialize :days
   
   WEEK_DAYS = { 1 => 'Sunday', 2 => 'Monday', 3 => 'Tuesday', 4 => 'Wednessday',
@@ -7,7 +8,7 @@ class Timming < ActiveRecord::Base
   belongs_to :business, required: true
 
   validates_each :days do |record, attribute, value|
-    record.errors.add(attribute, 'overlaped') unless (record.business.timmings.where.not(id: record.id).pluck(:days).flatten & value).empty?
+    record.errors.add(attribute, 'overlaped') unless (record.business.time_slots.where.not(id: record.id).pluck(:days).flatten & value).empty?
   end
 
 end

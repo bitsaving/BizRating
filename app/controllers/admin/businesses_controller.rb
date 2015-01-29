@@ -39,6 +39,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def get_states
+    ## FIXME_NISH Please shift this controller to StatesController Index action.
     render json: Carmen::Country.named(params[:country]).subregions.map {|regions| regions.name }
   end
 
@@ -63,6 +64,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def setup
+      ## FIXME_NISH Move the method in model.
       step = params[:step] || 1
       case step
       when 1
@@ -72,13 +74,14 @@ class Admin::BusinessesController < Admin::BaseController
         @business.emails.build unless @business.emails.exists?
         @business.build_website unless @business.website
       when 3
-        @business.timmings.build unless @business.timmings.exists?
+        @business.time_slots.build unless @business.time_slots.exists?
         @business.images.build unless @business.images.exists?
         @business.keywords.build unless @business.keywords.exists?
       end
     end
 
     def load_business
+      ## FIXME_NISH Redirect if business is not present.
       @business = Business.find_by(id: params[:id])
       redirect_to admin_businesses_path, alert: 'No Business found' unless @business
     end
@@ -100,6 +103,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def normalize_parameters
+      ## FIXME_NISH I think we don't require this method, you can directly pass category_id from view.
       parameters = business_params
       parameters[:category] = load_category
       parameters
@@ -109,7 +113,7 @@ class Admin::BusinessesController < Admin::BaseController
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: :details, emails_attributes: [:details, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
-        phone_numbers_attributes: [:details, :id, :_destroy], timmings_attributes: [:to, :from, :id, :_destroy, days: []],
+        phone_numbers_attributes: [:details, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end
 

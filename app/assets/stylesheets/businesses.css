@@ -5,4 +5,8 @@ a.add-business {
 
 form.padding_top {
   padding-top: 20px;
-} 
+}
+
+.text {
+  overflow: hidden;
+}

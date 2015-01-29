@@ -29,7 +29,7 @@
     <div class="control-group field form-group <%= add_error_class :'emails.details' %> email">
       <%= e.label :details, 'Email', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= e.text_field :details, :class => 'form-control' %>
+        <%= e.email_field :details, :class => 'form-control' %>
         <%= e.link_to_remove "Remove" %>
       </div>
     </div>

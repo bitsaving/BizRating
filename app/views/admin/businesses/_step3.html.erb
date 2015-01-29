@@ -21,46 +21,43 @@
       <div class=" control-group field form-group <%= add_error_class :'timmings:days' %>">
         <div class="controls col-sm-6 col-sm-offset-3">
           <label>
-          <%= t.check_box :days, {multiple: true}, 0, nil %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked(0, t.object) }, 0, nil %>
           Sunday
-          <%#= t.label :days.0, 'Sunday', :class => 'control-label col-sm-3' %>
           </label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3">
           <label>
-          <%= t.check_box :days, {multiple: true}, 1, nil %>Monday
+          <%= t.check_box :days, {multiple: true, checked: day_checked(1, t.object) }, 1, nil %>Monday
         </label>
-          <%#= t.label :days, 'monday', :class => 'control-label col-sm-3' %>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true}, 2, nil %>Tuesday</label>
-          <%#= t.label :days, 'tuesday', :class => 'control-label col-sm-3' %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked(2, t.object) }, 2, nil %>Tuesday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true}, 3, nil %>Wednessday</label>
-          <%#= t.label :days, 'wednessday', :class => 'control-label col-sm-3' %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked(3, t.object)}, 3, nil %>Wednessday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true}, 4, nil %>Thrusday</label>
-          <%#= t.label :days, 'thrusday', :class => 'control-label col-sm-3' %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked(4, t.object) }, 4, nil %>Thrusday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true}, 5, nil %>Friday</label>
-          <%#= t.label :days, 'friday', :class => 'control-label col-sm-3' %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked(5, t.object) }, 5, nil %>Friday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true}, 6, nil %>Saturday</label>
-          <%#= t.label :days, 'Saturday', :class => 'control-label col-sm-3' %>
+          <%= t.check_box :days, { multiple: true, checked: day_checked(6, t.object) }, 6, nil %>Saturday</label>
         </div>
     </div>
     <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <%end%>
-<p><%= f.link_to_add "Add a timmings", :timmings, class: 'col-sm-offset-3' %></p>
+  <p><%= f.link_to_add "Add a timmings", :timmings, class: 'col-sm-offset-3' %></p>
   <%= f.fields_for :images do |i| %>
     <div class=" control-group field form-group <%= add_error_class :'images.image' %> image">
       <%= i.label :image, :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= i.file_field :image, :class => 'form-control' %>
+        <% if i.object.image.exists? %>
+          <%= image_tag @business.images.first.image.url(:thumb) %>
+        <% else %>
+          <%= i.file_field :image, :class => 'form-control' %>
+        <% end %>
         <%= i.link_to_remove "Remove" %>
       </div>
     </div>

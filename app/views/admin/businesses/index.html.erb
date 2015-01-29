@@ -3,8 +3,8 @@
 <table class="table table-striped">
   <tbody class="sortable">
     <% @businesses.each do |business| %>
-      <td><%= image_tag business.images.first.image.url(:thumb) if business.images.exists? %></td>
-      <td><%= business.name %></td>
+      <td class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb) if business.images.exists? %></td>
+      <td class='col-sm-8 text'><%= business.name %></td>
       <td class="btn-just">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
                     step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>

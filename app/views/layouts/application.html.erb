@@ -206,21 +206,21 @@
 <div class="container-fluid">
 <!--   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p> -->
-  <% if user_signed_in? %>
-    <% if current_user.admin? %>
-      Admin
-    <% else %>
-      Customer
-    <% end %>
-  <% else %>
-    LogOut
-  <% end %>
+  <%# if user_signed_in? %>
+    <%# if current_user.admin? %>
+      <!-- Admin -->
+    <%# else %>
+      <!-- Customer -->
+    <%# end %>
+  <%# else %>
+    <!-- LogOut -->
+  <%# end %>
   <%= bootstrap_flash %>
   <%= yield %>
-
+<!-- 
      <footer>
         <p>&copy; Company 2015</p>
-      </footer>
+      </footer> -->
     </div> <!-- /container -->
 
 

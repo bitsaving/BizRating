@@ -1,7 +1,9 @@
 class Address < ActiveRecord::Base
 
-  belongs_to :business
+  belongs_to :business, required: true
 
-  validates :city, :country, :state, :pin_code, presence: true
+  validates :city, :country, :state, presence: true
+
+  validates :pin_code, presence: true, format: /\A\d+\z/
 
 end

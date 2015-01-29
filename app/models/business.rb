@@ -17,10 +17,11 @@ class Business < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :keywords, allow_destroy: true,
-     reject_if: proc { |attributes| attributes['name'].blank? }
+     reject_if: proc { |attributes| attributes[:name].blank? }
 
   validates :name, presence: true
 
+  validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }
 
   def normalize_business_keywords
     self.keywords = keywords.to_a.map do |keyword|
@@ -40,7 +41,6 @@ class Business < ActiveRecord::Base
   end
 
 
-  validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }
 
 
 end

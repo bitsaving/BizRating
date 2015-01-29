@@ -1,8 +1,10 @@
 class Admin::BusinessesController < Admin::BaseController
+
   before_action :set_business, only: :create
   before_action :load_business, only: [:update, :edit, :update_status]
   before_action :set_status, only: :update_status
   before_action :setup, only: :edit
+
   autocomplete :keyword, :name
 
   def index
@@ -78,6 +80,7 @@ class Admin::BusinessesController < Admin::BaseController
 
     def load_business
       @business = Business.find_by(id: params[:id])
+      redirect_to admin_businesses_path, alert: 'No Business found' unless @business
     end
 
     def set_params

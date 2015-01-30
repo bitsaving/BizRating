@@ -25,6 +25,27 @@ class Business < ActiveRecord::Base
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 
-  
+  def setup(step = 1)
+    ## FIXME_NISH Move the method in model.
+    ## FIXED
+    step ||= 1
+    case step
+    when 1
+      build_address unless address
+    when 2
+      phone_numbers.build unless phone_numbers.exists?
+      emails.build unless emails.exists?
+      build_website unless website
+    when 3
+      time_slots.build unless time_slots.exists?
+      images.build unless images.exists?
+      keywords.build unless keywords.exists?
+    end
+  end
+
+  def set_status(status)
+    self.status = status == 'true' ? false : true
+    save
+  end
 
 end

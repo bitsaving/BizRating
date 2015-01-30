@@ -1,7 +1,7 @@
 class Admin::CategoriesController < Admin::BaseController
 
   before_action :load_category, only: [:update, :update_status]
-  before_action :set_status, only: :update_status
+
   def index
     ## FIXME_NISH Please don't run the query in views.
     ## FIXED
@@ -35,7 +35,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update_status
     ## FIXME_NISH Refactor this code.
-    if @category.save
+    ## FIXED
+    if @category.set_status(params[:categoryStatus])
       render json: [@category.status]
     else
       render json: @category.errors, status: :unprocessable_entity
@@ -52,10 +53,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   private
 
-    def set_status
       ## FIXME_NISH Move this to model.
-      @category.status = params[:categoryStatus] == 'true' ? false : true
-    end
+      ## FIXED
 
     def load_category
       ## FIXME_NISH Please check that the category is present or not.

@@ -20,10 +20,18 @@ class Category < ActiveRecord::Base
   ##FIXED
   before_validation :set_position, on: :create
 
+  def set_status(status)
+    ## FIXME_NISH Move this to model.
+    ## FIXED
+    self.status = status == 'true' ? false : true
+    save
+  end
+
   private
 
   def set_position
     self.position = (Category.minimum(:position) || 0) - 1
   end
+
 
 end

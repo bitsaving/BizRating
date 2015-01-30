@@ -24,9 +24,9 @@ Business.prototype.bindEvents = function() {
 Business.prototype.bindFormEvents = function() {
     this.new_business_form.on('change', '#business_address_attributes_country', function() {
     $.ajax({
-      url: "/admin/businesses/get_states",
+      url: "/admin/states/",
       dataType: 'json',
-      type: 'post',
+      type: 'get',
       data: {country: $(this).val()},
       success: function (data) {
         var options = [], option = null;

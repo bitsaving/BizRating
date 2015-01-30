@@ -2,8 +2,6 @@ class Admin::BusinessesController < Admin::BaseController
 
   before_action :set_business, only: :create
   before_action :load_business, only: [:update, :edit, :update_status]
-  before_action :set_status, only: :update_status
-  before_action :setup, only: :edit
 
   autocomplete :keyword, :name
 
@@ -13,10 +11,11 @@ class Admin::BusinessesController < Admin::BaseController
 
   def new
     @business = Business.new
-    setup
+    @business.setup(1)
   end
 
   def edit
+    @business.setup(params[:step])
   end
 
   def create
@@ -28,7 +27,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def update
-    @business.keyword_form_sentence= params[:business][:keywords_attributes][0]
+    @business.keyword_form_sentence = params[:business][:keywords_attributes][0] if business_params[:keywords_attributes]
     if @business.update(business_params)
       redirect_to ["step#{ params[:step] }",:admin, @business]
     else
@@ -36,13 +35,11 @@ class Admin::BusinessesController < Admin::BaseController
     end
   end
 
-  def get_states
     ## FIXME_NISH Please shift this controller to StatesController Index action.
-    render json: Carmen::Country.named(params[:country]).subregions.map {|regions| regions.name }
-  end
+    ## FIXED
 
   def update_status
-    if @business.save
+    if @business.set_status(params[:businessStatus])
       render json: [@business.status]
     else
       render json: @business.errors, status: :unprocessable_entity
@@ -52,26 +49,8 @@ class Admin::BusinessesController < Admin::BaseController
 
   private
 
-    def set_status
-      @business.status = params[:businessStatus] == 'true' ? false : true
-    end
-
-    def setup
       ## FIXME_NISH Move the method in model.
-      step = params[:step] || 1
-      case step
-      when 1
-        @business.build_address unless @business.address
-      when 2
-        @business.phone_numbers.build unless @business.phone_numbers.exists?
-        @business.emails.build unless @business.emails.exists?
-        @business.build_website unless @business.website
-      when 3
-        @business.time_slots.build unless @business.time_slots.exists?
-        @business.images.build unless @business.images.exists?
-        @business.keywords.build unless @business.keywords.exists?
-      end
-    end
+      ## FIXED
 
     def load_business
       ## FIXME_NISH Redirect if business is not present.

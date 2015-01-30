@@ -21,6 +21,31 @@ class Business < ActiveRecord::Base
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }
 
+  include Workflow
+  workflow do
+    state :new do
+      event :verifing, :transitions_to => :in_verification
+    end
+    state :in_verification do
+      event :accepted, transitions_to: :verified
+      event :rejected, transitions_to: :rejected
+    end
+    state :verified do
+      event :publish, transitions_to: :published
+    end
+    state :published do
+      event :unpublish, transitions_to: :unpublished
+    end
+    state :unpublished do
+      event :publish, transitions_to: :published
+      event :rejected, transitions_to: :rejected
+      event :reverify, transitions_to: :in_verification
+    end
+    state :rejected do
+      event :reverify, transitions_to: :in_verification
+    end
+  end
+
   def keyword_form_sentence=(sentence)
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end

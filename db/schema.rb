@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129145232) do
+ActiveRecord::Schema.define(version: 20150130075046) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",      limit: 255
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150129145232) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.boolean  "status",                limit: 1,     default: true, null: false
+    t.string   "workflow_state",        limit: 255
   end
 
   create_table "businesses_keywords", id: false, force: :cascade do |t|

@@ -9,18 +9,16 @@ class Admin::SessionsController < Devise::SessionsController
       sign_in(:user, @user)
       redirect_to admin_businesses_path
     else
-      flash[:alert] = 'invalid password'
-      redirect_to :new_admin_session
+      redirect_to :new_admin_session, alert: 'invalid password'
     end
   end
 
   private
   def load_user
     ## FIXME_NISH Please check if the user is present or not.
+    ## FIXED
     @user = User.find_by(email: params[:user][:email])
-    unless @user && @user.admin?
-      flash[:alert] = "Invalid email or password"
-      redirect_to :new_admin_session
+    redirect_to :new_admin_session, alert: "Invalid email or password" unless @user && @user.admin?
     end
   end
 end

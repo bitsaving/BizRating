@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [:sessions]
+  devise_for :users
 
   as :user do
     ## FIXME_NISH Please use devise options to set login, logout routes.
-    get "/login" => "devise/sessions#new", as: :new_user_session
+    ## FIXED
     get '/admin' => 'admin/sessions#new', as: :new_admin_session
     post '/admin' => 'admin/sessions#create', as: :admin_session
-    delete "/logout" => "devise/sessions#destroy", as: :destroy_user_session
-    post "/login" => "devise/sessions#create", as: :user_session
   end
 
-  resources :home
+  resources :home, only: :index
 
   namespace :admin do
     resources :categories, only: [:index, :update, :create] do

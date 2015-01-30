@@ -20,32 +20,25 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def create
-    @business.normalize_business_keywords
     if @business.save
       redirect_to step2_admin_business_path(@business)
     else
-      flash.now[:alert] = @business.errors.full_messages.to_sentence
-      render :new
+      render :new, alert: @business.errors.full_messages.to_sentence
     end
   end
 
   def update
-    if @business.update(set_params)
+    @business.keyword_form_sentence= params[:business][:keywords_attributes][0]
+    if @business.update(business_params)
       redirect_to ["step#{ params[:step] }",:admin, @business]
     else
-      flash.now[:alert] = @business.errors.full_messages.to_sentence
-      render :edit
+      render :edit, alert: @business.errors.full_messages.to_sentence
     end
   end
 
   def get_states
     ## FIXME_NISH Please shift this controller to StatesController Index action.
     render json: Carmen::Country.named(params[:country]).subregions.map {|regions| regions.name }
-  end
-
-  def destroy
-    @business.destroy
-    redirect_to admin_businesses_path
   end
 
   def update_status
@@ -82,37 +75,22 @@ class Admin::BusinessesController < Admin::BaseController
 
     def load_business
       ## FIXME_NISH Redirect if business is not present.
+      ## FIXED
       @business = Business.find_by(id: params[:id])
       redirect_to admin_businesses_path, alert: 'No Business found' unless @business
     end
 
-    def set_params
-      if (business_params[:category])
-        normalize_parameters
-      else
-        business_params
-      end
-    end
-
-    def load_category
-      Category.find_by(id: business_params[:category].to_i)
-    end
-
     def set_business
-      @business = Business.new(normalize_parameters)
+      @business = Business.new(business_params)
     end
 
-    def normalize_parameters
-      ## FIXME_NISH I think we don't require this method, you can directly pass category_id from view.
-      parameters = business_params
-      parameters[:category] = load_category
-      parameters
-    end
+    ## FIXME_NISH I think we don't require this method, you can directly pass category_id from view.
+    ## FIXED
 
     def business_params
-      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category,
+      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
-        website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy], keywords_attributes: [:name, :id, :_destroy],
+        website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy], keywords_attributes: [],
         phone_numbers_attributes: [:info, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end

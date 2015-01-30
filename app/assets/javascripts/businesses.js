@@ -18,6 +18,7 @@ Business.prototype.addStatus = function() {
 Business.prototype.bindEvents = function() {
   this.bindFormEvents();
   this.bindStatusEvent();
+  // this.bindAutocomplete();
 };
 
 Business.prototype.bindFormEvents = function() {

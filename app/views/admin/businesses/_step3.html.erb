@@ -5,16 +5,24 @@
     </div>
   </div>
 
-  <%= f.fields_for :keywords do |keyword| %>
-    <div class="control-group field form-group">
-      <%= keyword.label :name, 'keyword', :class => 'control-label col-sm-3' %>
-      <div class="controls col-sm-6">
-        <%= keyword.autocomplete_field :name, autocomplete_keyword_name_admin_businesses_path, :class => 'form-control' %>
-      </div>
+  <div class="control-group field form-group">
+    <%= f.label :keywords, 'keyword', :class => 'control-label col-sm-3' %>
+    <div class="controls col-sm-6">
+      <%= f.autocomplete_field :keywords_attributes, autocomplete_keyword_name_admin_businesses_path,'data-delimiter' => ',', multiple: true, value: @business.keywords.pluck(:name).join(','), :class => 'form-control' %>
     </div>
-  <%= keyword.link_to_remove "Remove", class: 'col-sm-offset-3' %>
-  <% end %>
-  <p><%= f.link_to_add "Add a keyword", :keywords, class: 'col-sm-offset-3' %></p>
+  </div>
+
+  <%#= f.fields_for :keywords do |keyword| %>
+<!--     <div class="control-group field form-group">
+      <%#= f.label :name, 'keyword', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%#= f.autocomplete_field :name, autocomplete_keyword_name_admin_businesses_path, :class => 'form-control' %>
+      </div>
+    <%#= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
+    </div>
+  <%# end %>
+<p><%#= f.link_to_add "Add a time_slots", :keywords, class: 'col-sm-offset-3' %></p> -->
+
 
   <%= f.fields_for :time_slots do |t| %>
       <div class=" control-group field form-group <%= add_error_class :'time_slots.to' %>">
@@ -59,7 +67,7 @@
     </div>
     <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <%end%>
-  <p><%= f.link_to_add "Add a time_slots", :time_slots, class: 'col-sm-offset-3' %></p>
+<p><%= f.link_to_add "Add a time_slots", :time_slots, class: 'col-sm-offset-3' %></p>
   <%= f.fields_for :images do |i| %>
     <div class=" control-group field form-group <%= add_error_class :'images.image' %> image">
       <%= i.label :image, :class => 'control-label col-sm-3' %>
@@ -73,4 +81,4 @@
       </div>
     </div>
   <% end %>
-  <p><%= f.link_to_add "Add a images", :images, class: 'col-sm-offset-3' %></p>
+<p><%= f.link_to_add "Add a images", :images, class: 'col-sm-offset-3' %></p>

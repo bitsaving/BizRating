@@ -15,34 +15,16 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:info].blank? }
 
-
-  accepts_nested_attributes_for :keywords, allow_destroy: true,
-     reject_if: proc { |attributes| attributes[:name].blank? }
+  attr_accessor :keywords_attributes
 
   validates :name, presence: true
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }
 
-  def normalize_business_keywords
-    ## FIXME_NISH Use find_or_create_by
-    self.keywords = keywords.to_a.map do |keyword|
-      Keyword.where(name: keyword.name).exists? ? Keyword.find_by(name: keyword.name) : keyword
-    end
+  def keyword_form_sentence=(sentence)
+    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 
-  def update(new_attributes)
-    ## FIXME_NISH Please don't override update. Instead create a method for keywords like keywords_sentence=.
-    new_attributes[:keywords_attributes].each do |key, value|
-      if ((!value.has_key? :id) && Keyword.where(name: value[:name]).exists?)
-        keyword = Keyword.find_by(name: value[:name])
-        keywords << keyword
-        value[:id] = keyword.id
-      end
-    end
-    super(new_attributes)
-  end
-
-
-
+  
 
 end

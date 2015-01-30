@@ -13,9 +13,9 @@
   </div>
 
   <div class="control-group field form-group <%= add_error_class :category %>">
-    <%= f.label :category, 'Category*', :class => 'control-label col-sm-3' %>
+    <%= f.label :category_id, 'Category*', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
-      <%= f.collection_select(:category, Category.all, :id, :name) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :name) %>
     </div>
   </div>
 

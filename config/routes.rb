@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
       collection do
         ## FIXME_NISH Use GET for this action and move this action to StatesController Index action.
+        ## FIXED
         patch :update_status
       end
 

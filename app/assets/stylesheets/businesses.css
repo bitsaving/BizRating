@@ -3,10 +3,18 @@ a.add-business {
   float: right;
 }
 
-form.padding_top {
-  padding-top: 20px;
-}
-
 .text {
   overflow: hidden;
+}
+
+div.form-page {
+  overflow: auto;
+  padding-left: 40px;
+}
+
+p.form-page {
+  float: right;
+  padding-right: 250px;
+  position: relative;
+  top: -30px;
 }

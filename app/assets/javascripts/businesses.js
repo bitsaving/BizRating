@@ -8,7 +8,6 @@ Business.prototype.initialize = function() {
   this.bindEvents();
 };
 
-
 Business.prototype.addStatus = function() {
   this.statusLink.each(function(index, link) {
     link.text = ($(link).data('businessStatus') ? 'Disable' : "Enable");
@@ -18,7 +17,6 @@ Business.prototype.addStatus = function() {
 Business.prototype.bindEvents = function() {
   this.bindFormEvents();
   this.bindStatusEvent();
-  // this.bindAutocomplete();
 };
 
 Business.prototype.bindFormEvents = function() {
@@ -43,7 +41,8 @@ Business.prototype.bindFormEvents = function() {
 };
 
 Business.prototype.bindStatusEvent = function() {
-  this.statusLink.on('click', function() {
+  this.statusLink.on('click', function(e) {
+    e.preventDefault();
   var linkdata = $(this).data(), 
   _this = this;
   confirmText = 'You want to' + (linkdata['businessStatus'] ? ' disable ' : ' enable ') + linkdata['businessName'];
@@ -56,6 +55,7 @@ Business.prototype.bindStatusEvent = function() {
         success: function (e) {
           $(_this).data('businessStatus', e[0]);
           _this.text = (e[0] ? 'Disable' : "Enable");
+          $(_this).toggleClass('btn-danger btn-success');
         },
         error: function (e) {
           alert($.parseJSON(e.responseText));
@@ -68,7 +68,7 @@ Business.prototype.bindStatusEvent = function() {
 $( function() {
   var input = { 
     newForm: $("#new_business, .edit_business"),
-    statusLink: $('td.btn-just a.btn.btn-xs.btn-danger.edit')
+    statusLink: $('td.btn-just a.btn.btn-xs.edit')
   },
   business = new Business(input);
   business.initialize();

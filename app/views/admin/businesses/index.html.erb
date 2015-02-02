@@ -1,21 +1,39 @@
 <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
 
+<%= search_form_for @q, url: admin_businesses_path do |f| %>
+
+  <%= f.label :address_country_cont, 'Country' %>
+  <%= f.collection_select(:address_country_cont, Address.select(:country).distinct, :country, :country ) %>
+
+  <%= f.label :address_state_cont, 'State' %>
+  <%= f.collection_select(:address_state_cont, Address.select(:state).distinct, :state, :state ) %>
+
+  <%= f.label :workflow_state_cont, 'Status' %>
+  <%= f.collection_select(:workflow_state_cont, Business.select(:workflow_state).distinct, :workflow_state, :workflow_state ) %>
+
+  <%= f.label :category_name_cont, 'Category' %>
+  <%= f.collection_select(:category_name_cont, Category.all, :name, :name ) %>
+
+  <%= f.submit %>
+<% end %>
+
 <table class="table table-striped">
   <tbody class="sortable">
     <% @businesses.each do |business| %>
       <td class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb) if business.images.exists? %></td>
-      <td class='col-sm-8 text'><%= business.name %></td>
+      <td class='col-sm-2 text'><%= business.name %></td>
+      <td class='col-sm-3 text'>City : <%= business.address.city %></td>
+      <td class='col-sm-3 text'>Area : <%= business.address.area %></td>
       <td class="btn-just">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
                     step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>
-         <%= link_to 'Disable', '#', :data => { :'business_status' => business.status, :'id' => business.id, :'business_name' => business.name },
-             :class => 'btn btn-xs btn-danger edit' %>
+         <%= link_to 'Disable', '#', data: { :'business_status' => business.status, id: business.id, :'business_name' => business.name }, class: "btn btn-xs edit #{ edit_button_class(business.status) }" %>
         </td>
       </tr>
     <% end %>
     </ul>
   </tbody>
 </table>
-
-<%= 'There are no businesses vailable, please add businesses'  if @businesses.length == 0 %>
+<%= paginate @businesses %>
+<%= 'There are no businesses available'  if @businesses.length == 0 %>
 <% content_for :head do javascript_include_tag :businesses end %>

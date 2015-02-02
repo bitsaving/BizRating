@@ -6,3 +6,7 @@ button.add-category {
 .text {
   overflow: hidden;
 }
+
+.movable {
+  cursor: move;
+}

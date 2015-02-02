@@ -20,6 +20,8 @@ gem 'carmen',                        '1.0.1'
 gem 'nested_form'
 gem 'rails4-autocomplete'
 gem 'workflow'
+gem 'kaminari'
+gem 'ransack'
 group :development, :test do
   gem 'byebug'
   gem 'web-console',                 '~> 2.0'

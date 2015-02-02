@@ -19,7 +19,7 @@ class Business < ActiveRecord::Base
 
   validates :name, presence: true
 
-  validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }
+  validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
   include Workflow
   workflow do

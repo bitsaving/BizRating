@@ -12,13 +12,14 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params)
     if @category.save
       flash[:notice] = 'Created Successfully'
+      redirect_to admin_categories_path
     else
       ## FIXME_NISH Please use to_sentence.
       ## FIXME_NISH Please use alert instead of all.
       ## FIXED
-      flash[:alert] = @category.errors.full_messages.to_sentence
+      flash.now[:alert] = @category.errors.full_messages.to_sentence
+      render 'new'
     end
-    redirect_to admin_categories_path
   end
 
   def update

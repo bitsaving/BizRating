@@ -6,7 +6,9 @@ class Admin::BusinessesController < Admin::BaseController
   autocomplete :keyword, :name
 
   def index
-    @businesses = Business.includes(:images).all
+    @q = Business.ransack(params[:q])
+    @businesses = @q.result.includes(:images).all.page(params[:page]).per(5)
+    # @businesses = Business.includes(:images).all.page(params[:page]).per(5)
   end
 
   def new
@@ -20,7 +22,7 @@ class Admin::BusinessesController < Admin::BaseController
 
   def create
     if @business.save
-      redirect_to step2_admin_business_path(@business)
+      redirect_to step2_admin_business_path(@business), notice: 'Business Created'
     else
       render :new, alert: @business.errors.full_messages.to_sentence
     end

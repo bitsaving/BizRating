@@ -90,6 +90,9 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
+    kaminari (0.16.2)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.6.0)
@@ -114,6 +117,8 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    polyamorous (1.1.0)
+      activerecord (>= 3.0)
     rack (1.6.0)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -144,6 +149,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    ransack (1.6.3)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.1)
     rdoc (4.2.0)
       json (~> 1.4)
     ref (1.0.5)
@@ -212,12 +223,14 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails (= 4.0.3)
   jquery-ui-rails (= 5.0.3)
+  kaminari
   less-rails
   mysql2 (= 0.3.17)
   nested_form
   paperclip (~> 4.2)
   rails (= 4.2.0)
   rails4-autocomplete
+  ransack
   rmagick
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

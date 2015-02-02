@@ -1,20 +1,23 @@
 <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
 
-<%= search_form_for @q, url: admin_businesses_path do |f| %>
+<%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
+  <div class='col-sm-2 form-group'>
+    <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
+  </div>
+  <div class='col-sm-2 form-group'>
+    <%= f.collection_select :address_state_eq, @states, :name, :name, { include_blank: 'Select State'}, class: "form-control" %>
+  </div>
+  <div class='col-sm-2 form-group'>
+    <%= f.collection_select :workflow_state_eq, Business.select(:workflow_state).distinct, :workflow_state, :workflow_state, {include_blank: 'Select Status' }, class: "form-control" %>
+  </div>
+  <div class='col-sm-2 form-group'>
+    <%= f.collection_select :category_name_eq, Category.all, :name, :name, { include_blank: 'Select Category' }, class: "form-control" %>
+  </div>
+  <div class='col-sm-2 col-sm-offset-1'>
+    <%= f.text_field :name_cont, class: "form-control" %>
+  </div>
 
-  <%= f.label :address_country_cont, 'Country' %>
-  <%= f.collection_select(:address_country_cont, Address.select(:country).distinct, :country, :country ) %>
-
-  <%= f.label :address_state_cont, 'State' %>
-  <%= f.collection_select(:address_state_cont, Address.select(:state).distinct, :state, :state ) %>
-
-  <%= f.label :workflow_state_cont, 'Status' %>
-  <%= f.collection_select(:workflow_state_cont, Business.select(:workflow_state).distinct, :workflow_state, :workflow_state ) %>
-
-  <%= f.label :category_name_cont, 'Category' %>
-  <%= f.collection_select(:category_name_cont, Category.all, :name, :name ) %>
-
-  <%= f.submit %>
+  <%= f.submit hidden:true %>
 <% end %>
 
 <table class="table table-striped">

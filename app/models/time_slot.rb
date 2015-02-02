@@ -9,7 +9,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :business, required: true
 
   validates_each :days do |record, attribute, value|
-    record.errors.add(attribute, 'Invalid time') unless ((record.business.time_slots.where.not(id: record.id).pluck(:days).flatten & value).empty? && record[:to] < record[:from] )
+    record.errors.add(attribute, 'Invalid timimgs') unless ((record.business.time_slots.where.not(id: record.id).pluck(:days).flatten & value).empty? && record[:to] < record[:from] )
   end
 
 end

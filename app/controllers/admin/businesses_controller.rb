@@ -6,9 +6,9 @@ class Admin::BusinessesController < Admin::BaseController
   autocomplete :keyword, :name
 
   def index
-    @q = Business.ransack(params[:q])
-    @businesses = @q.result.includes(:images).all.page(params[:page]).per(5)
-    # @businesses = Business.includes(:images).all.page(params[:page]).per(5)
+    @q = params[:q].nil? ? Business.ransack({workflow_state_eq: 'new'}) : Business.ransack(params[:q])
+    @businesses = @q.result.includes(:images).all.page(params[:page]).per(20)
+    @states = (params[:q].present? && !params[:q][:address_country_eq].blank?) ? Carmen::Country.named(params[:q][:address_country_eq]).subregions : []
   end
 
   def new

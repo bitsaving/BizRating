@@ -1,6 +1,7 @@
 function Business (input) {
   this.new_business_form = input.newForm;
   this.statusLink = input.statusLink;
+  this.searchForm = input.searchForm;
 }
 
 Business.prototype.initialize = function() {
@@ -17,6 +18,14 @@ Business.prototype.addStatus = function() {
 Business.prototype.bindEvents = function() {
   this.bindFormEvents();
   this.bindStatusEvent();
+  this.bindSearchEvent()
+};
+
+Business.prototype.bindSearchEvent = function() {
+  var _this = this;
+  this.searchForm.on('change', 'select', function() {
+    _this.searchForm.submit();
+  })
 };
 
 Business.prototype.bindFormEvents = function() {
@@ -67,8 +76,9 @@ Business.prototype.bindStatusEvent = function() {
 
 $( function() {
   var input = { 
-    newForm: $("#new_business, .edit_business"),
-    statusLink: $('td.btn-just a.btn.btn-xs.edit')
+    newForm: $("#new_business .edit_business"),
+    statusLink: $('td.btn-just a.btn.btn-xs.edit'),
+    searchForm: $('#business_search')
   },
   business = new Business(input);
   business.initialize();

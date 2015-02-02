@@ -1,6 +1,7 @@
 <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
 
 <%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
+
   <div class='col-sm-2'>
     <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
   </div>

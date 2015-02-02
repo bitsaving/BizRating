@@ -15,7 +15,7 @@
   <div class="control-group field form-group <%= add_error_class :category %>">
     <%= f.label :category_id, 'Category*', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
-      <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :name, { include_blank: 'Category' }, class: 'form-control') %>
     </div>
   </div>
 
@@ -66,14 +66,14 @@
     <div class="control-group field form-group <%= add_error_class :'address.country' %>">
       <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= l.collection_select :country, Carmen::Country.all, :name, :name %>
+        <%= l.collection_select :country, Carmen::Country.all, :name, :name, { include_blank: 'Country' }, :class => 'form-control'  %>
       </div>
     </div>
 
     <div class="control-group field form-group <%= add_error_class :'address.state' %>">
       <%= l.label :state, 'State*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= l.select :state,['--Select--', @business.address[:state]], :class => 'form-control' %>
+        <%= l.select(:state, [@business.address[:state]], {include_blank: 'State'}, :class => 'form-control') %>
       </div>
     </div>
   <%end%>

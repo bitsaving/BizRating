@@ -1,6 +1,7 @@
 a.add-business {
-  margin: 5px 50px;
+  margin: 10px 60px 10px 0px;
   float: right;
+  padding-top: 5px;
 }
 
 .text {
@@ -17,4 +18,8 @@ p.form-page {
   padding-right: 250px;
   position: relative;
   top: -30px;
+}
+
+.top-pad-10 {
+  padding-top: 10px;
 }

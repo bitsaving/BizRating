@@ -7,8 +7,8 @@ module BusinessesHelper
     @business.errors[field_name].empty? ? '' : 'has-error'
   end
 
-  def error_span(field_name)
-    # content_tag :span { @business.errors[field_name][0] }
+  def day_checked(day, object)
+    ((!object.new_record?) && (object.days.include? day.to_s))
   end
 
 end

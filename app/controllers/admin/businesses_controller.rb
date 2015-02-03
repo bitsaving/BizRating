@@ -3,7 +3,7 @@ class Admin::BusinessesController < Admin::BaseController
   before_action :load_states, only: :index
   before_action :load_business, only: [:update, :edit, :update_status]
 
-  autocomplete :keyword, :name
+  autocomplete :keyword, :name, full: true
 
   def index
     @q = Business.ransack(search_params)
@@ -13,11 +13,11 @@ class Admin::BusinessesController < Admin::BaseController
   def new
     @business = Business.new
     ## FIXME_NISH Rewrite this method as setup(step_no: 1)
-    @business.setup(1)
+    @business.setup
   end
 
   def edit
-    @business.setup(params[:step])
+    @business.setup(step_no: params[:step])
   end
 
   def create
@@ -31,8 +31,6 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def update
-    ## FIXME_NISH Don't use keywords_attributes in params.
-    @business.keyword_form_sentence = params[:business][:keywords_attributes][0] if business_params[:keywords_attributes]
     if @business.update(business_params)
       redirect_to ["step#{ params[:step] }",:admin, @business]
     else
@@ -64,9 +62,9 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def business_params
-      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id,
+      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
-        website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy], keywords_attributes: [],
+        website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy],
         phone_numbers_attributes: [:info, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],
         images_attributes: [:image_file_name, :image_content_type, :image_file_size, :image_updated_at, :image, :id, :_destroy])
     end

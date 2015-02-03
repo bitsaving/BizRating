@@ -10,12 +10,12 @@ class Business < ActiveRecord::Base
   has_many :time_slots, dependent: :destroy
   has_and_belongs_to_many :keywords
 
-  accepts_nested_attributes_for :address, :images, :time_slots, :keywords, allow_destroy: true
+  attr_reader :keywords_sentence
+
+  accepts_nested_attributes_for :address, :images, :time_slots, allow_destroy: true
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:info].blank? }
-
-  attr_accessor :keywords_attributes
 
   validates :name, presence: true
 
@@ -46,12 +46,12 @@ class Business < ActiveRecord::Base
     end
   end
 
-  def keyword_form_sentence=(sentence)
+  def keywords_sentence=(sentence)
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 
-  def setup(step = 1)
-    case step
+  def setup(step_no: 1)
+    case step_no
     when 1
       build_address unless address
     when 2

@@ -16,10 +16,8 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  ## FIXME_NISH Please move it to base_controller.
   private
     def update_sanitized_params
-      ## FIXME_NISH Please proivde space before and after brackets.
-      devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:bio, :name)}
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:bio, :name) }
     end
 end

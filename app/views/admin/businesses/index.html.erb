@@ -32,7 +32,7 @@
       <td class="btn-just">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
                     step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>
-         <%= link_to 'Disable', '#', data: { :'business_status' => business.status, id: business.id, :'business_name' => business.name }, class: "btn btn-xs edit #{ edit_button_class(business.status) }" %>
+         <%= link_to 'Disable', '#', data: { :'business_status' => !business.status, id: business.id, :'business_name' => business.name }, class: "btn btn-xs edit #{ edit_button_class(business.status) }" %>
         </td>
       </tr>
     <% end %>

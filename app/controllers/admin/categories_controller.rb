@@ -12,7 +12,6 @@ class Admin::CategoriesController < Admin::BaseController
       flash[:notice] = 'Created Successfully'
       redirect_to admin_categories_path
     else
-      flash.now[:alert] = @category.errors.full_messages.to_sentence
       render 'new'
     end
   end

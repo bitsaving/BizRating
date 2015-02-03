@@ -70,7 +70,7 @@ class Business < ActiveRecord::Base
 
   def set_status(status)
     ## FIXME_NISH Please do as discussed
-    self.status = status == 'true' ? false : true
+    self.status = status == 'true'
     save
   end
 

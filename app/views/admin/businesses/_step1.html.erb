@@ -3,6 +3,7 @@
     <div class="controls col-sm-6">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
+    <span><%= @business.errors[:name].to_sentence %></span>
   </div>
 
   <div class="control-group field form-group <%= add_error_class :owner_name %>">
@@ -17,6 +18,8 @@
     <div class="controls col-sm-6">
       <%= f.collection_select(:category_id, Category.all, :id, :name, { include_blank: 'Category' }, class: 'form-control') %>
     </div>
+    <span><%= @business.errors[:category].to_sentence %></span>
+
   </div>
 
   <%= f.fields_for :address do |l| %>
@@ -41,18 +44,12 @@
       </div>
     </div>
 
-    <div class="control-group field form-group <%= add_error_class :'address.area' %>">
-      <%= l.label :area, :class => 'control-label col-sm-3' %>
-      <div class="controls col-sm-6">
-        <%= l.text_field :area, :class => 'form-control' %>
-      </div>
-    </div>
-
     <div class="control-group field form-group <%= add_error_class :'address.pin_code' %>">
       <%= l.label :pin_code, 'Zip Code*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <%= l.text_field :pin_code, :class => 'form-control' %>
       </div>
+    <span><%= @business.errors['address.pin_code'].to_sentence %></span>
     </div>
 
     <div class="control-group field form-group <%= add_error_class :'address.city' %>">
@@ -60,6 +57,7 @@
       <div class="controls col-sm-6">
         <%= l.text_field :city, :class => 'form-control' %>
       </div>
+    <span><%= @business.errors['address.city'].to_sentence %></span>
     </div>
 
     <div class="control-group field form-group <%= add_error_class :'address.country' %>">
@@ -67,12 +65,21 @@
       <div class="controls col-sm-6">
         <%= l.collection_select :country, Carmen::Country.all, :name, :name, { include_blank: 'Country' }, :class => 'form-control'  %>
       </div>
+    <span><%= @business.errors['address.country'].to_sentence %></span>
     </div>
 
     <div class="control-group field form-group <%= add_error_class :'address.state' %>">
       <%= l.label :state, 'State*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <%= l.select(:state, [@business.address[:state]], {include_blank: 'State'}, :class => 'form-control') %>
+      </div>
+    <span><%= @business.errors['address.state'].to_sentence %></span>
+    </div>
+
+    <div class="control-group field form-group <%= add_error_class :'address.area' %>">
+      <%= l.label :area, :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :area, :class => 'form-control' %>
       </div>
     </div>
   <%end%>

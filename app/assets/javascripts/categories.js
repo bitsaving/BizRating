@@ -10,7 +10,7 @@ Category.prototype.initialize = function() {
 
 Category.prototype.addStatus = function() {
   this.statusLink.each(function(index, link) {
-    link.text = ($(link).data('categoryStatus') ? 'Disable' : "Enable");
+    link.text = ($(link).data('categoryStatus') ? 'Enable' : "Disable");
   });
 };
 
@@ -42,9 +42,9 @@ Category.prototype.bindSortableEvents = function() {
 Category.prototype.bindStatusEvent = function() {
   this.statusLink.on('click', function(e) {
     e.preventDefault();
-    var linkdata = $(this).data(), 
+    var linkdata = $(this).data(),
         _this = this;
-  confirmText = 'You want to' + (linkdata['categoryStatus'] ? ' disable ' : ' enable ') + linkdata['categoryName'];
+  confirmText = 'You want to' + (linkdata['categoryStatus'] ? ' enable ' : ' disable ') + linkdata['categoryName'];
   if (confirm(confirmText)) {
     $.ajax({
         url: "categories/update_status",
@@ -52,7 +52,7 @@ Category.prototype.bindStatusEvent = function() {
         type: 'patch',
         data: linkdata,
         success: function (e) {
-          $(_this).data('categoryStatus', e[0]);
+          $(_this).data('categoryStatus', !e[0]);
           _this.text = (e[0] ? 'Disable' : "Enable");
           $(_this).toggleClass('btn-danger btn-success')
         },

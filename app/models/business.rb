@@ -12,7 +12,10 @@ class Business < ActiveRecord::Base
 
   attr_reader :keywords_sentence
 
-  accepts_nested_attributes_for :address, :images, :time_slots, allow_destroy: true
+  accepts_nested_attributes_for :address, :images, allow_destroy: true
+
+  accepts_nested_attributes_for :time_slots, allow_destroy: true,
+    reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].empty? }
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:info].blank? }

@@ -1,6 +1,6 @@
 class Admin::BusinessesController < Admin::BaseController
 
-  before_action :load_states, only: :index
+  before_action :load_states  , only: :index
   before_action :load_business, only: [:update, :edit, :update_status]
 
   autocomplete :keyword, :name, full: true

@@ -9,14 +9,12 @@
     <%= f.collection_select :address_state_eq, @states, :name, :name, { include_blank: 'Select State'}, class: "form-control" %>
   </div>
   <div class='col-sm-2'>
-    <%= f.collection_select :workflow_state_eq, Business.select(:workflow_state).distinct, :workflow_state, :workflow_state, {include_blank: 'Select Status' }, class: "form-control" %>
+    <%= f.collection_select :workflow_state_eq, Business.workflow_specs.state_names, :workflow_state, :workflow_state, {include_blank: 'Select Status' }, class: "form-control" %>
   </div>
   <div class='col-sm-2'>
     <%= f.collection_select :category_name_eq, Category.all, :name, :name, { include_blank: 'Select Category' }, class: "form-control" %>
   </div>
-<!--   <div class='col-sm-1'>
-    <%#= f.submit 'Reset', class: 'btn btn-danger btn-xs add-business', type: 'reset' %>
-  </div> -->
+
   <div class='col-sm-2'>
     <%= f.text_field :name_cont, class: "form-control" %>
   </div>

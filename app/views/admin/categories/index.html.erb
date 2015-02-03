@@ -9,7 +9,7 @@
         <td class='col-sm-8 text'><%= category.name %></td>
         <td class="btn-just">
           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
-          <%= link_to 'Disable', '#', :data => { :'category_status' => category.status,
+          <%= link_to 'Disable', '#', :data => { :'category_status' => !category.status,
              :'id' => category.id, :'category_name' => category.name },
              :class => "btn btn-xs edit #{ edit_button_class(category.status) }" %>
         </td>

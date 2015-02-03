@@ -8,7 +8,7 @@ class TimeSlot < ActiveRecord::Base
 
   ## FIXME_NISH Please move this in validators.
   validates_each :days do |record, attribute, value|
-    record.errors.add(attribute, 'Invalid timimgs') unless ((record.business.time_slots.where.not(id: record.id).pluck(:days).flatten & value).empty? && record[:to] < record[:from] )
+    record.errors.add(attribute, 'Invalid timimgs') unless ((record.business.time_slots.where.not(id: record.id).pluck(:days).flatten & value).empty? && record[:to] > record[:from] )
   end
 
 end

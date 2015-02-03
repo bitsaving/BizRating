@@ -11,6 +11,7 @@
       <div class="controls col-sm-6">
         <%= web.text_field :info, :class => 'form-control' %>
       </div>
+      <span><%= @business.errors['website.info'].to_sentence %></span>
     </div>
   <% end %>
 
@@ -21,6 +22,7 @@
         <%= pn.text_field :info, :class => 'form-control' %>
         <%= pn.link_to_remove "Remove" %>
       </div>
+      <span><%= @business.errors['phone_numbers.info'].to_sentence %></span>
     </div>
   <% end %>
   <p><%= f.link_to_add "Add a phone number", :phone_numbers, class: 'col-sm-offset-3' %></p>
@@ -32,6 +34,7 @@
         <%= e.email_field :info, :class => 'form-control' %>
         <%= e.link_to_remove "Remove" %>
       </div>
+      <span><%= @business.errors['emails.info'].to_sentence %></span>
     </div>
   <% end %>
   <p><%= f.link_to_add "Add a emails", :emails, class: 'col-sm-offset-3' %></p>

@@ -11,7 +11,7 @@ Business.prototype.initialize = function() {
 
 Business.prototype.addStatus = function() {
   this.statusLink.each(function(index, link) {
-    link.text = ($(link).data('businessStatus') ? 'Disable' : "Enable");
+    link.text = ($(link).data('businessStatus') ? 'Enable' : "Disable");
   });
 };
 
@@ -52,9 +52,9 @@ Business.prototype.bindFormEvents = function() {
 Business.prototype.bindStatusEvent = function() {
   this.statusLink.on('click', function(e) {
     e.preventDefault();
-  var linkdata = $(this).data(), 
+  var linkdata = $(this).data(),
   _this = this;
-  confirmText = 'You want to' + (linkdata['businessStatus'] ? ' disable ' : ' enable ') + linkdata['businessName'];
+  confirmText = 'You want to' + (linkdata['businessStatus'] ? ' enable ' : ' disable ') + linkdata['businessName'];
   if (confirm(confirmText)) {
     $.ajax({
         url: "businesses/update_status",
@@ -62,7 +62,7 @@ Business.prototype.bindStatusEvent = function() {
         type: 'patch',
         data: linkdata,
         success: function (e) {
-          $(_this).data('businessStatus', e[0]);
+          $(_this).data('businessStatus', !e[0]);
           _this.text = (e[0] ? 'Disable' : "Enable");
           $(_this).toggleClass('btn-danger btn-success');
         },

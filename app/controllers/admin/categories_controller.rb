@@ -3,8 +3,6 @@ class Admin::CategoriesController < Admin::BaseController
   before_action :load_category, only: [:update, :update_status]
 
   def index
-    ## FIXME_NISH Please don't run the query in views.
-    ## FIXED
     @categories = Category.order(:position).load
   end
 
@@ -14,9 +12,6 @@ class Admin::CategoriesController < Admin::BaseController
       flash[:notice] = 'Created Successfully'
       redirect_to admin_categories_path
     else
-      ## FIXME_NISH Please use to_sentence.
-      ## FIXME_NISH Please use alert instead of all.
-      ## FIXED
       flash.now[:alert] = @category.errors.full_messages.to_sentence
       render 'new'
     end
@@ -26,17 +21,13 @@ class Admin::CategoriesController < Admin::BaseController
     if @category.update(category_params)
       flash[:notice] = 'Updated Successfully'
     else
-      ## FIXME_NISH Please use to_sentence.
-      ## FIXME_NISH Please use alert instead of notice.
-      ## FIXED
       flash[:alert] = @category.errors.full_messages.to_sentence
     end
     redirect_to admin_categories_path
   end
 
   def update_status
-    ## FIXME_NISH Refactor this code.
-    ## FIXED
+    ## FIXME_NISH Use snake_case.
     if @category.set_status(params[:categoryStatus])
       render json: [@category.status]
     else
@@ -54,14 +45,9 @@ class Admin::CategoriesController < Admin::BaseController
 
   private
 
-      ## FIXME_NISH Move this to model.
-      ## FIXED
-
     def load_category
-      ## FIXME_NISH Please check that the category is present or not.
-      ## FIXED
       @category = Category.find_by(id: params[:id])
-        redirect_to admin_categories_path, alert: 'No category found' unless @category
+      redirect_to admin_categories_path, alert: 'No category found' unless @category
     end
 
     def category_params

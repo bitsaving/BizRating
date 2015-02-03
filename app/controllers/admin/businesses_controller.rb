@@ -1,18 +1,18 @@
 class Admin::BusinessesController < Admin::BaseController
 
-  before_action :set_business, only: :create
+  before_action :load_states, only: :index
   before_action :load_business, only: [:update, :edit, :update_status]
 
   autocomplete :keyword, :name
 
   def index
-    @q = params[:q].nil? ? Business.ransack({workflow_state_eq: 'new'}) : Business.ransack(params[:q])
-    @businesses = @q.result.includes(:images).all.page(params[:page]).per(20)
-    @states = (params[:q].present? && !params[:q][:address_country_eq].blank?) ? Carmen::Country.named(params[:q][:address_country_eq]).subregions : []
+    @q = Business.ransack(search_params)
+    @businesses = @q.result.includes(:images).page(params[:page]).load
   end
 
   def new
     @business = Business.new
+    ## FIXME_NISH Rewrite this method as setup(step_no: 1)
     @business.setup(1)
   end
 
@@ -21,6 +21,8 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def create
+    @business = Business.new(business_params)
+
     if @business.save
       redirect_to step2_admin_business_path(@business), notice: 'Business Created'
     else
@@ -29,6 +31,7 @@ class Admin::BusinessesController < Admin::BaseController
   end
 
   def update
+    ## FIXME_NISH Don't use keywords_attributes in params.
     @business.keyword_form_sentence = params[:business][:keywords_attributes][0] if business_params[:keywords_attributes]
     if @business.update(business_params)
       redirect_to ["step#{ params[:step] }",:admin, @business]
@@ -36,9 +39,6 @@ class Admin::BusinessesController < Admin::BaseController
       render :edit, alert: @business.errors.full_messages.to_sentence
     end
   end
-
-    ## FIXME_NISH Please shift this controller to StatesController Index action.
-    ## FIXED
 
   def update_status
     if @business.set_status(params[:businessStatus])
@@ -50,23 +50,18 @@ class Admin::BusinessesController < Admin::BaseController
 
 
   private
-
-      ## FIXME_NISH Move the method in model.
-      ## FIXED
-
     def load_business
-      ## FIXME_NISH Redirect if business is not present.
-      ## FIXED
       @business = Business.find_by(id: params[:id])
       redirect_to admin_businesses_path, alert: 'No Business found' unless @business
     end
 
-    def set_business
-      @business = Business.new(business_params)
+    def search_params
+      params[:q].nil? ? { workflow_state_eq: 'new' } : params[:q]
     end
 
-    ## FIXME_NISH I think we don't require this method, you can directly pass category_id from view.
-    ## FIXED
+    def load_states
+      @states = (params[:q].present? && params[:q][:address_country_eq].present?) ? Carmen::Country.named(params[:q][:address_country_eq]).subregions : []
+    end
 
     def business_params
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id,

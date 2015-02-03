@@ -51,9 +51,6 @@ class Business < ActiveRecord::Base
   end
 
   def setup(step = 1)
-    ## FIXME_NISH Move the method in model.
-    ## FIXED
-    step ||= 1
     case step
     when 1
       build_address unless address
@@ -69,6 +66,7 @@ class Business < ActiveRecord::Base
   end
 
   def set_status(status)
+    ## FIXME_NISH Please do as discussed
     self.status = status == 'true' ? false : true
     save
   end

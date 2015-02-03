@@ -15,8 +15,6 @@ class Admin::SessionsController < Devise::SessionsController
 
   private
   def load_user
-    ## FIXME_NISH Please check if the user is present or not.
-    ## FIXED
     @user = User.find_by(email: params[:user][:email])
     redirect_to :new_admin_session, alert: "Invalid email or password" unless @user && @user.admin?
     end

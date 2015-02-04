@@ -2,7 +2,6 @@ class Admin::BusinessesController < Admin::BaseController
 
   before_action :load_states  , only: :index
   before_action :load_business, only: [:update, :edit, :update_status]
-
   autocomplete :keyword, :name, full: true
 
   def index
@@ -63,7 +62,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def business_params
-      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence,
+      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence, :workflow_event,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy],
         phone_numbers_attributes: [:info, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],

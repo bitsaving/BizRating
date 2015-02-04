@@ -1,5 +1,5 @@
 class Website < Contact
 
-  validates :info, format: /\A(https?:\/\/)?(www\.)?([A-Z0-9._%+-])+(\.[A-Z]{2,4}){1,2}\z/i
+  validates :info, format: /\A(https?:\/\/)?(www\.)?([A-Z0-9._%+-])+(\.[A-Z]{2,4}){1,2}\z/i, allow_blank: true
 
 end

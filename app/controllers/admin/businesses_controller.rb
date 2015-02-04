@@ -7,12 +7,13 @@ class Admin::BusinessesController < Admin::BaseController
 
   def index
     @q = Business.ransack(search_params)
-    @businesses = @q.result.includes(:images).page(params[:page]).load
+    @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).load
   end
 
   def new
     @business = Business.new
     ## FIXME_NISH Rewrite this method as setup(step_no: 1)
+    ## FIXED
     @business.setup
   end
 

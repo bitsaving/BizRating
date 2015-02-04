@@ -18,4 +18,5 @@ class Admin::SessionsController < Devise::SessionsController
     @user = User.find_by(email: params[:user][:email])
     redirect_to :new_admin_session, alert: "Invalid email or password" unless @user && @user.admin?
   end
+
 end

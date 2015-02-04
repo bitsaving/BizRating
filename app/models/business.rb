@@ -10,7 +10,7 @@ class Business < ActiveRecord::Base
   has_many :time_slots, dependent: :destroy
   has_and_belongs_to_many :keywords
 
-  attr_reader :keywords_sentence
+  attr_reader :keywords_sentence, :workflow_event
 
   accepts_nested_attributes_for :address, :images, allow_destroy: true
 
@@ -53,6 +53,12 @@ class Business < ActiveRecord::Base
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 
+  def workflow_event=(event)
+    if self.send "can_#{ event }?"
+      self.send "#{ event }!"
+    end
+  end
+
   def setup(step_no: 1)
     case step_no
     when 1
@@ -70,6 +76,7 @@ class Business < ActiveRecord::Base
 
   def set_status(status)
     ## FIXME_NISH Please do as discussed
+    ## Fixed
     self.status = status == 'true'
     save
   end

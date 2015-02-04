@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if resource.admin?
       admin_businesses_path
     else
-      new_home_path
+      home_index_path
     end
   end
 
@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
 
   private
     def update_sanitized_params
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:bio, :name) }
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name) }
     end
 end

@@ -2,11 +2,15 @@ function Business (input) {
   this.businessForms = input.forms;
   this.statusLink = input.statusLink;
   this.searchForm = input.searchForm;
+  this.autoCompleteField = input.autoCompleteField;
+  this.countryField = input.countryField;
+  this.countryCode = 'in';
 }
 
 Business.prototype.initialize = function() {
   this.addStatus();
   this.bindEvents();
+  this.updateAutoComplete();
 };
 
 Business.prototype.addStatus = function() {
@@ -18,18 +22,24 @@ Business.prototype.addStatus = function() {
 Business.prototype.bindEvents = function() {
   this.bindFormEvents();
   this.bindStatusEvent();
-  this.bindSearchEvent()
+  this.bindSearchEvent();
+};
+
+Business.prototype.setCountryValue = function() {
+  this.countryCode = this.countryField.find('option:selected')
+            .data('code').toLowerCase();
 };
 
 Business.prototype.bindSearchEvent = function() {
   var _this = this;
   this.searchForm.on('change', 'select', function() {
     _this.searchForm.submit();
-  })
+  });
 };
 
 Business.prototype.bindFormEvents = function() {
-  this.businessForms.on('change', '#business_address_attributes_country', function() {
+  var _this = this;
+  this.countryField.on('change', function() {
     $.ajax({
       url: "/admin/states/",
       dataType: 'json',
@@ -46,6 +56,14 @@ Business.prototype.bindFormEvents = function() {
         $('#business_address_attributes_state').empty().append(options);
       },
     });
+    _this.setCountryValue();
+    _this.updateAutoComplete();
+  });
+};
+
+Business.prototype.updateAutoComplete = function() {
+  this.completeArea = new google.maps.places.Autocomplete(this.autoCompleteField[0], {
+    types: ['address'], componentRestrictions: { country: this.countryCode }
   });
 };
 
@@ -75,10 +93,12 @@ Business.prototype.bindStatusEvent = function() {
 };
 
 $( function() {
-  var input = { 
+  var input = {
     forms: $("#new_business, .edit_business"),
     statusLink: $('td.btn-just a.btn.btn-xs.edit'),
-    searchForm: $('#business_search')
+    searchForm: $('#business_search'),
+    autoCompleteField: $('#business_address_attributes_area'),
+    countryField: $('#business_address_attributes_country')
   },
   business = new Business(input);
   business.initialize();

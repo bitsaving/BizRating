@@ -1,3 +1,4 @@
+// FIXME_AB: Lets use JS as less as we can
 function Business (input) {
   this.businessForms = input.forms;
   this.statusLink = input.statusLink;
@@ -31,10 +32,12 @@ Business.prototype.bindSearchEvent = function() {
 Business.prototype.bindFormEvents = function() {
   this.businessForms.on('change', '#business_address_attributes_country', function() {
     $.ajax({
+      // FIXME_AB: Lets not hard code urls in js. Use data attributes
       url: "/admin/states/",
       dataType: 'json',
       type: 'get',
       data: {country: $(this).val()},
+      // FIXME_AB: Whenever you are sending ajax request use spinner to show user that something is in progress
       success: function (data) {
         var options = [], option = null;
         $.each(data, function(index, value) {

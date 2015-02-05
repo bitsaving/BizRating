@@ -16,6 +16,7 @@
   <div class="control-group field form-group <%= add_error_class :category %>">
     <%= f.label :category_id, 'Category*', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
+      <% #FIXME_AB: Why all categories, we should have all enabled categories only -%>
       <%= f.collection_select(:category_id, Category.all, :id, :name, { include_blank: 'Category' }, class: 'form-control') %>
     </div>
     <span><%= @business.errors[:category].to_sentence %></span>
@@ -71,6 +72,7 @@
     <div class="control-group field form-group <%= add_error_class :'address.state' %>">
       <%= l.label :state, 'State*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
+        <% #FIXME_AB: Not all contries have states in the Carmen gem, like "Isle of Man" or Hong Kong in that case there are no options in state select box. so we should replace select state with test field. or instead of select state have a text field which will autocomplete based on suggestions else user can enter this own state -%>
         <%= l.select(:state, [@business.address[:state]], {include_blank: 'State'}, :class => 'form-control') %>
       </div>
     <span><%= @business.errors['address.state'].to_sentence %></span>

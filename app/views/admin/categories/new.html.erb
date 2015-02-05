@@ -4,8 +4,10 @@
         <%= f.label :name, 'Name*', class: 'control-label col-sm-3' %>
         <div class="col-sm-6">
         <%= f.text_field :name, class: 'form-control', autofocus: true %></div>
+        <% #FIXME_AB: You can create a helper method to display errors. just pass the attribute name in that method. DRY. -%>
       <span><%= @category.errors[:name].to_sentence %></span>
       </div>
+      <% #FIXME_AB: Another helper method for adding error class -%>
       <div class="field form-group <%= @category.errors[:name].empty? ? '' : 'has-error' %>">
         <%= f.label :image, 'Image*', class: 'control-label col-sm-3' %>
         <div class='col-sm-6'>

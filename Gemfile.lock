@@ -120,6 +120,8 @@ GEM
     pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    quiet_assets (1.0.3)
+      railties (>= 3.1, < 5.0)
     rack (1.6.0)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -235,6 +237,7 @@ DEPENDENCIES
   nested_form
   paperclip (~> 4.2)
   pg
+  quiet_assets
   rails (= 4.2.0)
   rails4-autocomplete
   rails_12factor

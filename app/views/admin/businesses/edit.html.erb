@@ -4,6 +4,7 @@
 </div>
 <%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
 
+  <% #FIXME_AB: We should have extract out code in helpers for current_step, next_step and prev_step -%>
   <%= render partial: 'step' + params[:step].to_s, locals: { f: f } %>
   <%= link_to 'previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default col-sm-offset-1' if params[:step] > 1 %>
   <%= f.submit 'Save', :class => 'btn btn-primary col-sm-offset-4' %>

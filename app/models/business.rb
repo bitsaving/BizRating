@@ -3,6 +3,7 @@ class Business < ActiveRecord::Base
   belongs_to :category, required: true
 
   has_one :address, dependent: :destroy
+  #FIXME_AB: Why do we need separate model for website. We can save it in same table and reduce complexity
   has_one :website, dependent: :destroy
   has_many :phone_numbers, dependent: :destroy
   has_many :emails, dependent: :destroy
@@ -14,6 +15,7 @@ class Business < ActiveRecord::Base
 
   accepts_nested_attributes_for :address, :images, allow_destroy: true
 
+  #FIXME_AB: Do we really need to check both nil and empty
   accepts_nested_attributes_for :time_slots, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].empty? }
 
@@ -24,6 +26,7 @@ class Business < ActiveRecord::Base
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
+  #FIXME_AB: include statements should be on top
   include Workflow
   workflow do
     state :new do
@@ -50,6 +53,7 @@ class Business < ActiveRecord::Base
   end
 
   def keywords_sentence=(sentence)
+    #FIXME_AB: you should check for sentence.present?
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 

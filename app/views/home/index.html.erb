@@ -1,7 +1,12 @@
-Hello
-<% if user_signed_in? %>
-  <%= link_to 'Logout', :destroy_user_session, method: :delete %>
-<% else  %>
-  Guest
-  <%= link_to 'Login', :new_user_session %>
+<p class='center'>Search a business by category to view or post reviews about it</p>
+
+<% Category.all.each do |category| %>
+  <span class='badge alert-warning tag'>
+    <%= image_tag category.image.url(:thumb), size: "50x23" %>
+    <span class='text-color'><%= category.name%></span>
+  </span>
 <% end %>
+
+<p class='center'>OR</p>
+<p class='center'>List a business to get it reviewed publicly</p>
+<div class='col-xs-12 center'><%= link_to 'List a Business', '#', class: 'btn btn-default btn-lg' %></div>

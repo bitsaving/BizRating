@@ -14,12 +14,17 @@ div.form-page {
 }
 
 p.form-page {
-  float: right;
-  padding-right: 250px;
-  position: relative;
-  top: -30px;
+  display: inline;
 }
 
 .top-pad-10 {
   padding-top: 10px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + label {
+  color: red;
 }

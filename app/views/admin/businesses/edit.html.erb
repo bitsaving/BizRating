@@ -1,10 +1,23 @@
 <div class='form-page'>
   <h3 class='col-sm-offset-1'>Edit Business</h3>
-  <p class='form-page'><%= params[:step] %> / 3</p>
 </div>
+
 <%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
 
   <% #FIXME_AB: We should have extract out code in helpers for current_step, next_step and prev_step -%>
+  <div class='control-group field form-group'>
+    <div class='col-sm-4 col-sm-offset-1'>
+    <% @business.current_state.events.keys.each do |event| %>
+          <%= f.radio_button :workflow_event, event %>
+        <%= f.label :workflow_event, value: event, class: 'control-label btn btn-primary' %>
+    <% end %>
+    </div>
+    <div class='col-sm-3'>
+      Current State : <%= @business.workflow_state %>
+    </div>
+    <p class='form-page col-sm-offset-1'><%= params[:step] %> / 3</p>
+  </div>
+
   <%= render partial: 'step' + params[:step].to_s, locals: { f: f } %>
   <%= link_to 'previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default col-sm-offset-1' if params[:step] > 1 %>
   <%= f.submit 'Save', :class => 'btn btn-primary col-sm-offset-4' %>

@@ -2,18 +2,18 @@ class Admin::BusinessesController < Admin::BaseController
 
   before_action :load_states  , only: :index
   before_action :load_business, only: [:update, :edit, :update_status]
-
   autocomplete :keyword, :name, full: true
 
   def index
     @q = Business.ransack(search_params)
     #FIXME_AB: Lets not use .load here. lazy load 
-    @businesses = @q.result.includes(:images).page(params[:page]).load
+    @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).load
   end
 
   def new
     @business = Business.new
     ## FIXME_NISH Rewrite this method as setup(step_no: 1)
+    ## FIXED
     @business.setup
   end
 
@@ -68,7 +68,7 @@ class Admin::BusinessesController < Admin::BaseController
 
     def business_params
       #FIXME_AB: I think :id should not be allowed for mass assignment. 
-      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence,
+      params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence, :workflow_event,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy],
         phone_numbers_attributes: [:info, :id, :_destroy], time_slots_attributes: [:to, :from, :id, :_destroy, days: []],

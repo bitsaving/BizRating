@@ -20,7 +20,6 @@ class Category < ActiveRecord::Base
   def set_status(status)
     ## FIXME_NISH Fix this.
     ## FIXED
-
     self.status = (status == 'true')
     save
   end

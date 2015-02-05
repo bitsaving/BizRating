@@ -76,10 +76,12 @@
     <span><%= @business.errors['address.state'].to_sentence %></span>
     </div>
 
+    <%= l.hidden_field :area%>
+
     <div class="control-group field form-group <%= add_error_class :'address.area' %>">
-      <%= l.label :area, :class => 'control-label col-sm-3' %>
+      <%= label_tag 'Area', nil,class: 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= l.text_field :area, :class => 'form-control' %>
+        <%= text_field_tag 'Area', @business.address.area, :class => 'form-control' %>
       </div>
     </div>
   <%end%>

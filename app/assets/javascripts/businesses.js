@@ -56,14 +56,19 @@ Business.prototype.bindFormEvents = function() {
         $('#business_address_attributes_state').empty().append(options);
       },
     });
-    _this.setCountryValue();
     _this.updateAutoComplete();
   });
 };
 
 Business.prototype.updateAutoComplete = function() {
+  var _this = this;
+  this.setCountryValue();
   this.completeArea = new google.maps.places.Autocomplete(this.autoCompleteField[0], {
     types: ['address'], componentRestrictions: { country: this.countryCode }
+  });
+  google.maps.event.addListener(this.completeArea, 'place_changed', function() {
+    $('#business_address_attributes_area').val(_this.autoCompleteField.val());
+    console.log(_this.autoCompleteField.val());
   });
 };
 
@@ -97,7 +102,7 @@ $( function() {
     forms: $("#new_business, .edit_business"),
     statusLink: $('td.btn-just a.btn.btn-xs.edit'),
     searchForm: $('#business_search'),
-    autoCompleteField: $('#business_address_attributes_area'),
+    autoCompleteField: $('#Area'),
     countryField: $('#business_address_attributes_country')
   },
   business = new Business(input);

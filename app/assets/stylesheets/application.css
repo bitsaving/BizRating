@@ -15,8 +15,8 @@
  *= require jquery-ui
  */
 
-div.log_user {
-  display: inline-block;
-  float: right;
-  padding-top: 8px;
+div.top-15 {
+  position: relative;
+  top: 15px;
 }
+

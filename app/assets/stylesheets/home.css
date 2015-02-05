@@ -1,0 +1,23 @@
+span.tag {
+  border: 1px solid orange;
+  margin: 4px 10px;
+}
+
+.text-color {
+  /*background-color: white;*/
+  padding: 2px 5px;
+  font-size: 15px;
+}
+
+.tag image {
+  border: 1px solid white;
+}
+
+.center {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.top-pad {
+  padding-top: 10px;
+}

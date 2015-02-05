@@ -64,7 +64,7 @@
     <div class="control-group field form-group <%= add_error_class :'address.country' %>">
       <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= l.collection_select :country, Carmen::Country.all, :name, :name, { include_blank: 'Country' }, :class => 'form-control'  %>
+        <%= l.select :country, options_for_select(Carmen::Country.all.map{|x| p x.name, value: x.name, data: { code: x.alpha_2_code } }, @business.address.country ), { include_blank: 'Country' }, :class => 'form-control' %>
       </div>
     <span><%= @business.errors['address.country'].to_sentence %></span>
     </div>
@@ -78,10 +78,12 @@
     <span><%= @business.errors['address.state'].to_sentence %></span>
     </div>
 
+    <%= l.hidden_field :area%>
+
     <div class="control-group field form-group <%= add_error_class :'address.area' %>">
-      <%= l.label :area, :class => 'control-label col-sm-3' %>
+      <%= label_tag 'Area', nil,class: 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= l.text_field :area, :class => 'form-control' %>
+        <%= text_field_tag 'Area', @business.address.area, :class => 'form-control' %>
       </div>
     </div>
   <%end%>

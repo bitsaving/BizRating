@@ -3,7 +3,6 @@
 </div>
 
 <%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
-
   <% #FIXME_AB: We should have extract out code in helpers for current_step, next_step and prev_step -%>
   <div class='control-group field form-group'>
     <div class='col-sm-4 col-sm-offset-1'>

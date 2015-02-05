@@ -10,3 +10,7 @@ button.add-category {
 .movable {
   cursor: move;
 }
+
+.top-pad-10 {
+  padding-top: 10px;
+}

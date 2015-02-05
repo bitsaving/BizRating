@@ -28,9 +28,7 @@ Category.prototype.bindSortableEvents = function() {
         dataType: 'json',
         type: 'patch',
         data: {position : $(this).sortable("toArray")},
-        success: function() {
-          alert('updated');
-        },
+        success: function() { },
         error: function() {
           alert('failed to update');
         }
@@ -44,7 +42,7 @@ Category.prototype.bindStatusEvent = function() {
     e.preventDefault();
     var linkdata = $(this).data(),
         _this = this;
-  confirmText = 'You want to' + (linkdata['categoryStatus'] ? ' enable ' : ' disable ') + linkdata['categoryName'];
+  confirmText = 'Do you want to' + (linkdata['categoryStatus'] ? ' enable ' : ' disable ') + linkdata['categoryName'] + " ?";
   if (confirm(confirmText)) {
     $.ajax({
         url: "categories/update_status",

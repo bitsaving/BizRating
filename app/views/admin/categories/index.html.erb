@@ -5,7 +5,7 @@
   <tbody class="sortable">
     <% @categories.each do |category| %>
       <tr id="<%=category.id%>" class='movable'>
-        <td class='col-sm-2'><%= image_tag category.image.url(:thumb) %></td>
+        <td class='col-sm-2'><%= image_tag category.image.url(:thumb), size: '80x30' %></td>
         <td class='col-sm-8 text'><%= category.name %></td>
         <td class="btn-just">
           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
@@ -44,8 +44,8 @@
               </div>
                <div class="actions modal-footer">
                 <%= f.submit "Add", class: "btn btn-primary btn-lg", id: 'new_category' %>
-                <%= f.submit "Reset", class: "btn btn-warning btn-lg", id: 'new_category', type: 'reset' %>
-                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
+                <%#= f.submit "Reset", class: "btn btn-warning btn-lg", id: 'new_category', type: 'reset' %>
+                <!-- <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button> -->
               </div>
             <% end %>
         </div>
@@ -79,8 +79,8 @@
                   <%= image_tag category.image.url(:thumb) %>
                 </div>
                 <div class="actions modal-footer">
-                  <%= f.submit class: "btn btn-primary btn-lg" %>
-                  <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
+                  <%= f.submit 'Update', class: "btn btn-primary btn-lg" %>
+                  <!-- <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button> -->
                 </div>
               <% end %>
           </div>

@@ -3,7 +3,6 @@
 </div>
 
 <%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
-
   <div class='control-group field form-group'>
     <div class='col-sm-4 col-sm-offset-1'>
     <% @business.current_state.events.keys.each do |event| %>

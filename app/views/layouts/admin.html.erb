@@ -35,17 +35,6 @@
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= yield :head %>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
-    <script type="text/javascript">
-      function initialize() {
-      var input = document.getElementById('business_address_attributes_area');
-      var autocomplete = new google.maps.places.Autocomplete(input, {
-          types: ['address'],
-          componentRestrictions: { country: $('#business_address_attributes_country').find('option:selected').data('code').toLowerCase() }
-        } );
-   }
-   google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
   </head>
   <body>
 

@@ -39,23 +39,24 @@
   </head>
   <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse width">
   <div class="container-fluid">
     <div class="navbar-header col-xs-2">
-      <%= link_to "Biz-Rating", :root, class: "navbar-brand" %>
+      <%= link_to "Biz-Rating", :root, class: "navbar-brand text-width-15 top-pad" %>
     </div>
-    <div class="col-xs-offset-2 col-xs-4 top-15">
+    <div class="col-xs-offset-1 col-xs-6 top-15">
       <form class="form form-horizontal">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search business by name, description and keyword">
+          <input type="text" class="form-control" placeholder="Search business by name, description and keyword to view or post reviews about it">
         </div>
       </form>
     </div>
-    <div class="col-xs-3 col-xs-offset-1">
+    <div class="col-xs-3">
       <ul class="nav navbar-nav navbar-right">
         <% unless user_signed_in? %>
-          <li class='top-pad'><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">Sign_Up</button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login"> Login</button></li>
+          <li class='top-pad'>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login"> SigIn</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">SignUp</button></li>
         <% else %>
         <%#= button_tag 'Logout', class: "btn btn-primary", data: {toggle: "modal", target: "#logout"} %>
           <% if user_signed_in? && current_user.admin? %>
@@ -100,6 +101,11 @@
           </div>
 
           <div class="field form-group">
+            <%= f.label :name, class: 'control-label col-sm-3' %>
+            <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %></div>
+          </div>
+          <div class="field form-group">
             <%= f.label :password, class: 'control-label col-sm-3' %>
             <% if @validatable %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -109,16 +115,11 @@
           </div>
 
           <div class="field form-group">
-            <%= f.label :password_confirmation,  'Re Password', class: 'control-label col-sm-3' %>
+            <%= f.label :password_confirmation,  'Retype Password', class: 'control-label col-sm-3  ' %>
             <div class="col-sm-6">
             <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %></div>
           </div>
 
-          <div class="field form-group">
-            <%= f.label :name, class: 'control-label col-sm-3' %>
-            <div class="col-sm-6">
-            <%= f.text_field :name, class: 'form-control' %></div>
-          </div>
         </div>
           <div class="actions modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

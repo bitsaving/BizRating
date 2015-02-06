@@ -1,15 +1,19 @@
 span.tag {
-  border: 1px solid lightblue;
+  border: 1px solid grey;
   margin: 4px 10px;
 }
 
 .text-color {
-  /*background-color: white;*/
-  padding: 2px 5px;
+  background-color: white;
+  padding: 0px 5px;
   font-size: 15px;
   font-weight: bold;
-  color: white;
+  color: black;
   font-family: Courier New;
+}
+
+.tag:hover .text-color {
+  background-color: lightblue;
 }
 
 .center {
@@ -18,9 +22,15 @@ span.tag {
 }
 
 .top-pad {
-  padding-top: 10px;
+  padding-top: 4px;
 }
 
 .tag-area {
   /*background-color: #FFFFDF;*/
+}
+
+.text-size {
+  font-size: 35px;
+  color: #2597D0;
+  font-weight: bold;
 }

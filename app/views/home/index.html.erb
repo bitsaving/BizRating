@@ -1,4 +1,4 @@
-<p class='center'>Search a business by category to view or post reviews about it</p>
+<p class='center text-size'>Search a business by category to view or post reviews about it</p>
 
 <div class='tag-area img-rounded' >
   <% Category.all.each do |category| %>
@@ -8,7 +8,6 @@
     </span>
   <% end %>
 </div>
-
-<p class='center'>OR</p>
-<p class='center'>List a business to get it reviewed publicly</p>
-<div class='col-xs-12 center'><%= link_to 'List a Business', '#', class: 'btn btn-default btn-lg' %></div>
+<p class='center text-size'>OR</p>
+<p class='center text-size'>List a business to get it reviewed publicly</p>
+<div class='col-xs-12 center'><%= link_to 'List a Business', '#', class: 'btn btn-warning btn-lg' %></div>

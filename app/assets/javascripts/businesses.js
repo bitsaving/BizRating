@@ -77,7 +77,7 @@ Business.prototype.bindStatusEvent = function() {
     e.preventDefault();
   var linkdata = $(this).data(),
   _this = this;
-  confirmText = 'You want to' + (linkdata['businessStatus'] ? ' enable ' : ' disable ') + linkdata['businessName'];
+  confirmText = 'Do you want to' + (linkdata['businessStatus'] ? ' enable ' : ' disable ') + linkdata['businessName'] + " ?";
   if (confirm(confirmText)) {
     $.ajax({
         url: "businesses/update_status",

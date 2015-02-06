@@ -11,7 +11,7 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params)
     if @category.save
       #FIXME_AB: You may want to interpolate category name in the flash message. Similarly at other places
-      flash[:notice] = 'Created Successfully'
+      flash[:notice] = 'Category added Successfully'
       redirect_to admin_categories_path
     else
       #FIXME_AB: Prefer symbol over string render :new

@@ -1,5 +1,5 @@
 span.tag {
-  border: 1px solid orange;
+  border: 1px solid lightblue;
   margin: 4px 10px;
 }
 
@@ -7,10 +7,9 @@ span.tag {
   /*background-color: white;*/
   padding: 2px 5px;
   font-size: 15px;
-}
-
-.tag image {
-  border: 1px solid white;
+  font-weight: bold;
+  color: white;
+  font-family: Courier New;
 }
 
 .center {
@@ -20,4 +19,8 @@ span.tag {
 
 .top-pad {
   padding-top: 10px;
+}
+
+.tag-area {
+  /*background-color: #FFFFDF;*/
 }

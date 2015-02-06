@@ -30,21 +30,22 @@ class Business < ActiveRecord::Base
   include Workflow
   workflow do
     state :new do
-      event :verifing, :transitions_to => :in_verification
+      event :verify, :transitions_to => :in_verification
     end
     state :in_verification do
-      event :accepted, transitions_to: :verified
-      event :rejected, transitions_to: :rejected
+      event :accept, transitions_to: :verified
+      event :reject, transitions_to: :rejected
     end
     state :verified do
       event :publish, transitions_to: :published
+      event :reject, transitions_to: :rejected
     end
     state :published do
       event :unpublish, transitions_to: :unpublished
     end
     state :unpublished do
       event :publish, transitions_to: :published
-      event :rejected, transitions_to: :rejected
+      event :reject, transitions_to: :rejected
       event :reverify, transitions_to: :in_verification
     end
     state :rejected do
@@ -57,7 +58,7 @@ class Business < ActiveRecord::Base
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
   end
 
-  def workflow_event=(event)
+  def fire!(event)
     if self.send "can_#{ event }?"
       self.send "#{ event }!"
     end

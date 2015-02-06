@@ -23,10 +23,11 @@ Rails.application.routes.draw do
     resource :password, only: [:edit, :update]
     resources :states, only: :index
     resources :businesses, path_names: { new: :step1 } do
-      get :autocomplete_keyword_name, :on => :collection
+      patch :fire, on: :member
       collection do
         ## FIXME_NISH Use GET for this action and move this action to StatesController Index action.
         ## FIXED
+        get :autocomplete_keyword_name
         patch :update_status
       end
 

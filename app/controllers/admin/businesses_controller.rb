@@ -1,7 +1,7 @@
 class Admin::BusinessesController < Admin::BaseController
 
   before_action :load_states  , only: :index
-  before_action :load_business, only: [:update, :edit, :update_status]
+  before_action :load_business, only: [:update, :edit, :update_status, :fire]
   autocomplete :keyword, :name, full: true
 
   def index
@@ -51,6 +51,10 @@ class Admin::BusinessesController < Admin::BaseController
     end
   end
 
+  def fire
+    @business.fire!(params[:event])
+    redirect_to ["step#{ params[:step] }",:admin, @business]
+  end
 
   private
     def load_business

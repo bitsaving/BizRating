@@ -6,12 +6,12 @@
   <div class='control-group field form-group'>
     <div class='col-sm-4 col-sm-offset-1'>
     <% @business.current_state.events.keys.each do |event| %>
-          <%= f.radio_button :workflow_event, event %>
-        <%= f.label :workflow_event, value: event, class: 'control-label btn btn-primary' %>
+
+    <%= link_to event.to_s.humanize, fire_admin_business_path(@business, {event: event, step: params[:step]}), method: :patch, class: 'btn btn-primary control-label' %>
     <% end %>
     </div>
     <div class='col-sm-3'>
-      Current State : <%= @business.workflow_state %>
+      Current State : <%= @business.workflow_state.humanize %>
     </div>
     <p class='form-page col-sm-offset-1'><%= params[:step] %> / 3</p>
   </div>

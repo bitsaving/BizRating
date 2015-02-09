@@ -6,8 +6,12 @@ class Admin::BusinessesController < Admin::BaseController
 
   def index
     @q = Business.ransack(search_params)
+<<<<<<< HEAD
     #FIXME_AB: Lets not use .load here. lazy load 
     @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).load
+=======
+    @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).reverse_order.load
+>>>>>>> master
   end
 
   def new
@@ -23,7 +27,6 @@ class Admin::BusinessesController < Admin::BaseController
 
   def create
     @business = Business.new(business_params)
-
     if @business.save
       redirect_to step2_admin_business_path(@business), notice: 'Business Created'
     else
@@ -34,9 +37,13 @@ class Admin::BusinessesController < Admin::BaseController
 
   def update
     if @business.update(business_params)
+<<<<<<< HEAD
       #FIXME_AB: no messages shown when form saved successfully
       redirect_to ["step#{ params[:step] }",:admin, @business]
       #FIXME_AB: I think after the last step I should be redirected to the list page with message.
+=======
+      redirect_to ["step#{ params[:step] }",:admin, @business], notice: 'Details successfully updated'
+>>>>>>> master
     else
       #FIXME_AB: Following alert message was never displayed
       render :edit, alert: @business.errors.full_messages.to_sentence
@@ -63,7 +70,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def search_params
-      params[:q].nil? ? { workflow_state_eq: 'new' } : params[:q]
+      params[:q].nil? ? { workflow_state_eq: 'New' } : params[:q]
     end
 
     def load_states

@@ -17,7 +17,7 @@ class Business < ActiveRecord::Base
 
   #FIXME_AB: Do we really need to check both nil and empty
   accepts_nested_attributes_for :time_slots, allow_destroy: true,
-    reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].empty? }
+    reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].blank? }
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:info].blank? }

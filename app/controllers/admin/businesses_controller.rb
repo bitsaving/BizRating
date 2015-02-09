@@ -12,8 +12,6 @@ class Admin::BusinessesController < Admin::BaseController
 
   def new
     @business = Business.new
-    ## FIXME_NISH Rewrite this method as setup(step_no: 1)
-    ## FIXED
     @business.setup
   end
 
@@ -52,7 +50,7 @@ class Admin::BusinessesController < Admin::BaseController
 
   def fire
     @business.fire!(params[:event])
-    redirect_to ["step#{ params[:step] }",:admin, @business]
+    redirect_to ["step#{ params[:step] }", :admin, @business]
   end
 
   private

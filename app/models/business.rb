@@ -16,6 +16,8 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :address, :images, allow_destroy: true
 
   #FIXME_AB: Do we really need to check both nil and empty
+
+  ##FIXME_NISH Use blank? instead of nil? || empty?
   accepts_nested_attributes_for :time_slots, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].blank? }
 
@@ -30,7 +32,7 @@ class Business < ActiveRecord::Base
   include Workflow
   workflow do
     state :new do
-      event :verify, :transitions_to => :in_verification
+      event :verify, transitions_to: :in_verification
     end
     state :in_verification do
       event :accept, transitions_to: :verified
@@ -59,6 +61,7 @@ class Business < ActiveRecord::Base
   end
 
   def fire!(event)
+    ## FIXME_NISH Please check if this is a valid event or not.
     if self.send "can_#{ event }?"
       self.send "#{ event }!"
     end
@@ -80,8 +83,6 @@ class Business < ActiveRecord::Base
   end
 
   def set_status(status)
-    ## FIXME_NISH Please do as discussed
-    ## Fixed
     self.status = status == 'true'
     save
   end

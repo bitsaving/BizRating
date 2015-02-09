@@ -18,8 +18,6 @@ class Category < ActiveRecord::Base
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   def set_status(status)
-    ## FIXME_NISH Fix this.
-    ## FIXED
     self.status = (status == 'true')
     save
   end

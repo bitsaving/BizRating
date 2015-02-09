@@ -6,7 +6,7 @@ class Admin::BusinessesController < Admin::BaseController
 
   def index
     @q = Business.ransack(search_params)
-    @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).load
+    @businesses = @q.result(distinct: true).includes(:images).page(params[:page]).reverse_order.load
   end
 
   def new
@@ -22,7 +22,6 @@ class Admin::BusinessesController < Admin::BaseController
 
   def create
     @business = Business.new(business_params)
-
     if @business.save
       redirect_to step2_admin_business_path(@business), notice: 'Business Created'
     else
@@ -32,7 +31,7 @@ class Admin::BusinessesController < Admin::BaseController
 
   def update
     if @business.update(business_params)
-      redirect_to ["step#{ params[:step] }",:admin, @business]
+      redirect_to ["step#{ params[:step] }",:admin, @business], notice: 'Details successfully updated'
     else
       render :edit, alert: @business.errors.full_messages.to_sentence
     end
@@ -58,7 +57,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def search_params
-      params[:q].nil? ? { workflow_state_eq: 'new' } : params[:q]
+      params[:q].nil? ? { workflow_state_eq: 'New' } : params[:q]
     end
 
     def load_states

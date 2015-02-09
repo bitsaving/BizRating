@@ -15,8 +15,6 @@ class Category < ActiveRecord::Base
   before_validation :set_position, on: :create
 
   def set_status(status)
-    ## FIXME_NISH Fix this.
-    ## FIXED
     self.status = (status == 'true')
     save
   end

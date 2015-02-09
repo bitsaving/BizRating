@@ -1,4 +1,5 @@
 class Business < ActiveRecord::Base
+  include Workflow
 
   belongs_to :category, required: true
 
@@ -17,7 +18,7 @@ class Business < ActiveRecord::Base
 
   #FIXME_AB: Do we really need to check both nil and empty
   accepts_nested_attributes_for :time_slots, allow_destroy: true,
-    reject_if: proc { |attributes| attributes[:days].nil? || attributes[:days].blank? }
+    reject_if: proc { |attributes| attributes[:days].blank? }
 
   accepts_nested_attributes_for :emails, :website, :phone_numbers, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:info].blank? }
@@ -27,7 +28,6 @@ class Business < ActiveRecord::Base
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
   #FIXME_AB: include statements should be on top
-  include Workflow
   workflow do
     state :new do
       event :verify, :transitions_to => :in_verification
@@ -55,7 +55,7 @@ class Business < ActiveRecord::Base
 
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
-    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence
+    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence.present?
   end
 
   def fire!(event)
@@ -82,8 +82,7 @@ class Business < ActiveRecord::Base
   def set_status(status)
     ## FIXME_NISH Please do as discussed
     ## Fixed
-    self.status = status == 'true'
-    save
+    update(status: status == 'true')
   end
 
 end

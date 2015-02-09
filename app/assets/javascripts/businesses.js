@@ -66,6 +66,7 @@ Business.prototype.bindFormEvents = function() {
 Business.prototype.updateAutoComplete = function() {
   var _this = this;
   this.setCountryValue();
+  this.autoCompleteField.attr('placeholder', 'Enter a Place');
   this.completeArea = new google.maps.places.Autocomplete(this.autoCompleteField[0], {
     types: ['address'], componentRestrictions: { country: this.countryCode }
   });

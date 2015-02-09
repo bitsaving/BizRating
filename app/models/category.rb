@@ -12,7 +12,7 @@ class Category < ActiveRecord::Base
 
   validates_attachment :image, presence: true,
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
-    size: { less_than: 2.megabyte }
+    size: { less_than: 2.megabytes }
 
   before_validation :set_position, on: :create
 
@@ -20,8 +20,7 @@ class Category < ActiveRecord::Base
   def set_status(status)
     ## FIXME_NISH Fix this.
     ## FIXED
-    self.status = (status == 'true')
-    save
+    update(status: (status == 'true'))
   end
 
   private

@@ -1,44 +1,67 @@
-<%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
+<div class='.row'>
+  <%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
+    <div class='col-sm-2'>
+      <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
+    </div>
+    <div class='col-sm-2'>
+      <%= f.collection_select :address_state_eq, @states, :name, :name, { include_blank: 'Select State'}, class: "form-control" %>
+    </div>
+    <div class='col-sm-2'>
+      <%= f.select :workflow_state_eq, Business.workflow_spec.state_names.map { |state| state.to_s.humanize }, { include_blank: 'Select Status' }, class: "form-control" %>
+    </div>
+    <div class='col-sm-2'>
+      <%= f.collection_select :category_name_eq, Category.all, :name, :name, { include_blank: 'Select Category' }, class: "form-control" %>
+    </div>
 
-<%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= f.text_field :name_or_description_or_keywords_name_cont, class: "form-control", placeholder: 'search name, description and keywords' %>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default">
+            <i class="icon-search">Go</i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <%= f.submit hidden:true %>
+  <% end %>
+</div>
 
-  <div class='col-sm-2'>
-    <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
-  </div>
-  <div class='col-sm-2'>
-    <%= f.collection_select :address_state_eq, @states, :name, :name, { include_blank: 'Select State'}, class: "form-control" %>
-  </div>
-  <div class='col-sm-2'>
-    <%= f.select :workflow_state_eq, Business.workflow_spec.state_names, {include_blank: 'Select Status' }, class: "form-control" %>
-  </div>
-  <div class='col-sm-2'>
-    <%= f.collection_select :category_name_eq, Category.all, :name, :name, { include_blank: 'Select Category' }, class: "form-control" %>
-  </div>
-
-  <div class='col-sm-2'>
-    <%= f.text_field :name_or_description_or_keywords_name_cont, class: "form-control", placeholder: 'Search' %>
-  </div>
-
-  <%= f.submit hidden:true %>
-<% end %>
+<div class='row'>
+  <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
+</div>
 
 <table class="table table-striped">
   <tbody class="sortable">
     <% @businesses.each do |business| %>
+      <tr>
       <td class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb), size: '80x30' if business.images.exists? %></td>
       <td class='col-sm-2 text'><%= business.name %></td>
-      <td class='col-sm-3 text'>City : <%= business.address.city %></td>
-      <td class='col-sm-3 text'>Area : <%= business.address.area %></td>
-      <td class="btn-just">
+      <td class='col-sm-2 text'>City : <%= business.address.city %></td>
+      <td class='col-sm-2 text'>Area : <%= business.address.area %></td>
+      <td class="col-sm-offset-3 col-sm-1">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>
-         <%= link_to 'Disable', '#', data: { :'business_status' => !business.status, id: business.id, :'business_name' => business.name }, class: "btn btn-xs edit #{ edit_button_class(business.status) }" %>
+          step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>
+        <%= link_to 'Disable', '#', data: { :'business_status' => !business.status, id: business.id, :'business_name' => business.name }, class: "btn btn-xs edit #{ edit_button_class(business.status) }" %>
         </td>
       </tr>
     <% end %>
-    </ul>
   </tbody>
 </table>
 <%= paginate @businesses %>
 <%= 'There are no businesses available'  if @businesses.length == 0 %>
 <% content_for :head do javascript_include_tag :businesses end %>
+
+
+<div class="btn-group">
+  <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+    <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+    <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+    <li class="divider"></li>
+    <li><a href="#"><i class="i"></i> Make admin</a></li>
+  </ul>
+</div>
+<span class='glyphicon glyphicon-search'></span>

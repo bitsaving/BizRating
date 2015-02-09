@@ -103,7 +103,7 @@ Business.prototype.bindStatusEvent = function() {
 $( function() {
   var input = {
     forms: $("#new_business, .edit_business"),
-    statusLink: $('td.btn-just a.btn.btn-xs.edit'),
+    statusLink: $('td a.btn.btn-xs.edit'),
     searchForm: $('#business_search'),
     autoCompleteField: $('#Area'),
     countryField: $('#business_address_attributes_country')

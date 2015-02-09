@@ -22,6 +22,7 @@ Category.prototype.bindEvents = function() {
 Category.prototype.bindSortableEvents = function() {
   this.categoryList.sortable({
     revert: false,
+    handle: '.sort',
     stop: function() {
       $.ajax({
         url: "categories/update_position",

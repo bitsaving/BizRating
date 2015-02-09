@@ -7,14 +7,13 @@
   <tbody class="sortable">
     <% @categories.each do |category| %>
       <tr id="<%=category.id%>" class='movable'>
-        <td class='col-sm-2'><%= image_tag category.image.url(:thumb), size: '80x30' %></td>
+        <td class='col-sm-2'><%= image_tag 'sort-vertical.png', class: 'sort' %>
+          <%= image_tag category.image.url(:thumb), size: '80x30' %></td>
         <td class='col-sm-8 text'><%= category.name %></td>
         <td class="btn-just">
           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
           <% #FIXME_AB: You should not do this by js.  -%>
-          <%= link_to 'Disable', '#', :data => { :'category_status' => !category.status,
-             :'id' => category.id, :'category_name' => category.name },
-             :class => "btn btn-xs edit #{ edit_button_class(category.status) }" %>
+          <%= link_to 'Disable', '#', :data => { :'category_status' => !category.status, :'id' => category.id, :'category_name' => category.name }, class: "btn btn-xs edit #{ edit_button_class(category.status) }" %>
         </td>
       </tr>
     <% end %>
@@ -23,7 +22,8 @@
 </table>
 
 <% #FIXME_AB: You should use @category.blank?. More rails way -%>
-<%= 'There are no categories available, please add categories'  if @categories.length == 0 %>
+<% #FIXED -%>
+<%= 'There are no categories available, please add categories'  if @categories.blank? %>
 
 <div class='container'>
   <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

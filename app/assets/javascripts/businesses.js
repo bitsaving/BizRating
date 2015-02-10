@@ -5,7 +5,7 @@ function Business (input) {
   this.searchForm = input.searchForm;
   this.autoCompleteField = input.autoCompleteField;
   this.countryField = input.countryField;
-  this.countryCode = 'in';
+  this.countryCode = null;
 }
 
 Business.prototype.initialize = function() {

@@ -7,7 +7,7 @@
       <%= f.collection_select :address_state_eq, @states, :name, :name, { include_blank: 'Select State'}, class: "form-control" %>
     </div>
     <div class='col-sm-2'>
-      <%= f.select :workflow_state_eq, Business.workflow_spec.state_names.map { |state| state.to_s.humanize }, { include_blank: 'Select Status' }, class: "form-control" %>
+      <%= f.select :workflow_state_eq, Business.workflow_spec.state_names.map { |state| [state.to_s.humanize, state] }, { include_blank: 'Select Status' }, class: "form-control" %>
     </div>
     <div class='col-sm-2'>
       <%= f.collection_select :category_name_eq, Category.all, :name, :name, { include_blank: 'Select Category' }, class: "form-control" %>

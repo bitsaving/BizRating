@@ -35,10 +35,17 @@
   <tbody class="sortable">
     <% @businesses.each do |business| %>
       <tr>
-      <td class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb), size: '80x30' if business.images.exists? %></td>
-      <td class='col-sm-2 text'><%= business.name %></td>
-      <td class='col-sm-2 text'>City : <%= business.address.city %></td>
-      <td class='col-sm-2 text'>Area : <%= business.address.area %></td>
+      <td class='col-sm-1'><%= image_tag business.images.first.image.url(:thumb), size: '80x30' if business.images.exists? %></td>
+      <td class='col-sm-1 text'><%= business.name %></td>
+      <td class='col-sm-1 text'>City: <%= business.address.city %></td>
+      <td class='col-sm-3 text'>
+        <% if business.address.area.present? %>
+          <%=link_to image_tag('marker.jpg'), "http://maps.google.com/?" + business.address.area.to_query('q'), :target => "_blank" %>
+        <%= business.address.area.humanize %>
+        <% else %>
+          <%= [business.address.city, business.address.state, business.address.country].join(', ') %>
+        <% end %>
+      </td>
       <td class="col-sm-offset-3 col-sm-1">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
           step1_admin_business_path(business), :class => 'btn btn-warning btn-xs' %>

@@ -4,7 +4,10 @@ class Address < ActiveRecord::Base
   belongs_to :business
 
   validates :city, :country, :state, :pin_code, presence: true
+
   #FIXME_AB: Do not place extra lines between validations. just need to separate associations validations etc.
+
+  ## FIXME_NISH Move this Regex in a constants.
   validates :pin_code, format: { with: /\A\d+\z/ }, allow_blank: true
 
 end

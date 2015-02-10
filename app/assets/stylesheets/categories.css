@@ -7,7 +7,7 @@ button.add-category {
   overflow: hidden;
 }
 
-.movable {
+.movable .sort {
   cursor: move;
 }
 

@@ -11,6 +11,8 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params)
     if @category.save
       #FIXME_AB: You may want to interpolate category name in the flash message. Similarly at other places
+      ## FIXME_NISH Pass notice as an option to redirect_to.
+      ## FIXME_NISH Please pass newly created category name
       flash[:notice] = 'Category added Successfully'
       redirect_to admin_categories_path
     else

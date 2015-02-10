@@ -1,4 +1,8 @@
-<div class='.row'>
+<div class='row'>
+  <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
+</div>
+<span>Apply filters and search for the business to get expected results set.</span>
+<div class='.row bottom-padding-10'>
   <%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
     <div class='col-sm-2'>
       <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
@@ -25,10 +29,6 @@
     </div>
     <%= f.submit hidden:true %>
   <% end %>
-</div>
-
-<div class='row'>
-  <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
 </div>
 
 <table class="table table-striped">

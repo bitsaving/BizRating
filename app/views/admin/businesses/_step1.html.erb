@@ -83,7 +83,8 @@
     <div class="control-group field form-group <%= add_error_class :'address.area' %>">
       <%= label_tag 'Area', nil,class: 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= text_field_tag 'Area', @business.address.area, :class => 'form-control' %>
+        <%= text_field_tag 'Area', @business.address.area, :class => 'form-control', placeholder: 'Please select country first, to get suggestions' %>
       </div>
     </div>
   <% end %>
+

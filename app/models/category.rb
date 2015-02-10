@@ -12,14 +12,15 @@ class Category < ActiveRecord::Base
 
   validates_attachment :image, presence: true,
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
-    size: { less_than: 2.megabyte }
+    size: { less_than: 2.megabytes }
 
   before_validation :set_position, on: :create
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   def set_status(status)
-    self.status = (status == 'true')
-    save
+    ## FIXME_NISH Fix this.
+    ## FIXED
+    update(status: (status == 'true'))
   end
 
   private

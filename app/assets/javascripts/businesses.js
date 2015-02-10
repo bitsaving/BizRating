@@ -5,7 +5,7 @@ function Business (input) {
   this.searchForm = input.searchForm;
   this.autoCompleteField = input.autoCompleteField;
   this.countryField = input.countryField;
-  this.countryCode = 'in';
+  this.countryCode = null;
 }
 
 Business.prototype.initialize = function() {
@@ -66,6 +66,7 @@ Business.prototype.bindFormEvents = function() {
 Business.prototype.updateAutoComplete = function() {
   var _this = this;
   this.setCountryValue();
+  this.autoCompleteField.attr('placeholder', 'Enter a Place');
   this.completeArea = new google.maps.places.Autocomplete(this.autoCompleteField[0], {
     types: ['address'], componentRestrictions: { country: this.countryCode }
   });

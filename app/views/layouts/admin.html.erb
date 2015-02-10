@@ -39,33 +39,32 @@
   <body>
 
   <nav class="navbar navbar-inverse width">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand text-width-15 top-pad" href="/admin/businesses">Biz-Rating<sub>admin</sub></a>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand text-width-15 top-pad" href="/admin/businesses">Biz-Rating<sub>admin</sub></a>
+      </div>
+
+      <div class="collapse navbar-collapse top-pad">
+        <% if user_signed_in? %>
+        <ul class="nav navbar-nav navbar-right top-pad">
+          <li><a><%= current_user.name %> </a></li>
+          <li> <%= link_to "LogOut", :destroy_user_session, method: :delete %>
+          </li>
+        </ul>
+        <% end %>
+      </div>
     </div>
+  </nav>
 
-    <div class="collapse navbar-collapse top-pad">
-      <% if user_signed_in? %>
-      <ul class="nav navbar-nav navbar-right top-pad">
-        <li><a><%= current_user.name %> </a></li>
-        <li> <%= link_to "LogOut", :destroy_user_session, method: :delete %>
-        </li>
-      </ul>
-          <% end %>
-    </div>
-  </div>
+  <%= bootstrap_flash %>
 
-</nav>
-
-    <%= bootstrap_flash %>
-
-  <div class='navigation'>
+  <div class='navigation' id='wrap'>
     <% if user_signed_in? %>
       <ul class="nav nav-tabs">
         <li role="presentation" class="<%= add_class('businesses') %>">
@@ -83,8 +82,10 @@
     <div class="container-fluid" id='content'>
       <%= yield %>
     </div>
-  </div> <!-- /container -->
+  </div>
 
-
+  <footer class="footer navbar-fixed-bottom navbar-inverse">
+      <a class="navbar-brand" href="/admin/businesses">Biz-Rating<sub>admin</sub></a>
+  </footer>
   </body>
 </html>

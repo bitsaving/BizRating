@@ -1,3 +1,7 @@
 div.navigation {
   padding: 0px 100px;
 }
+
+#content {
+  padding-bottom: 50px;
+}

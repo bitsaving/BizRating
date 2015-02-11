@@ -1,9 +1,12 @@
 function Category (input) {
   this.categoryList = input.categoryList;
   this.statusLink = input.statusLink;
+  this.updateStatusUrl = input.updateStatusUrl;
+  this.updatePositionUrl = input.updatePositionUrl;
 }
 
 Category.prototype.initialize = function() {
+  $('#loader').hide();
   this.addStatus();
   this.bindEvents();
 };
@@ -20,16 +23,22 @@ Category.prototype.bindEvents = function() {
 };
 
 Category.prototype.bindSortableEvents = function() {
+  var _this = this;
   this.categoryList.sortable({
     revert: false,
     handle: '.sort',
     stop: function() {
       $.ajax({
-        url: "categories/update_position",
+        url: _this.updatePositionUrl,
         dataType: 'json',
         type: 'patch',
         data: {position : $(this).sortable("toArray")},
-        success: function() { },
+        beforeSend: function() {
+          $('#loader').show();
+        },
+        complete: function(){
+          $('#loader').hide();
+        },
         error: function() {
           alert('failed to update');
         }
@@ -39,6 +48,7 @@ Category.prototype.bindSortableEvents = function() {
 };
 
 Category.prototype.bindStatusEvent = function() {
+  var _that = this;
   this.statusLink.on('click', function(e) {
     e.preventDefault();
     var linkdata = $(this).data(),
@@ -46,7 +56,7 @@ Category.prototype.bindStatusEvent = function() {
   confirmText = 'Do you want to' + (linkdata['categoryStatus'] ? ' enable ' : ' disable ') + linkdata['categoryName'] + " ?";
   if (confirm(confirmText)) {
     $.ajax({
-        url: "categories/update_status",
+        url: _that.updateStatusUrl,
         dataType: 'json',
         type: 'patch',
         data: linkdata,
@@ -66,7 +76,9 @@ Category.prototype.bindStatusEvent = function() {
 $(function(){
   var input = {
     categoryList : $('tbody.sortable'),
-    statusLink : $('td.btn-just a:nth-child(2)')
+    statusLink : $('td.btn-just a:nth-child(2)'),
+    updateStatusUrl : "categories/update_status",
+    updatePositionUrl : "categories/update_position"
   },
   category = new Category(input);
   category.initialize();

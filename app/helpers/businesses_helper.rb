@@ -8,9 +8,11 @@ module BusinessesHelper
   end
 
   #FIXME_AB: method returning boolean value. should be ? method
-  def day_checked(day, object)
-    #FIXME_AB: use object.persisted? 
-    ((!object.new_record?) && (object.days.include? day.to_s))
+  #FIXED
+  def day_checked?(day, object)
+    #FIXME_AB: use object.persisted?
+    #FIXED
+    ((object.persisted?) && (object.days.include? day.to_s))
   end
 
 end

@@ -13,11 +13,11 @@ class Admin::CategoriesController < Admin::BaseController
       #FIXME_AB: You may want to interpolate category name in the flash message. Similarly at other places
       ## FIXME_NISH Pass notice as an option to redirect_to.
       ## FIXME_NISH Please pass newly created category name
-      flash[:notice] = 'Category added Successfully'
-      redirect_to admin_categories_path
+      ## FIXED
+      redirect_to admin_categories_path, notice: 'Category #{ @category.name } added Successfully'
     else
       #FIXME_AB: Prefer symbol over string render :new
-      render 'new'
+      render :new
     end
   end
 

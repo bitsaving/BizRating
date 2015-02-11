@@ -29,29 +29,29 @@
       <div class=" control-group field form-group <%= add_error_class :'time_slots:days' %>">
         <div class="controls col-sm-6 col-sm-offset-3">
           <label>
-          <%= t.check_box :days, {multiple: true, checked: day_checked(0, t.object) }, 0, nil %>
+          <%= t.check_box :days, {multiple: true, checked: day_checked?(0, t.object) }, 0, nil %>
           Sunday
           </label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3">
           <label>
-            <%= t.check_box :days, {multiple: true, checked: day_checked(1, t.object) }, 1, nil %>Monday
+            <%= t.check_box :days, {multiple: true, checked: day_checked?(1, t.object) }, 1, nil %>Monday
           </label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true, checked: day_checked(2, t.object) }, 2, nil %>Tuesday</label>
+          <%= t.check_box :days, {multiple: true, checked: day_checked?(2, t.object) }, 2, nil %>Tuesday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true, checked: day_checked(3, t.object)}, 3, nil %>Wednessday</label>
+          <%= t.check_box :days, {multiple: true, checked: day_checked?(3, t.object)}, 3, nil %>Wednessday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true, checked: day_checked(4, t.object) }, 4, nil %>Thrusday</label>
+          <%= t.check_box :days, {multiple: true, checked: day_checked?(4, t.object) }, 4, nil %>Thrusday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, {multiple: true, checked: day_checked(5, t.object) }, 5, nil %>Friday</label>
+          <%= t.check_box :days, {multiple: true, checked: day_checked?(5, t.object) }, 5, nil %>Friday</label>
         </div>
         <div class="controls col-sm-6 col-sm-offset-3"><label>
-          <%= t.check_box :days, { multiple: true, checked: day_checked(6, t.object) }, 6, nil %>Saturday</label>
+          <%= t.check_box :days, { multiple: true, checked: day_checked?(6, t.object) }, 6, nil %>Saturday</label>
         </div>
       <span><%= @business.errors.full_messages.to_sentence unless t.object.persisted? && t.object.valid? %></span>
       </div>

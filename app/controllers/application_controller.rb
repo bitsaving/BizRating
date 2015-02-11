@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  #FIXME_AB: This method is devise specific so should be name something similar. Ex; device_signup_params 
+  #FIXME_AB: This method is devise specific so should be name something similar. Ex; device_signup_params
     def update_sanitized_params
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name) }
     end

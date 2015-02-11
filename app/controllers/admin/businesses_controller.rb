@@ -22,21 +22,24 @@ class Admin::BusinessesController < Admin::BaseController
   def create
     @business = Business.new(business_params)
     if @business.save
-      redirect_to step2_admin_business_path(@business), notice: 'Business Created'
+      redirect_to step2_admin_business_path(@business), notice: 'Business  #{ @business.name } Created'
     else
       #FIXME_AB: we are not displaying this alert anywhere
-      render :new, alert: @business.errors.full_messages.to_sentence
+      # FIXED
+      render :new
     end
   end
 
   def update
     if @business.update(business_params)
       #FIXME_AB: no messages shown when form saved successfully
+      #FIXED
       #FIXME_AB: I think after the last step I should be redirected to the list page with message.
       redirect_to ["step#{ params[:step] }",:admin, @business], notice: 'Details successfully updated'
     else
       #FIXME_AB: Following alert message was never displayed
-      render :edit, alert: @business.errors.full_messages.to_sentence
+      #FIXED
+      render :edit
     end
   end
 
@@ -68,7 +71,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def business_params
-      #FIXME_AB: I think :id should not be allowed for mass assignment. 
+      #FIXME_AB: I think :id should not be allowed for mass assignment.
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence, :workflow_event,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy],

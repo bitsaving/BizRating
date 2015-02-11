@@ -76,6 +76,9 @@
         <%= l.select(:state, [@business.address[:state]], {include_blank: 'State'}, :class => 'form-control') %>
       </div>
     <span><%= @business.errors['address.state'].to_sentence %></span>
+    <span id='loader' class='col-sm-1 col-sm-offset-5'>
+    <%= image_tag 'ajax-loader.gif' %>
+  </span>
     </div>
 
     <%= l.hidden_field :area%>

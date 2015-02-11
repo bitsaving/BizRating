@@ -90,4 +90,8 @@ class Business < ActiveRecord::Base
     save
   end
 
+  def address_sentence
+    [address.city, address.state, address.country].join(', ')
+  end
+
 end

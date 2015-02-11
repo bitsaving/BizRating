@@ -68,15 +68,15 @@
             <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Account <span class="caret"></span></a> -->
             <!-- <ul class="dropdown-menu" role="menu"> -->
               <%# if user_signed_in? %>
-            <li><%= link_to "LogOut", :destroy_user_session, method: :delete %></li>
+        <li><%= link_to "LogOut", :destroy_user_session, method: :delete %></li>
               <%# else %>
                 <!-- <li><%#= link_to "Log In", :new_user_session %></li> -->
                 <!-- <li><%#= link_to "Sign Up", :new_user_registration %></li> -->
                 <%# end %>
             <!-- </ul> -->
           <!-- </li> -->
-        </ul>
       <% end %>
+      </ul>
     </div>
   </div>
 </nav>
@@ -95,28 +95,28 @@
         <% resource ||= User.new %>
         <%= form_for(resource, as: :user, url: registration_path(:user), html: {class: 'form-horizontal'}) do |f| %>
           <div class="field form-group">
-            <%= f.label :email, class: 'control-label col-sm-3' %>
-            <div class="col-sm-6">
+            <%= f.label :email, 'Email*', class: 'control-label col-sm-4' %>
+            <div class="col-sm-7">
             <%= f.email_field :email, class: 'form-control', autofocus: true %></div>
           </div>
 
           <div class="field form-group">
-            <%= f.label :name, class: 'control-label col-sm-3' %>
-            <div class="col-sm-6">
+            <%= f.label :name, 'Name*', class: 'control-label col-sm-4' %>
+            <div class="col-sm-7">
             <%= f.text_field :name, class: 'form-control' %></div>
           </div>
           <div class="field form-group">
-            <%= f.label :password, class: 'control-label col-sm-3' %>
+            <%= f.label :password, 'Password*', class: 'control-label col-sm-4' %>
             <% if @validatable %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
             <% end %>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
             <%= f.password_field :password, autocomplete: "off", class: 'form-control' %></div>
           </div>
 
           <div class="field form-group">
-            <%= f.label :password_confirmation,  'Retype Password', class: 'control-label col-sm-3  ' %>
-            <div class="col-sm-6">
+            <%= f.label :password_confirmation,  'Retype Password*', class: 'control-label col-sm-4' %>
+            <div class="col-sm-7">
             <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %></div>
           </div>
 
@@ -145,15 +145,15 @@
             <%#= devise_error_messages! %>
 
           <div class="field form-group">
-            <%= f.label :email, class: 'control-label col-sm-3' %>
-            <div class="col-sm-6">
+            <%= f.label :email, 'Email*',class: 'control-label col-sm-3' %>
+            <div class="col-sm-7">
               <%= f.email_field :email, class: 'form-control', autofocus: true %>
             </div>
           </div>
 
           <div class="field form-group">
-            <%= f.label :password, class: 'control-label col-sm-3' %>
-            <div class="col-sm-6">
+            <%= f.label :password, 'Password*',class: 'control-label col-sm-3' %>
+            <div class="col-sm-7">
               <%= f.password_field :password, autocomplete: "off", class: 'form-control' %></div>
           </div>
           <div class="actions modal-footer">
@@ -166,6 +166,11 @@
   </div>
 </div>
   <%= bootstrap_flash %>
-  <%= yield %>
+<div class="container-fluid" id='content'>
+      <%= yield %>
+    </div>
+  <footer class="footer navbar-fixed-bottom navbar-inverse">
+    <a class="navbar-brand" href="/">Biz-Rating</a>
+  </footer>
   </body>
 </html>

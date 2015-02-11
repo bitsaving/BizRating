@@ -1,4 +1,8 @@
-<div class='.row'>
+<div class='row'>
+  <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
+</div>
+<span>Apply filters and search for the business to get expected results set.</span>
+<div class='.row bottom-padding-10'>
   <%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
     <div class='col-sm-2'>
       <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
@@ -27,10 +31,6 @@
   <% end %>
 </div>
 
-<div class='row'>
-  <%= link_to 'New Business', new_admin_business_path, class: 'btn btn-primary add-business' %>
-</div>
-
 <table class="table table-striped">
   <tbody class="sortable">
     <% @businesses.each do |business| %>
@@ -51,17 +51,3 @@
 <%= paginate @businesses %>
 <%= 'There are no businesses available'  if @businesses.length == 0 %>
 <% content_for :head do javascript_include_tag :businesses end %>
-
-
-<div class="btn-group">
-  <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-  <ul class="dropdown-menu">
-    <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
-    <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
-    <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
-    <li class="divider"></li>
-    <li><a href="#"><i class="i"></i> Make admin</a></li>
-  </ul>
-</div>
-<span class='glyphicon glyphicon-search'></span>

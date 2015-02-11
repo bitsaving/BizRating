@@ -16,6 +16,8 @@ class Category < ActiveRecord::Base
 
   before_validation :set_position, on: :create
 
+  scope :enabled, -> { where status: true }
+
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   def set_status(status)
     ## FIXME_NISH Fix this.

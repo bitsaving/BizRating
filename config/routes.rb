@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   end
 
   resources :home, only: :index
+  resources :businesses, only: :show
+  resources :categories, only: :show
 
   namespace :admin do
     resources :categories, only: [:index, :update, :create] do

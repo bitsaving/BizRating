@@ -55,6 +55,9 @@ class Business < ActiveRecord::Base
     end
   end
 
+  scope :enabled, -> { where status: true }
+  scope :category_enabled , -> { includes(:category).where(categories: { status: true }) }
+
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence

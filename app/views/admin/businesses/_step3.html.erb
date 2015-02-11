@@ -53,7 +53,7 @@
         <div class="controls col-sm-6 col-sm-offset-3"><label>
           <%= t.check_box :days, { multiple: true, checked: day_checked(6, t.object) }, 6, nil %>Saturday</label>
         </div>
-      <span><%= @business.errors.full_messages.to_sentence unless t.object.persisted? && t.object.valid? %></span>
+      <span class='error'><%= @business.errors.full_messages.to_sentence unless t.object.persisted? && t.object.valid? %></span>
       </div>
     <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <%end%>

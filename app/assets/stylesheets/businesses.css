@@ -28,3 +28,7 @@ input[type="radio"] {
 input[type="radio"]:checked + label {
   color: red;
 }
+
+.error {
+  color: red;
+}

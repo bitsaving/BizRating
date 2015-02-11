@@ -14,7 +14,7 @@ class TimeSlot < ActiveRecord::Base
   validate :to_is_less_than_from_time
 
   def to_is_less_than_from_time
-    errors.add(:timimgs, "From Time can't be less than OR equal to To Time") if to <= from
+    (errors.add(:base, "From Time can't be less than OR equal to To Time")) if to <= from
   end
 
 end

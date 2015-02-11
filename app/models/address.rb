@@ -10,4 +10,9 @@ class Address < ActiveRecord::Base
   ## FIXME_NISH Move this Regex in a constants.
   validates :pin_code, format: { with: /\A\d+\z/ }, allow_blank: true
 
+
+  def full_address
+    [city, state, country].join(', ')
+  end
+
 end

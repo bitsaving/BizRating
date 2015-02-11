@@ -91,4 +91,8 @@ class Business < ActiveRecord::Base
     update(status: status == 'true')
   end
 
+  def address_sentence
+    [address.city, address.state, address.country].join(', ')
+  end
+
 end

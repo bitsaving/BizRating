@@ -60,7 +60,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def search_params
-      params[:q].nil? ? { workflow_state_eq: 'New' } : params[:q]
+      params[:q].nil? ? { workflow_state_eq: 'new' } : params[:q]
     end
 
     def load_states

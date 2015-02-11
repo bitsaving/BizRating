@@ -56,7 +56,7 @@ class Business < ActiveRecord::Base
   end
 
   scope :enabled, -> { where status: true }
-  scope :category_enabled , -> { includes(:category).where(categories: { status: true }) }
+  scope :category_enabled , -> { joins(:category).merge(Category.enabled) }
 
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?

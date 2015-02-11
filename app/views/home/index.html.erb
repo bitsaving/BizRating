@@ -1,7 +1,7 @@
 <p class='center text-size'>Search a business by category to view or post reviews about it</p>
 
 <div class='tag-area img-rounded' >
-  <% Category.order(:position).each do |category| %>
+  <% Category.order(:position).enabled.each do |category| %>
     <span class='badge alert-info tag'>
       <%= image_tag category.image.url(:thumb), size: "50x23" %>
       <span class='text-color'><%= category.name%></span>

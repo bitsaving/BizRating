@@ -68,7 +68,7 @@ class Admin::BusinessesController < Admin::BaseController
     end
 
     def business_params
-      #FIXME_AB: I think :id should not be allowed for mass assignment. 
+      #FIXME_AB: I think :id should not be allowed for mass assignment.
       params.require(:business).permit(:name, :owner_name, :description, :year_of_establishment, :category_id, :keywords_sentence, :workflow_event,
         address_attributes: [:street, :state, :city, :landmark, :country, :pin_code, :building, :area, :id],
         website_attributes: [:info, :id], emails_attributes: [:info, :id, :_destroy],

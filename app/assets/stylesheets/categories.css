@@ -14,3 +14,37 @@ button.add-category {
 .top-pad-10 {
   padding-top: 10px;
 }
+
+.table > div.row:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table > div.row {
+  border-top: 1px solid lightgrey;
+  height: 58px;
+}
+
+.table > div.row:hover {
+  background-color: #d9d9d9;
+}
+
+.height-40 {
+  height: 40px;
+}
+
+#business-name {
+  font-size: 25px;
+  padding: 0px 5px;
+  background-color: whitesmoke;
+  font-weight: normal;
+  height: 38px;
+  display: inline-block;
+}
+
+#business-tag {
+  padding: 0px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 15px;
+}

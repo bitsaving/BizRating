@@ -43,7 +43,7 @@
           <%=link_to image_tag('marker.jpg'), "http://maps.google.com/?" + business.address.area.to_query('q'), :target => "_blank" %>
         <%= business.address.area.humanize %>
         <% else %>
-          <%= business.address_sentence %>
+          <%= business.full_address %>
         <% end %>
       </td>
       <td class="col-sm-offset-3 col-sm-1">

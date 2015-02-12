@@ -28,6 +28,8 @@ class Business < ActiveRecord::Base
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
+  delegate :full_address, to: :address
+
   #FIXME_AB: include statements should be on top
   include Workflow
   workflow do
@@ -90,8 +92,5 @@ class Business < ActiveRecord::Base
     save
   end
 
-  def address_sentence
-    [address.city, address.state, address.country].join(', ')
-  end
 
 end

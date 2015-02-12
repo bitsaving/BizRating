@@ -11,7 +11,11 @@ class Address < ActiveRecord::Base
   validates :pin_code, format: { with: /\A\d+\z/ }, allow_blank: true
 
 
-  def full_address
+  def sentence
+    [street, building, landmark].select { |information| information.present? }.join(', ') + ',' + city_state_country
+  end
+
+  def city_state_country
     [city, state, country].join(', ')
   end
 

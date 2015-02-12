@@ -17,4 +17,8 @@ class TimeSlot < ActiveRecord::Base
     errors.add(:timimgs, "From Time can't be less than OR equal to To Time") if to <= from
   end
 
+  def week_days
+    WEEK_DAYS.values_at(*days.map { |x| x.to_i }).to_sentence
+  end
+
 end

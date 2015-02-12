@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
   private
 
     def load_category
-      @category = Category.includes(:businesses).find_by(id: params[:id])
+      @category = Category.find_by(id: params[:id])
     end
 
 end

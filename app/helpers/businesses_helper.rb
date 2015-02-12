@@ -13,4 +13,8 @@ module BusinessesHelper
     ((!object.new_record?) && (object.days.include? day.to_s))
   end
 
+  def active_class(index)
+    index == 0 ? 'active' : ''
+  end
+
 end

@@ -10,4 +10,13 @@ class Address < ActiveRecord::Base
   ## FIXME_NISH Move this Regex in a constants.
   validates :pin_code, format: { with: /\A\d+\z/ }, allow_blank: true
 
+
+  def sentence
+    [street, building, landmark].select { |information| information.present? }.join(', ') + ',' + city_state_country
+  end
+
+  def city_state_country
+    [city, state, country].join(', ')
+  end
+
 end

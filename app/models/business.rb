@@ -28,7 +28,8 @@ class Business < ActiveRecord::Base
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
-  delegate :full_address, to: :address
+  delegate :sentence, to: :address, prefix: true
+  delegate :city_state_country, to: :address, prefix: true
 
   #FIXME_AB: include statements should be on top
   include Workflow
@@ -92,5 +93,12 @@ class Business < ActiveRecord::Base
     save
   end
 
+  def all_emails
+    emails.pluck(:info).join(',')
+  end
+
+  def all_phone_numbers
+    phone_numbers.pluck(:info).join(' ,')
+  end
 
 end

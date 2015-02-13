@@ -25,9 +25,15 @@
             </div>
           <% end %>
           <div class="carousel-inner">
-            <% @business.images.each_with_index do |img, i| %>
-              <div class="item <%= active_class(i) %>">
-                <%= image_tag img.image.url, id: 'cimg' %>
+            <% if @business.images.exists? %>
+              <% @business.images.each_with_index do |img, i| %>
+                <div class="item <%= active_class(i) %>">
+                  <%= image_tag img.image.url, id: 'cimg' %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="item active">
+                <%= image_tag 'missing.png', id: 'cimg' %>
               </div>
             <% end %>
           </div>
@@ -117,7 +123,6 @@
           </div>
           <div class='col-sm-10 text-height-20'>
             <%= @business.all_emails %>
-            <% debugger %>
           </div>
         <% end %>
       </div>

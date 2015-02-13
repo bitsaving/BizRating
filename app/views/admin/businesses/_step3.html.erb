@@ -9,7 +9,7 @@
   <div class="control-group field form-group">
     <%= f.label :keywords, 'keyword', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
-      <%= f.autocomplete_field :keywords_sentence, autocomplete_keyword_name_admin_businesses_path,'data-delimiter' => ',', multiple: true, value: @business.keywords.pluck(:name).join(',').concat(','), name: 'business[keywords_sentence]',class: 'form-control' %>
+      <%= f.autocomplete_field :keywords_sentence, autocomplete_keyword_name_admin_businesses_path,'data-delimiter' => ', ', multiple: true, value: @business.keywords.pluck(:name).join(', '), name: 'business[keywords_sentence]',class: 'form-control' %>
     </div>
   </div>
 
@@ -53,7 +53,7 @@
         <div class="controls col-sm-6 col-sm-offset-3"><label>
           <%= t.check_box :days, { multiple: true, checked: day_checked(6, t.object) }, 6, nil %>Saturday</label>
         </div>
-      <span><%= @business.errors.full_messages.to_sentence unless t.object.persisted? && t.object.valid? %></span>
+      <span class='error'><%= @business.errors.full_messages.to_sentence unless t.object.persisted? && t.object.valid? %></span>
       </div>
     <%= t.link_to_remove "Remove", class: 'col-sm-offset-3' %>
   <% end %>

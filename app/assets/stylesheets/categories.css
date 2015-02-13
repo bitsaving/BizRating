@@ -21,7 +21,7 @@ button.add-category {
 
 .table > div.row {
   border-top: 1px solid lightgrey;
-  height: 58px;
+  min-height: 58px;
 }
 
 .table > div.row:hover {

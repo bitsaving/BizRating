@@ -94,12 +94,12 @@ class Business < ActiveRecord::Base
     update(status: status == 'true')
   end
 
-  def all_emails
-    emails.pluck(:info).join(',')
+  def emails_sentence
+    emails.pluck(:info).join(', ')
   end
 
-  def all_phone_numbers
-    phone_numbers.pluck(:info).join(' ,')
+  def phone_numbers_sentence
+    phone_numbers.pluck(:info).join(', ')
   end
 
 end

@@ -1,5 +1,5 @@
 <div class='row height-40'>
-  <span class='col-sm-1'><%= link_to image_tag('back.jpg'), home_index_path %></span>
+  <span class='col-sm-1 top-pad'><%= link_to image_tag('back.jpg'), home_index_path %></span>
   <div id='business-tag'>
     <%= image_tag @category.image.url(:thumb), size: '80x30' %>
     <div id= 'business-name'><%= @category.name.humanize %></div>

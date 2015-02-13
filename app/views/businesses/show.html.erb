@@ -1,5 +1,5 @@
 <div class='row height-40'>
-  <span class='col-sm-1'><%= link_to image_tag('back.jpg'), category_path(@business.category) %></span>
+  <span class='col-sm-1 top-pad'><%= link_to image_tag('back.jpg'), category_path(@business.category) %></span>
   <div id='business-tag'>
     <%= image_tag @business.category.image.url(:thumb), size: '80x30' %>
     <div id= 'business-name'><%= @business.category.name.humanize %></div>
@@ -8,11 +8,9 @@
 
 <div class='container col-sm-10 col-sm-offset-1 top-pad-50'>
   <div class='row top-pad'>
-    <div id='business-tag'>
       <span class='h1'>
         <%= @business.name.humanize %>
       </span>
-    </div>
   </div>
 
   <div class='jumbotron'>
@@ -38,8 +36,10 @@
             <% end %>
           </div>
           <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"><</span>
           </a>
           <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">></span>
           </a>
         </div>
       </div>
@@ -61,14 +61,14 @@
           <% if @business.phone_numbers.exists? %>
             <div class='row top-pad'>
               <span class='col-sm-2'><%= image_tag 'phone.jpg' %></span>
-              <span class='col-sm-10 text-height-20'><%= @business.all_phone_numbers %></span>
+              <span class='col-sm-10 text-height-20'><%= @business.phone_numbers_sentence %></span>
             </div>
           <% end %>
           <div class='row top-pad'>
             <div class='row'>
-              <span class='col-sm-4  col-sm-offset-4 text-height-20'>Rating</span>
+              <span class='col-sm-4  col-sm-offset-1 text-height-23'>Rating</span>
             </div>
-            <div class='col-sm-4 col-sm-offset-4 text text-height-20'>★★★★★</div></span>
+            <div class='col-sm-4 col-sm-offset-1 text text-height-20'>★★★★★</div></span>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@
 
   <% if @business.time_slots.exists? %>
   <div>
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Working Hours</span>
+  <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Working Hours</span>
   <div class='jumbotron table expandable'>
     <% @business.time_slots.each do |time_slot| %>
       <div class='row'>
@@ -85,7 +85,7 @@
           <%= time_slot.week_days %>
         </div>
         <div class='col-sm-6 text-height-20'>
-          <%= time_slot.from.to_s(:time) %> TO <%= time_slot.to.to_s(:time) %>
+          <%= time_slot.from.strftime('%l:%M %P') %> TO <%= time_slot.to.strftime('%l:%M %P') %>
         </div>
       </div>
     <% end %>
@@ -95,7 +95,7 @@
 
   <% if @business.description.present? %>
     <div>
-      <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Description</span>
+      <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Description</span>
       <div class='jumbotron text-height-20 expandable'>
         <%= @business.description %>
       </div>
@@ -104,7 +104,7 @@
 
   <% if @business.website.present? && @business.emails.exists? %>
     <div>
-    <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Online Presence</span>
+    <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Online Presence</span>
     <div class='jumbotron expandable'>
       <div class='row'>
         <% if @business.website.present? %>
@@ -112,7 +112,7 @@
             <%= image_tag 'website.jpg' %>
           </div>
           <div class='col-sm-10 text-height-20'>
-            <%= link_to @business.website.info, @business.website.info %>
+            <%= link_to @business.website.info, url_with_protocol(@business.website.info), target: '_blank' %>
           </div>
         <% end %>
       </div>
@@ -122,7 +122,7 @@
             <%= image_tag 'email.jpg' %>
           </div>
           <div class='col-sm-10 text-height-20'>
-            <%= @business.all_emails %>
+            <%= @business.emails_sentence %>
           </div>
         <% end %>
       </div>
@@ -130,7 +130,7 @@
     </div>
   <% end %>
 
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Rate & Review </span>
+  <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
   </div>
 

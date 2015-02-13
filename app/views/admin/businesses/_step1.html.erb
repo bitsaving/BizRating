@@ -17,7 +17,7 @@
     <%= f.label :category_id, 'Category*', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
       <% #FIXME_AB: Why all categories, we should have all enabled categories only -%>
-      <%= f.collection_select(:category_id, Category.all, :id, :name, { include_blank: 'Select Category' }, class: 'form-control') %>
+      <%= f.collection_select(:category_id, Category.all.enabled, :id, :name, { include_blank: 'Select Category' }, class: 'form-control') %>
     </div>
     <span><%= @business.errors[:category].to_sentence %></span>
 

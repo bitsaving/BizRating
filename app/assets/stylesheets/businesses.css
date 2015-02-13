@@ -92,3 +92,8 @@ div.item {
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
+
+div.arrow {
+  vertical-align: center;
+  padding-top: 110px;
+}

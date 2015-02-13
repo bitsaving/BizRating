@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :load_category, only: :show
 
   def show
-    @businesses = @category.businesses.with_published_state.enabled.page(params[:page]).per(15)
+    @businesses = @category.businesses.with_published_state.enabled.order(:created_at).page(params[:page]).per(15)
   end
 
   private

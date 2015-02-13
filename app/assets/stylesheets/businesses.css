@@ -42,12 +42,32 @@ input[type="radio"]:checked + label {
   font-size: 20px;
 }
 
-.carousel.slide{
-  min-height: 200px;
+.carousel.slide, .carousel-inner{
+  height: 200px;
 }
 
-.item img {
-  display: block;
+div.item {
+  vertical-align: middle;
+}
+
+#cimg {
   margin-left: auto;
   margin-right: auto;
+  margin: auto;
+  height: 200px;
+}
+
+#establishment {
+  position: absolute;
+  z-index: 2;
+  top: 25px;
+  left: 0px;
+  color: #3399FF;
+}
+
+.rotate {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }

@@ -19,34 +19,23 @@
     <div class='row'>
       <div class='col-sm-5'>
         <div id="carousel" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-         <!--  <ol class="carousel-indicators">
-            <li data-target="#carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel" data-slide-to="1"></li>
-            <li data-target="#carousel" data-slide-to="2"></li>
-          </ol> -->
-          <!-- Wrapper for slides -->
+          <% if @business.year_of_establishment %>
+            <div id='establishment'>
+              <p class='rotate'>Since <%= @business.year_of_establishment %></p>
+            </div>
+          <% end %>
           <div class="carousel-inner">
-            <!-- <div class="item active"> -->
-              <!-- <img src="http://placehold.it/1200x315" alt="..."> -->
-              <!-- <div class="carousel-caption"> -->
-                  <!-- <h3>Caption Text</h3> -->
-              <!-- </div> -->
-            <!-- </div> -->
             <% @business.images.each_with_index do |img, i| %>
               <div class="item <%= active_class(i) %>">
-                <%= image_tag img.image.url, size: '150x150' %>
+                <%= image_tag img.image.url, id: 'cimg' %>
               </div>
             <% end %>
           </div>
-          <!-- Controls -->
           <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-            <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
           </a>
           <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-            <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
           </a>
-        </div> <!-- Carousel -->
+        </div>
       </div>
       <div class='col-sm-7'>
         <div class='table'>
@@ -57,16 +46,18 @@
           <% if @business.address.area.present? %>
             <div class='row top-pad'>
               <span class='col-sm-2'>
-                <%=link_to image_tag('marker.jpg'), "http://maps.google.com/?" + @business.address.area.to_query('q'), :target => "_blank" %></span>
+                <%=link_to image_tag('marker1.jpg'), "http://maps.google.com/?" + @business.address.area.to_query('q'), :target => "_blank" %></span>
               <span class='col-sm-10 text-height-20'>
                   <%= @business.address.area %>
               </span>
             </div>
           <% end %>
-          <div class='row top-pad'>
-            <span class='col-sm-2'><%= image_tag 'phone.jpg' %></span>
-            <span class='col-sm-10 text-height-20'><%= @business.all_phone_numbers %></span>
-          </div>
+          <% if @business.phone_numbers.exists? %>
+            <div class='row top-pad'>
+              <span class='col-sm-2'><%= image_tag 'phone.jpg' %></span>
+              <span class='col-sm-10 text-height-20'><%= @business.all_phone_numbers %></span>
+            </div>
+          <% end %>
           <div class='row top-pad'>
             <div class='row'>
               <span class='col-sm-4  col-sm-offset-4 text-height-20'>Rating</span>
@@ -78,44 +69,66 @@
     </div>
   </div>
 
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Working Hours</span>
-  <div class='jumbotron table'>
+  <% if @business.time_slots.exists? %>
+  <div>
+  <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Working Hours</span>
+  <div class='jumbotron table expandable'>
     <% @business.time_slots.each do |time_slot| %>
       <div class='row'>
-        <div class='col-sm-5'>
-          <%= time_slot.week_days.humanize %>
+        <div class='col-sm-5 text-height-20'>
+          <%= time_slot.week_days %>
         </div>
-        <div class='col-sm-6'>
+        <div class='col-sm-6 text-height-20'>
           <%= time_slot.from.to_s(:time) %> TO <%= time_slot.to.to_s(:time) %>
         </div>
       </div>
     <% end %>
   </div>
+  </div>
+<% end %>
 
   <% if @business.description.present? %>
-    <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Description</span>
-    <div class='jumbotron'>
-      <%= @business.description %>
+    <div>
+      <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Description</span>
+      <div class='jumbotron text-height-20 expandable'>
+        <%= @business.description %>
+      </div>
     </div>
   <% end %>
 
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Online Presence</span>
-  <div class='jumbotron'>
-    <div class='row'>
-      <%= @business.website.info if @business.website.present? %>
+  <% if @business.website.present? && @business.emails.exists? %>
+    <div>
+    <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Online Presence</span>
+    <div class='jumbotron expandable'>
+      <div class='row'>
+        <% if @business.website.present? %>
+          <div class='col-sm-1'>
+            <%= image_tag 'website.jpg' %>
+          </div>
+          <div class='col-sm-10 text-height-20'>
+            <%= link_to @business.website.info, @business.website.info %>
+          </div>
+        <% end %>
+      </div>
+      <div class='row top-pad'>
+        <% if @business.emails.exists? %>
+          <div class='col-sm-1'>
+            <%= image_tag 'email.jpg' %>
+          </div>
+          <div class='col-sm-10 text-height-20'>
+            <%= @business.all_emails %>
+            <% debugger %>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <div class='row'>
-      <%= @business.all_emails if @business.emails.present? %>
     </div>
-  </div>
+  <% end %>
 
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Rate & Review </span>
+  <%= image_tag 'bullet.jpg' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
   </div>
 
 </div>
 
-<%= link_to 'af', 'localhost:3000/home/redirect?to= www.facebook.com' %>
-<div>sdvknds</div>
-<div>sdvknds</div>
-<div>sdvknds</div>
+<% content_for :head do javascript_include_tag :user_businesses end %>

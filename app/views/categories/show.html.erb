@@ -32,4 +32,5 @@
   <% end %>
 </div>
 
+<%= 'No businesses available in the category' if @businesses.blank? %>
 <%= paginate @businesses %>

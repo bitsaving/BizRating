@@ -1,9 +1,11 @@
 <p class='center text-size'>Search a business by category to view or post reviews about it</p>
 
 <div class='tag-area img-rounded' >
+  <% #FIXME_AB: As a good practice You should moe Category.order.... in controller action and use @categories.each -%>
   <% Category.order(:position).enabled.each do |category| %>
     <span class='badge alert-info tag'>
       <%= link_to category_path(category) do %>
+        <% #FIXME_AB: Do not use size in the image tag, it will distort the image. Create thumbnail for the desired size and use  -%>
         <%= image_tag category.image.url(:thumb), size: "50x23" %>
         <span class='text-color'> <%= category.name.humanize %></span>
       <% end %>

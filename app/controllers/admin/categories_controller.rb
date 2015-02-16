@@ -40,7 +40,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update_position
-    ## FIXME_NISH Please refactor this.
+    ## FIXME_NISH Please refactor this. fires too many queries
     params[:position].each_with_index do |id, index|
       Category.find_by(id: id).update_columns(position: index)
     end

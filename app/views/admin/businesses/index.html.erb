@@ -5,6 +5,7 @@
 <div class='.row bottom-padding-10'>
   <%= search_form_for @q, url: admin_businesses_path, class: 'form form-horizontal top-pad-10' do |f| %>
     <div class='col-sm-2'>
+      <% #FIXME_AB: Avoid using Models directly in views -%>
       <%= f.collection_select :address_country_eq, Address.select(:country).distinct, :country, :country, { include_blank: 'Select Country'}, class: "form-control" %>
     </div>
     <div class='col-sm-2'>
@@ -35,6 +36,7 @@
   <tbody class="sortable">
     <% @businesses.each do |business| %>
       <tr>
+        <% #FIXME_AB: Use business.images.present? to save queries
       <td class='col-sm-1'><%= image_tag business.images.first.image.url(:thumb), size: '80x30' if business.images.exists? %></td>
       <td class='col-sm-1 text'><%= business.name %></td>
       <td class='col-sm-1 text'>City: <%= business.address.city %></td>
@@ -56,5 +58,6 @@
   </tbody>
 </table>
 <%= paginate @businesses %>
+<% #FIXME_AB: use @business.empty? -%>
 <%= 'There are no businesses available'  if @businesses.length == 0 %>
 <% content_for :head do javascript_include_tag :businesses end %>

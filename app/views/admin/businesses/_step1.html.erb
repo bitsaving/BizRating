@@ -60,10 +60,10 @@
       </div>
     <span><%= @business.errors['address.city'].to_sentence %></span>
     </div>
-
     <div class="control-group field form-group <%= add_error_class :'address.country' %>">
       <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
+        <% #FIXME_AB: Why we have p x.name in the following line -%>
         <%= l.select :country, options_for_select(Carmen::Country.all.map{|x| p x.name, value: x.name, data: { code: x.alpha_2_code } }, @business.address.country ), { include_blank: 'Select Country' }, :class => 'form-control' %>
       </div>
     <span><%= @business.errors['address.country'].to_sentence %></span>

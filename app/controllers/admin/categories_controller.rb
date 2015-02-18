@@ -4,7 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     #FIXME_AB: Lets not load them here. just use  Category.order(:position). : lazy loading
-    @categories = Category.order(:position).load
+    @categories = Category.order(:position)
   end
 
   def create
@@ -17,6 +17,7 @@ class Admin::CategoriesController < Admin::BaseController
       redirect_to admin_categories_path, notice: 'Category #{ @category.name } added Successfully'
     else
       #FIXME_AB: Prefer symbol over string render :new
+      ## FIXED
       render :new
     end
   end

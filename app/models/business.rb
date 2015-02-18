@@ -17,8 +17,9 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :address, :images, allow_destroy: true
 
   #FIXME_AB: Do we really need to check both nil and empty
-
+  ## FIXED
   ##FIXME_NISH Use blank? instead of nil? || empty?
+  ## FIXED
   accepts_nested_attributes_for :time_slots, allow_destroy: true,
     reject_if: proc { |attributes| attributes[:days].blank? }
 
@@ -30,6 +31,7 @@ class Business < ActiveRecord::Base
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
   #FIXME_AB: include statements should be on top
+  ## FIXED
   workflow do
     state :new do
       event :verify, transitions_to: :in_verification
@@ -57,14 +59,13 @@ class Business < ActiveRecord::Base
 
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
+    ## FIXED
     self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence.present?
   end
 
   def fire!(event)
     ## FIXME_NISH Please check if this is a valid event or not.
-    if self.send "can_#{ event }?"
-      self.send "#{ event }!"
-    end
+    self.send "#{ event }!" if self.send "can_#{ event }?"
   end
 
   def setup(step_no: 1)

@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   has_many :business
 
   #FIXME_AB: Do you know what > sign means in the thumbnail size? if not read more about it
-  has_attached_file :image, styles: { thumb: '80x80>' },
+  has_attached_file :image, styles: { thumb: '80x80' },
       url: "/system/:class/:attachment/:id/:style/:basename.:extension"
 
   validates :name, :position, presence: true
@@ -14,7 +14,7 @@ class Category < ActiveRecord::Base
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
     size: { less_than: 2.megabytes }
 
-  before_validation :set_position, on: :create
+  before_validation :set_initial_position, on: :create
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   def set_status(status)
@@ -26,7 +26,8 @@ class Category < ActiveRecord::Base
   private
 
   #FIXME_AB: Method name does not reflect the purpose
-  def set_position
+  ## FIXED
+  def set_initial_position
     self.position = (Category.minimum(:position) || 0) - 1
   end
 

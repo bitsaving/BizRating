@@ -7,8 +7,9 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :business, required: true
 
   ## FIXME_NISH Please move this in validators.
-
+  ## FIXED
   #FIXME_AB: Need to simplify this please talk to Nishant sir
+  ## FIXED
 
   validates :days, time_slot: true
   validate :to_is_less_than_from_time

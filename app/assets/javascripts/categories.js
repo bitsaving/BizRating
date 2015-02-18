@@ -20,6 +20,15 @@ Category.prototype.addStatus = function() {
 Category.prototype.bindEvents = function() {
   this.bindSortableEvents();
   this.bindStatusEvent();
+  $('#edit_category').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget),
+      name = button.data('name'),
+      image = button.data('image'),
+      id = button.data('id');
+    $(this).find("input[type='text']").val(name);
+    $(this).find("form").attr('action', 'categories/' + id);
+    $(this).find("img").attr('src', image);
+  })
 };
 
 Category.prototype.bindSortableEvents = function() {

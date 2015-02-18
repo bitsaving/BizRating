@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :update_sanitized_params, if: :devise_controller?
+  before_action :device_signup_params, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
     if resource.admin?
@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
 
   private
   #FIXME_AB: This method is devise specific so should be name something similar. Ex; device_signup_params
-    def update_sanitized_params
+  ## FIXED
+    def device_signup_params
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name) }
     end
 end

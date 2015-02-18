@@ -1,5 +1,5 @@
 class Email < Contact
 
-  validates :info, format: Devise.email_regexp, allow_blank: true
+  validates :info, format: {with: Devise.email_regexp, message: 'is not a email type'}, allow_blank: true
 
 end

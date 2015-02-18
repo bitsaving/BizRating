@@ -60,14 +60,33 @@ Business.prototype.bindFormEvents = function() {
         $('#loader').hide();
       },
       success: function (data) {
-        var options = [], option = null;
-        $.each(data, function(index, value) {
-          option = $('<option>', {
-            value: value
-          }).text(value);
-          options.push(option)
-        });
-        $('#business_address_attributes_state').empty().append(options);
+        var options = [], option = null,
+          selectField = $('#business_address_attributes_state');
+        if (data.length == 0) {
+          var inputField = $('<input>', {
+            name: selectField.attr('name'),
+            type: 'text',
+            class: selectField.attr('class'),
+            id: selectField.attr('id')
+          });
+          selectField.replaceWith(inputField);
+        } else {
+          $.each(data, function(index, value) {
+            option = $('<option>', {
+              value: value
+            }).text(value);
+            options.push(option)
+          });
+          options.unshift($('<option>').text('Select State'));
+          var newSelectField = $('<select>', {
+            name: selectField.attr('name'),
+            type: 'text',
+            class: selectField.attr('class'),
+            id: selectField.attr('id')
+          });
+          newSelectField.append(options);
+          selectField.replaceWith(newSelectField);
+        }
       },
     });
     _this.updateAutoComplete();

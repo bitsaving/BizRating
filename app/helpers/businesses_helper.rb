@@ -22,4 +22,17 @@ module BusinessesHelper
   def url_with_protocol(url)
     /^http/i.match(url) ? url : "http://#{url}"
   end
+
+  def current_step(business)
+    [step(params[:step]), :admin, business]
+  end
+
+  def previous_step(business)
+    [step(params[:step] - 1), :admin, business]
+  end
+
+  def next_step(business)
+    [step(params[:step] + 1), :admin, business]
+  end
+
 end

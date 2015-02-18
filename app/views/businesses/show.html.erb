@@ -26,7 +26,7 @@
           <% end %>
           <div class="carousel-inner">
             <% #FIXME_AB: Since we have egarloaded images, use .present. .exists? fires an extra query to check images. Similarly for other places -%>
-            <% if @business.images.exists? %>
+            <% if @business.images.present? %>
               <% @business.images.each_with_index do |img, i| %>
                 <div class="item <%= active_class(i) %>">
                   <%= image_tag img.image.url, id: 'cimg' %>
@@ -56,7 +56,7 @@
             <div class='row top-pad'>
               <span class='col-sm-2'>
                 <% #FIXME_AB: Make a helper for this. -%>
-                <%=link_to image_tag('marker1.jpg'), "http://maps.google.com/?" + @business.address.area.to_query('q'), :target => "_blank" %></span>
+                <%=link_to image_tag('marker1.jpg'), google_map_url(@business), :target => "_blank" %></span>
               <span class='col-sm-10 text-height-20'>
                   <%= @business.address.area %>
               </span>
@@ -90,7 +90,7 @@
         </div>
         <div class='col-sm-6 text-height-20'>
           <% #FIXME_AB: Don't repeat time format use http://api.rubyonrails.org/classes/DateTime.html#method-i-to_formatted_s -%>
-          <%= time_slot.from.strftime('%l:%M %P') %> TO <%= time_slot.to.strftime('%l:%M %P') %>
+          <%= time_slot.from.to_formatted_s(:timmings) %> TO <%= time_slot.to.to_formatted_s(:timmings) %>
         </div>
       </div>
     <% end %>

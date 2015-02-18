@@ -2,7 +2,7 @@
 
 <div class='tag-area img-rounded' >
   <% #FIXME_AB: As a good practice You should moe Category.order.... in controller action and use @categories.each -%>
-  <% Category.order(:position).enabled.each do |category| %>
+  <% @category.each do |category| %>
     <span class='badge alert-info tag'>
       <%= link_to category_path(category) do %>
         <% #FIXME_AB: Do not use size in the image tag, it will distort the image. Create thumbnail for the desired size and use  -%>

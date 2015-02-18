@@ -5,7 +5,7 @@ function UserBusinesses (sliders) {
 UserBusinesses.prototype.initialize = function() {
   this.bindEvents();
   this.sliders.next('div').hide();
-  this.sliders.last().next('div').show();
+  this.sliders.last().next('div').show().siblings('img').toggleClass('rotate90');
 };
 
 UserBusinesses.prototype.bindEvents = function() {

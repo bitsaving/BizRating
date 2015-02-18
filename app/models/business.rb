@@ -3,13 +3,17 @@ class Business < ActiveRecord::Base
 
   belongs_to :category, required: true
 
-  has_one :address, dependent: :destroy
   #FIXME_AB: Why do we need separate model for website. We can save it in same table and reduce complexity
-  has_one :website, dependent: :destroy
-  has_many :phone_numbers, dependent: :destroy
-  has_many :emails, dependent: :destroy
-  has_many :images, dependent: :destroy
-  has_many :time_slots, dependent: :destroy
+
+  with_options dependent: :destroy do |assoc|
+    assoc.has_one :address
+    assoc.has_one :website
+    assoc.has_many :phone_numbers
+    assoc.has_many :emails
+    assoc.has_many :images
+    assoc.has_many :time_slots
+  end
+
   has_and_belongs_to_many :keywords
 
   attr_reader :keywords_sentence, :workflow_event
@@ -71,6 +75,7 @@ class Business < ActiveRecord::Base
 
   def fire!(event)
     ## FIXME_NISH Please check if this is a valid event or not.
+    ## FIXED
     self.send "#{ event }!" if self.send "can_#{ event }?"
   end
 

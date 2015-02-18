@@ -20,7 +20,6 @@
       <%= pn.label :info, 'Phone Number', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <%= pn.text_field :info, :class => 'form-control' %>
-        <%#= pn.link_to_remove "Remove" %>
       </div>
       <span><%= @business.errors['phone_numbers.info'].to_sentence %></span>
     </div>
@@ -32,7 +31,6 @@
       <%= e.label :info, 'Email', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <%= e.email_field :info, :class => 'form-control' %>
-        <%#= e.link_to_remove "Remove" %>
       </div>
       <span><%= @business.errors['emails.info'].to_sentence %></span>
     </div>

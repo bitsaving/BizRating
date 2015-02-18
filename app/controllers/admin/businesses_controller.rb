@@ -7,6 +7,7 @@ class Admin::BusinessesController < Admin::BaseController
   def index
     @q = Business.ransack(search_params)
     #FIXME_AB: Lets not use .load here. lazy load
+    ## FIXED
     @businesses = @q.result(distinct: true).includes(:images).category_enabled.page(params[:page]).per(20).reverse_order
   end
 

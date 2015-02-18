@@ -17,6 +17,7 @@
     <%= f.label :category_id, 'Category*', :class => 'control-label col-sm-3' %>
     <div class="controls col-sm-6">
       <% #FIXME_AB: Why all categories, we should have all enabled categories only -%>
+      <% ## FIXED -%>
       <%= f.collection_select(:category_id, Category.all.enabled, :id, :name, { include_blank: 'Select Category' }, class: 'form-control') %>
     </div>
     <span><%= @business.errors[:category].to_sentence %></span>
@@ -64,7 +65,8 @@
       <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <% #FIXME_AB: Why we have p x.name in the following line -%>
-        <%= l.select :country, options_for_select(Carmen::Country.all.map{|x| p x.name, value: x.name, data: { code: x.alpha_2_code } }, @business.address.country ), { include_blank: 'Select Country' }, :class => 'form-control' %>
+        <% ## FIXED -%>
+        <%= l.select :country, options_for_select(Carmen::Country.all.map{|x| [x.name, value: x.name, data: { code: x.alpha_2_code }] }, @business.address.country ), { include_blank: 'Select Country' }, :class => 'form-control' %>
       </div>
     <span><%= @business.errors['address.country'].to_sentence %></span>
     </div>
@@ -73,6 +75,7 @@
       <%= l.label :state, 'State*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
         <% #FIXME_AB: Not all contries have states in the Carmen gem, like "Isle of Man" or Hong Kong in that case there are no options in state select box. so we should replace select state with test field. or instead of select state have a text field which will autocomplete based on suggestions else user can enter this own state -%>
+        <% ## FIXED -%>
         <%= l.select(:state, [@business.address[:state]], {include_blank: 'Select State'}, :class => 'form-control') %>
       </div>
     <span><%= @business.errors['address.state'].to_sentence %></span>

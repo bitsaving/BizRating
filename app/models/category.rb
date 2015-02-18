@@ -17,9 +17,11 @@ class Category < ActiveRecord::Base
   before_validation :set_initial_position, on: :create
 
   scope :enabled, -> { where status: true }
+  scope :live, -> { enabled.with_published_state }
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
-  def set_status(status)
+  ## FIXED
+  def set_status!(status)
     ## FIXME_NISH Fix this.
     ## FIXED
     update(status: (status == 'true'))

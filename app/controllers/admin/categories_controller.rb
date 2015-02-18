@@ -4,6 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     #FIXME_AB: Lets not load them here. just use  Category.order(:position). : lazy loading
+    ## FIXED
     @categories = Category.order(:position)
   end
 
@@ -34,7 +35,7 @@ class Admin::CategoriesController < Admin::BaseController
   #FIXME_AB: I would prefer to have enable and disable two methods for enabling disabling. Makes more readable and simpler for testing
   def update_status
     ## FIXME_NISH Use snake_case.
-    if @category.set_status(params[:categoryStatus])
+    if @category.set_status!(params[:categoryStatus])
       render json: [@category.status]
     else
       render json: @category.errors, status: :unprocessable_entity

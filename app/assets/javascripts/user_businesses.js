@@ -1,5 +1,5 @@
-function UserBusinesses (sliders) {
-  this.sliders = sliders;
+function UserBusinesses (input) {
+  this.sliders = input.sliders;
 }
 
 UserBusinesses.prototype.initialize = function() {
@@ -16,7 +16,9 @@ UserBusinesses.prototype.bindEvents = function() {
 };
 
 $(function() {
-  var sliders = $('.sliders'),
-    userBusiness = new UserBusinesses(sliders);
+  var input = {
+    sliders : $('.sliders')
+  },
+    userBusiness = new UserBusinesses(input);
   userBusiness.initialize();
 })

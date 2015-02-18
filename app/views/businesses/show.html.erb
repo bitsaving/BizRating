@@ -56,6 +56,7 @@
             <div class='row top-pad'>
               <span class='col-sm-2'>
                 <% #FIXME_AB: Make a helper for this. -%>
+                <% ## FIXED -%>
                 <%=link_to image_tag('marker1.jpg'), google_map_url(@business), :target => "_blank" %></span>
               <span class='col-sm-10 text-height-20'>
                   <%= @business.address.area %>
@@ -72,7 +73,12 @@
             <div class='row'>
               <span class='col-sm-4  col-sm-offset-1 text-height-23'>Rating</span>
             </div>
-            <div class='col-sm-4 col-sm-offset-1 text text-height-20'>★★★★★</div></span>
+            <div class='row'>
+              <div class="rating col-sm-4 col-sm-offset-1 text text-height-20">
+                <div class="unfilled">★★★★★</div>
+                <div class="filled" style="width: <%= @business.average_rating * 20 %>%" >★★★★★</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

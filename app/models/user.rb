@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
          :trackable, :validatable, :confirmable
 
   has_and_belongs_to_many :roles
+  has_many :reviews
 
   validates :name, presence: true
 

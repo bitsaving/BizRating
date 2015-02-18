@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218091605) do
+ActiveRecord::Schema.define(version: 20150218103319) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",      limit: 255
@@ -89,6 +89,18 @@ ActiveRecord::Schema.define(version: 20150218091605) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "business_id", limit: 4
+    t.integer  "user_id",     limit: 4
+    t.text     "details",     limit: 65535
+    t.integer  "rating",      limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "reviews", ["business_id"], name: "index_reviews_on_business_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false

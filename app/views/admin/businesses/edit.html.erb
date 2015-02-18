@@ -2,8 +2,9 @@
   <h3 class='col-sm-offset-1'>Edit Business</h3>
 </div>
 
-<%= nested_form_for [step(params[:step]), :admin, @business],:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
+<%= nested_form_for current_step(@business),:html => { :class => "form-horizontal edit_business padding_top", multipart: true } do |f| %>
   <% #FIXME_AB: We should have extract out code in helpers for current_step, next_step and prev_step -%>
+  <% ## FIXED -%>
   <div class='control-group field form-group'>
     <div class='col-sm-4 col-sm-offset-1'>
     <% @business.current_state.events.keys.each do |event| %>
@@ -21,7 +22,7 @@
 
 <div class='row'>
   <div class='col-sm-1 col-sm-offset-2'>
-    <%= link_to 'Previous', [step(params[:step] - 1), :admin, @business], class: 'btn btn-default' if params[:step] > 1 %>
+    <%= link_to 'Previous', previous_step(@business), class: 'btn btn-default' if params[:step] > 1 %>
   </div>
 
   <div class='col-sm-2 col-sm-offset-2'>
@@ -31,7 +32,7 @@
   </div>
 
   <div class='col-sm-1 col-sm-offset-2'>
-    <%= link_to 'Next', [step(params[:step] + 1), :admin, @business], class: 'btn btn-default' if params[:step] < 3  %>
+    <%= link_to 'Next', next_step(@business), class: 'btn btn-default' if params[:step] < 3  %>
   </div>
 </div>
 <% end %>

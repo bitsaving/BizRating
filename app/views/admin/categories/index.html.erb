@@ -1,6 +1,9 @@
+<span id='loader' class='col-sm-1 col-sm-offset-5'>
+    <%= image_tag 'ajax-loader.gif' %>
+</span>
 <button type="button" class="btn btn-primary add-category" data-toggle="modal" data-target="#add_category">New Category</button>
 <% #FIXME_AB: Why following line needed? I think you have used scaffold -%>
-<%- model_class = Category -%>
+<% #FIXED -%>
 
 <% #FIXME_AB: Prefer table less design so that it is easy to redesign -%>
 <table class="table table-striped">
@@ -11,7 +14,7 @@
           <%= image_tag category.image.url(:thumb), size: '80x30' %></td>
         <td class='col-sm-8 text'><%= category.name %></td>
         <td class="btn-just">
-          <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category_<%= category.id %>">Edit</button>
+          <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit_category" data-name="<%= category.name %>" data-id="<%= category.id %>"  data-image="<%= category.image.url(:thumb) %>">Edit</button>
           <% #FIXME_AB: You should not do this by js.  -%>
           <%= link_to 'Disable', '#', :data => { :'category_status' => !category.status, :'id' => category.id, :'category_name' => category.name }, class: "btn btn-xs edit #{ edit_button_class(category.status) }" %>
         </td>
@@ -35,7 +38,8 @@
         </div>
         <div class="modal-body container-fluid">
           <% #FIXME_AB: Formatting. space after comma. -%>
-          <%= form_for Category.new,url: admin_categories_path, html: {class: 'form-horizontal'} do |f| %>
+          <% #FIXED -%>
+          <%= form_for Category.new, url: admin_categories_path, html: {class: 'form-horizontal'} do |f| %>
               <div class="field form-group">
                 <%= f.label :name, 'Name*', class: 'control-label col-sm-3' %>
                 <div class="col-sm-6">
@@ -50,7 +54,6 @@
                <div class="actions modal-footer">
                 <%= f.submit "Add", class: "btn btn-primary btn-lg", id: 'new_category' %>
                 <%= f.submit "Reset", class: "btn btn-warning btn-lg", id: 'new_category', type: 'reset' %>
-                <!-- <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button> -->
               </div>
             <% end %>
         </div>
@@ -59,10 +62,10 @@
   </div>
 </div>
 
-<% #FIXME_AB: Why we are creating so many forms. Bad practice.  -%>
-<% @categories.each do |category| %>
+<% #FIXME_AB: Why we are creating so many forms. Bad practice. -%>
+<% #FIXED -%>
   <div class='container'>
-    <div class="modal fade" id="edit_category_<%= category.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="edit_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -70,8 +73,8 @@
             <h4 class="modal-title" id="exampleModalLabel">Update Category</h4>
           </div>
           <div class="modal-body container-fluid">
-
-            <%= form_for category,url: admin_category_path(category), html: {class: 'form-horizontal edit-form'} do |f| %>
+            <%= form_for Category.new, url: admin_categories_path, html: {class: 'form-horizontal edit-form', id:  'edit_form' } do |f| %>
+              <input type="hidden" name="_method" value="patch">
                 <div class="field form-group">
                   <%= f.label :name, class: 'control-label col-sm-3' %>
                   <div class="col-sm-6">
@@ -82,11 +85,10 @@
                   <div class='col-sm-6'>
                     <%= f.file_field :image, class: 'form-control col-sm-3' %>
                   </div>
-                  <%= image_tag category.image.url(:thumb) %>
+                  <img></img>
                 </div>
                 <div class="actions modal-footer">
                   <%= f.submit 'Update', class: "btn btn-primary btn-lg" %>
-                  <!-- <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button> -->
                 </div>
               <% end %>
           </div>
@@ -94,6 +96,6 @@
       </div>
     </div>
   </div>
-<% end %>
 <% #FIXME_AB: Use {} for single line blocks -%>
-<% content_for :head do javascript_include_tag :categories end %>
+<% #FIXED -%>
+<% content_for(:head) { javascript_include_tag :categories } %>

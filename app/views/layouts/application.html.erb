@@ -58,23 +58,13 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login"> Sign In</button>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">Sign Up</button></li>
         <% else %>
-        <%#= button_tag 'Logout', class: "btn btn-primary", data: {toggle: "modal", target: "#logout"} %>
           <% if user_signed_in? && current_user.admin? %>
             <li><%= link_to "Home", admin_businesses_path %></li>
           <% else %>
             <li><%= link_to "Home", :root %></li>
           <% end %>
-          <!-- <li class="dropdown"> -->
-            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Account <span class="caret"></span></a> -->
-            <!-- <ul class="dropdown-menu" role="menu"> -->
-              <%# if user_signed_in? %>
+
         <li><%= link_to "LogOut", :destroy_user_session, method: :delete %></li>
-              <%# else %>
-                <!-- <li><%#= link_to "Log In", :new_user_session %></li> -->
-                <!-- <li><%#= link_to "Sign Up", :new_user_registration %></li> -->
-                <%# end %>
-            <!-- </ul> -->
-          <!-- </li> -->
       <% end %>
       </ul>
     </div>

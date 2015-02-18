@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ /* FIXME_AB: dont use require_tree, it includes all the files in the directory automatically. be specific;
  *= require_tree .
  *= require_self
  *= require jquery-ui

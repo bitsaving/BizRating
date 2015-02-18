@@ -6,8 +6,9 @@ class Image < ActiveRecord::Base
      url: "/system/:class/:attachment/:id/:style/:basename.:extension"
 
   ## FIXME_NISH Use megabytes here instead of megabyte.
+  ## FIXED
   validates_attachment :image,
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
-    size: { less_than: 2.megabyte }
+    size: { less_than: 2.megabytes }
 
 end

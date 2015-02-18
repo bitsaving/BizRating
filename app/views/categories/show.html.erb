@@ -19,7 +19,9 @@
         <div class='row'>
             <div class='col-sm-8 text'>
               <% if business.address.area.present? %>
-                <%=link_to image_tag('marker.jpg'), "http://maps.google.com/?" + business.address.area.to_query('q'), :target => "_blank" %>
+              <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
+              <% ## FIXED -%>
+                <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
                 <%= business.address.area.humanize %>
               <% else %>
                 <%= business.address_city_state_country %>

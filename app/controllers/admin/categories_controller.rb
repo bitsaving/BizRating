@@ -4,7 +4,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     #FIXME_AB: Lets not load them here. just use  Category.order(:position). : lazy loading
-    @categories = Category.order(:position).load
+    ## FIXED
+    @categories = Category.order(:position)
   end
 
   def create
@@ -13,10 +14,12 @@ class Admin::CategoriesController < Admin::BaseController
       #FIXME_AB: You may want to interpolate category name in the flash message. Similarly at other places
       ## FIXME_NISH Pass notice as an option to redirect_to.
       ## FIXME_NISH Please pass newly created category name
-      redirect_to admin_categories_path, notice: "#{ @category.name } created successfully"
+      ## FIXED
+      redirect_to admin_categories_path, notice: 'Category #{ @category.name } added Successfully'
     else
       #FIXME_AB: Prefer symbol over string render :new
-      render 'new'
+      ## FIXED
+      render :new
     end
   end
 
@@ -32,7 +35,7 @@ class Admin::CategoriesController < Admin::BaseController
   #FIXME_AB: I would prefer to have enable and disable two methods for enabling disabling. Makes more readable and simpler for testing
   def update_status
     ## FIXME_NISH Use snake_case.
-    if @category.set_status(params[:categoryStatus])
+    if @category.set_status!(params[:categoryStatus])
       render json: [@category.status]
     else
       render json: @category.errors, status: :unprocessable_entity
@@ -40,7 +43,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update_position
-    ## FIXME_NISH Please refactor this.
+    ## FIXME_NISH Please refactor this. fires too many queries
     params[:position].each_with_index do |id, index|
       Category.find_by(id: id).update_columns(position: index)
     end

@@ -8,9 +8,11 @@ module BusinessesHelper
   end
 
   #FIXME_AB: method returning boolean value. should be ? method
-  def day_checked(day, object)
+  #FIXED
+  def day_checked?(day, object)
     #FIXME_AB: use object.persisted?
-    ((!object.new_record?) && (object.days.include? day.to_s))
+    #FIXED
+    ((object.persisted?) && (object.days.include? day.to_s))
   end
 
   def active_class(index)
@@ -20,4 +22,17 @@ module BusinessesHelper
   def url_with_protocol(url)
     /^http/i.match(url) ? url : "http://#{url}"
   end
+
+  def current_step(business)
+    [step(params[:step]), :admin, business]
+  end
+
+  def previous_step(business)
+    [step(params[:step] - 1), :admin, business]
+  end
+
+  def next_step(business)
+    [step(params[:step] + 1), :admin, business]
+  end
+
 end

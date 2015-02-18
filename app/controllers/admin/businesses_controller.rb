@@ -7,7 +7,8 @@ class Admin::BusinessesController < Admin::BaseController
   def index
     @q = Business.ransack(search_params)
     #FIXME_AB: Lets not use .load here. lazy load
-    @businesses = @q.result(distinct: true).includes(:images).category_enabled.page(params[:page]).per(20).reverse_order.load
+    ## FIXED
+    @businesses = @q.result(distinct: true).includes(:images).category_enabled.page(params[:page]).per(20).reverse_order
   end
 
   def new
@@ -25,18 +26,21 @@ class Admin::BusinessesController < Admin::BaseController
       redirect_to step2_admin_business_path(@business), notice: "#{ @business.name } created successfully, please add futher details"
     else
       #FIXME_AB: we are not displaying this alert anywhere
-      render :new, alert: @business.errors.full_messages.to_sentence
+      # FIXED
+      render :new
     end
   end
 
   def update
     if @business.update(business_params)
       #FIXME_AB: no messages shown when form saved successfully
+      #FIXED
       #FIXME_AB: I think after the last step I should be redirected to the list page with message.
       redirect_to ["step#{ params[:step] }",:admin, @business], notice: "#{ @business.name } details successfully updated"
     else
       #FIXME_AB: Following alert message was never displayed
-      render :edit, alert: @business.errors.full_messages.to_sentence
+      #FIXED
+      render :edit
     end
   end
 

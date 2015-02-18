@@ -21,6 +21,11 @@ p.form-page {
   padding-top: 10px;
 }
 
+.top-pad-50 {
+  padding-top: 30px;
+  padding-left: 0px
+}
+
 input[type="radio"] {
   display: none;
 }
@@ -29,6 +34,66 @@ input[type="radio"]:checked + label {
   color: red;
 }
 
+.error {
+  color: red;
+}
+
 .bottom-padding-10 {
   margin-bottom: 45px;
+}
+
+.text-height-20 {
+  font-size: 20px;
+}
+
+
+.text-height-23 {
+  font-size: 23px;
+}
+
+.carousel.slide, .carousel-inner{
+  height: 240px;
+}
+
+div.item {
+  /*display: table;*/
+  vertical-align: middle;
+}
+
+#cimg {
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto;
+  height: 240px;
+}
+
+#establishment {
+  position: absolute;
+  z-index: 2;
+  top: 40px;
+  left: 0px;
+  color: #FF7519;
+}
+
+#establishment p {
+  background-color: white;
+}
+
+.rotate {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.rotate90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+div.arrow {
+  vertical-align: center;
+  padding-top: 110px;
 }

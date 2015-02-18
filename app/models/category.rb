@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
 
   #FIXME_AB: What should we do when category got destroyed
-  has_many :business
+  has_many :businesses
 
   #FIXME_AB: Do you know what > sign means in the thumbnail size? if not read more about it
   has_attached_file :image, styles: { thumb: '80x80' },
@@ -15,6 +15,8 @@ class Category < ActiveRecord::Base
     size: { less_than: 2.megabytes }
 
   before_validation :set_initial_position, on: :create
+
+  scope :enabled, -> { where status: true }
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   def set_status(status)

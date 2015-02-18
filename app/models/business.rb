@@ -30,6 +30,9 @@ class Business < ActiveRecord::Base
 
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
+  delegate :sentence, to: :address, prefix: true
+  delegate :city_state_country, to: :address, prefix: true
+
   #FIXME_AB: include statements should be on top
   ## FIXED
   workflow do
@@ -56,6 +59,9 @@ class Business < ActiveRecord::Base
       event :reverify, transitions_to: :in_verification
     end
   end
+
+  scope :enabled, -> { where status: true }
+  scope :category_enabled , -> { joins(:category).merge(Category.enabled) }
 
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
@@ -87,6 +93,14 @@ class Business < ActiveRecord::Base
     ## FIXME_NISH Please do as discussed
     ## Fixed
     update(status: status == 'true')
+  end
+
+  def emails_sentence
+    emails.pluck(:info).join(', ')
+  end
+
+  def phone_numbers_sentence
+    phone_numbers.pluck(:info).join(', ')
   end
 
 end

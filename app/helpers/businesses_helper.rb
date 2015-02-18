@@ -15,4 +15,11 @@ module BusinessesHelper
     ((object.persisted?) && (object.days.include? day.to_s))
   end
 
+  def active_class(index)
+    index == 0 ? 'active' : ''
+  end
+
+  def url_with_protocol(url)
+    /^http/i.match(url) ? url : "http://#{url}"
+  end
 end

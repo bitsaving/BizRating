@@ -24,7 +24,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update
     if @category.update(category_params)
-      flash[:notice] = 'Updated Successfully'
+      flash[:notice] = "#{ @category.name }updated Successfully"
     else
       flash[:alert] = @category.errors.full_messages.to_sentence
     end
@@ -42,7 +42,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update_position
-    ## FIXME_NISH Please refactor this.
+    ## FIXME_NISH Please refactor this. fires too many queries
     params[:position].each_with_index do |id, index|
       Category.find_by(id: id).update_columns(position: index)
     end

@@ -1,0 +1,37 @@
+<div class='row height-40'>
+  <span class='col-sm-1 top-pad'><%= link_to image_tag('back.jpg'), home_index_path %></span>
+  <div id='business-tag'>
+    <%= image_tag @category.image.url(:thumb), size: '80x30' %>
+    <div id= 'business-name'><%= @category.name.humanize %></div>
+  </div>
+</div>
+
+<div class="table table-striped top-pad-10">
+  <% @businesses.each do |business| %>
+    <div class='row top-pad'>
+      <div class='col-sm-1'><%= image_tag business.images.first.image.url(:thumb), size: '65x45' if business.images.exists? %>
+      </div>
+      <div class='col-sm-11'>
+        <div class='row'>
+          <div class='col-sm-6 text'><%= link_to business.name.humanize, business_path(business) %></div>
+          <div class='col-sm-3 col-sm-offset-3  text'>Rating</div>
+        </div>
+        <div class='row'>
+            <div class='col-sm-8 text'>
+              <% if business.address.area.present? %>
+              <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
+                <%=link_to image_tag('marker.jpg'), "http://maps.google.com/?" + business.address.area.to_query('q'), :target => "_blank" %>
+                <%= business.address.area.humanize %>
+              <% else %>
+                <%= business.address_city_state_country %>
+              <% end %>
+            </div>
+            <div class='col-sm-3 col-sm-offset-1  text'>★★★★★</div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= 'No businesses available in the category' if @businesses.blank? %>
+<%= paginate @businesses %>

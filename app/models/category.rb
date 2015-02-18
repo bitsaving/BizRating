@@ -17,7 +17,6 @@ class Category < ActiveRecord::Base
   before_validation :set_initial_position, on: :create
 
   scope :enabled, -> { where status: true }
-  scope :live, -> { enabled.with_published_state }
 
   #FIXME_AB: Actually these type of methods should be named as def status!(status). Thoughts?
   ## FIXED

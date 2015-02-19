@@ -75,3 +75,43 @@ div.rating-star {
 .h3 {
   margin-top: 0px;
 }
+
+.rating-bar-container {
+  border-bottom: 1px solid black;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bar-name {
+  border-right: 1px solid black;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bar-name div {
+  text-align: right;
+  margin-right: 15px;
+}
+
+.rating-bar {
+  padding: 0px;
+}
+
+.rating-bar div.row {
+  padding-left: 0px;
+  margin-left: 0px;
+  padding-right: 0px;
+  margin-right: 0px;
+  height: 24px;
+}
+
+.rating-bar div.row div {
+  height: 20px;
+  background-color: lightblue;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.rating-bar div.row div:hover {
+  background-color: blue;
+}

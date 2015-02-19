@@ -165,6 +165,38 @@
     </div>
   <% end %>
 
+<span class='text-height-20'><u>Total Rating</u>: <%= @reviews.size %></span>
+  <div class='row rating-bar-container'>
+    <div class='col-sm-3 bar-name'>
+      <div class='row top-pad'>Excellent</div>
+      <div class='row top-pad'>Very Good
+      </div>
+      <div class='row top-pad'>Good
+      </div>
+      <div class='row top-pad'>Average
+      </div>
+      <div class='row top-pad'>Poor
+      </div>
+    </div>
+    <div class='col-sm-9 rating-bar'>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(5) %>%"></div><%= @business.percentage_rating_for(5) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(4) %>%"></div><%= @business.percentage_rating_for(4) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(3) %>%"></div><%= @business.percentage_rating_for(3) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(2) %>%"></div><%= @business.percentage_rating_for(2) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(1) %>%"></div><%= @business.percentage_rating_for(1) %>%
+      </div>
+    </div>
+  </div>
+
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
     <div id='new-review'>

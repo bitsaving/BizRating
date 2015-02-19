@@ -113,4 +113,8 @@ class Business < ActiveRecord::Base
     reviews.average(:rating).to_f
   end
 
+  def percentage_rating_for(rate_value)
+    (reviews.where(rating: rate_value).size * 100) / reviews.size
+  end
+
 end

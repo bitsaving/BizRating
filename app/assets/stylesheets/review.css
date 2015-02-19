@@ -1,0 +1,46 @@
+div.rating, div.rating-show {
+  position: relative;
+  width: 62px;
+  display: inline-block;
+}
+
+.filled {
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  color: orange
+}
+
+.unfilled {
+  width: 100%;
+  position: absolute;
+  color: black;
+}
+
+.rating-star {
+  list-style: none;
+}
+
+.rating-star .rating-header {
+  display: inline-block;
+}
+
+.rating-star li {
+  display: inline-block;
+}
+
+.rating-star input[type="radio"] {
+  display: none;
+}
+
+.entry h3 {
+  display: inline-block;
+}
+
+div.review {
+  width: 200px;
+}
+
+.add-color {
+  color: orange
+}

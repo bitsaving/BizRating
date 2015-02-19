@@ -3,7 +3,7 @@ class CreateReviews < ActiveRecord::Migration
     create_table :reviews do |t|
       t.belongs_to :business, index: true
       t.belongs_to :user, index: true
-      t.text :details
+      t.text :detail
       t.integer :rating
       t.timestamps null: false
     end

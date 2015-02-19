@@ -72,9 +72,16 @@
           <div class='row top-pad'>
             <div class='row'>
               <span class='col-sm-4  col-sm-offset-1 text-height-23'>Rating</span>
+              <span class='col-sm-4  col-sm-offset-1 text-height-23'>
+                <% if user_signed_in? %>
+                  <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
+                <% else %>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#review-login">Rate this Business</button>
+                <% end %>
+              </span>
             </div>
             <div class='row'>
-              <div class="rating col-sm-4 col-sm-offset-1 text text-height-20">
+              <div class="rating col-sm-4 col-sm-offset-1">
                 <div class="unfilled">★★★★★</div>
                 <div class="filled" style="width: <%= @business.average_rating * 20 %>%" >★★★★★</div>
               </div>
@@ -143,8 +150,61 @@
 
   <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Rate & Review </span>
   <div class='jumbotron'>
+    <div id='new-review'>
+      <% if @review %>
+        <%= form_for @review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
+          <div>
+            <ul class="rating-star">
+              <% (0..5).each do |x| %>
+                <li>
+                  <%= f.radio_button :rating, x %>
+                  <%= label_tag "review[rating]_#{x}", "★" %>
+                </li>
+              <% end %>
+            </ul>
+            <div class="field">
+              <%= f.label :detail %><br>
+              <%= f.text_area :detail, rows: 6 %>
+            </div>
+            <%= f.hidden_field :business_id, value: @business.id %>
+            <div class="actions">
+              <%= f.submit %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div>
+      <% @reviews.each do |review| %>
+      <div class="review <%=review.user.name%>">
+        <p>
+          <strong><%= review.user.name %>&nbsp</strong>
+          <div class="rating-show col-sm-4 col-sm-offset-1">
+            <div class="unfilled">★★★★★</div>
+            <div class="filled" style="width: <%= review.rating * 20 %>%" >★★★★★</div>
+          </div>
+        </p>
+        <p><%= review.detail %></p>
+        <hr>
+      </div>
+    <% end %>
+    <%= paginate @reviews %>
+    </div>
   </div>
 
 </div>
 
 <% content_for :head do javascript_include_tag :user_businesses end %>
+
+<div class='container'>
+  <div class="modal fade" id="review-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body container-fluid">
+        Please <%= link_to 'Sign In', new_user_session_path %> or
+        <%= link_to 'Sign Up', new_user_registration_path %> first
+      </div>
+    </div>
+  </div>
+</div>

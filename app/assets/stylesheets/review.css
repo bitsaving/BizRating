@@ -1,20 +1,44 @@
-div.rating, div.rating-show {
+div.rating {
+  position: relative;
+  width: 256px;
+  display: inline-block;
+}
+
+div.rating-show {
   position: relative;
   width: 62px;
   display: inline-block;
+}
+
+div.rating-star {
+  height: 20px;
+}
+
+.height-60 {
+  height: 60px;
 }
 
 .filled {
   width: 100%;
   position: absolute;
   overflow: hidden;
-  color: orange
+  color: orange;
+  height: 48px;
+}
+
+.filled img {
+  display: inline-block;
 }
 
 .unfilled {
   width: 100%;
   position: absolute;
   color: black;
+  height: 48px;
+}
+
+.unfilled img {
+  display: inline;
 }
 
 .rating-star {
@@ -37,10 +61,17 @@ div.rating, div.rating-show {
   display: inline-block;
 }
 
-div.review {
-  width: 200px;
-}
-
 .add-color {
   color: orange
+}
+
+.text-30 {
+  font-size: 30px;
+}
+.review-block {
+  background-color: white;
+}
+
+.h3 {
+  margin-top: 0px;
 }

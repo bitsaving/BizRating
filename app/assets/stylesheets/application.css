@@ -29,3 +29,8 @@ div.top-15 {
   font-size: 30px;
   padding-top: 22px;
 }
+
+#sign-up, #sign-in {
+  display: inline-block;
+  padding: 0px;
+}

@@ -109,10 +109,6 @@ class Business < ActiveRecord::Base
     phone_numbers.pluck(:info).join(', ')
   end
 
-  def average_rating
-    reviews.average(:rating).to_f
-  end
-
   def percentage_rating_for(rate_value)
     (reviews.where(rating: rate_value).size * 100) / reviews.size
   end

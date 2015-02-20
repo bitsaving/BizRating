@@ -35,8 +35,4 @@ module BusinessesHelper
     [step(params[:step] + 1), :admin, business]
   end
 
-  def business_rating_bar_width(rate_value)
-    @business.percentage_rating_for(rate_value) * 0.9
-  end
-
 end

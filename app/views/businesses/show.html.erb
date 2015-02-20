@@ -169,31 +169,18 @@
   <div class='row rating-bar-container'>
     <div class='col-sm-3 bar-name'>
       <div class='row top-pad'>Excellent</div>
-      <div class='row top-pad'>Very Good
-      </div>
-      <div class='row top-pad'>Good
-      </div>
-      <div class='row top-pad'>Average
-      </div>
-      <div class='row top-pad'>Poor
-      </div>
+      <div class='row top-pad'>Very Good</div>
+      <div class='row top-pad'>Good</div>
+      <div class='row top-pad'>Average</div>
+      <div class='row top-pad'>Poor</div>
     </div>
     <div class='col-sm-9 rating-bar'>
-      <div class='row top-pad'>
-        <div style="width: <%= business_rating_bar_width(5) %>%"></div><%= @business.percentage_rating_for(5) %>%
-      </div>
-      <div class='row top-pad'>
-        <div style="width: <%= business_rating_bar_width(4) %>%"></div><%= @business.percentage_rating_for(4) %>%
-      </div>
-      <div class='row top-pad'>
-        <div style="width: <%= business_rating_bar_width(3) %>%"></div><%= @business.percentage_rating_for(3) %>%
-      </div>
-      <div class='row top-pad'>
-        <div style="width: <%= business_rating_bar_width(2) %>%"></div><%= @business.percentage_rating_for(2) %>%
-      </div>
-      <div class='row top-pad'>
-        <div style="width: <%= business_rating_bar_width(1) %>%"></div><%= @business.percentage_rating_for(1) %>%
-      </div>
+      <% (1..5).each do |star| %>
+        <div class='row top-pad'>
+          <div style="width: <%= @business.percentage_star_rating[star] %>%"></div>
+          <%= @business.percentage_star_rating[star] %>%
+        </div>
+      <% end %>
     </div>
   </div>
 

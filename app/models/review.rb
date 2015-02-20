@@ -16,7 +16,7 @@ class Review < ActiveRecord::Base
   private
 
     def update_average_business_rating
-      business.update_column(average_rating: business.reviews.average(:rating))
+      business.update_column(:average_rating, business.reviews.average(:rating))
     end
 
 end

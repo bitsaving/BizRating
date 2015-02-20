@@ -1,17 +1,20 @@
 class Business < ActiveRecord::Base
   include Workflow
 
+  serialize :percentage_star_rating
+  after_save :update_percentage_star_rating
+
   belongs_to :category, required: true
 
   #FIXME_AB: Why do we need separate model for website. We can save it in same table and reduce complexity
 
-  with_options dependent: :destroy do |assoc|
-    assoc.has_one :address
-    assoc.has_one :website
-    assoc.has_many :phone_numbers
-    assoc.has_many :emails
-    assoc.has_many :images
-    assoc.has_many :time_slots
+  with_options dependent: :destroy do
+    has_one :address
+    has_one :website
+    has_many :phone_numbers
+    has_many :emails
+    has_many :images
+    has_many :time_slots
   end
 
   has_many :reviews
@@ -109,8 +112,19 @@ class Business < ActiveRecord::Base
     phone_numbers.pluck(:info).join(', ')
   end
 
-  def percentage_rating_for(rate_value)
-    (reviews.where(rating: rate_value).size * 100) / reviews.size
+  def update_percentage_star_rating
+    temp_percentage_rating = reviews.exists? ? percentage_star_rating_hash : { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0 }
+    update_column(:percentage_star_rating, temp_percentage_rating)
   end
+
+  private
+
+    def percentage_star_rating_hash
+      temp_percentage_rating = {}
+      (1..5).each do |star|
+        temp_percentage_rating[star] = (reviews.where(rating: star).size * 100) / reviews.size
+      end
+      temp_percentage_rating
+    end
 
 end

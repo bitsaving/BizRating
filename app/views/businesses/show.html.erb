@@ -56,6 +56,7 @@
             <div class='row top-pad'>
               <span class='col-sm-2'>
                 <% #FIXME_AB: Make a helper for this. -%>
+                <% ## FIXED -%>
                 <%=link_to image_tag('marker1.jpg'), google_map_url(@business), :target => "_blank" %></span>
               <span class='col-sm-10 text-height-20'>
                   <%= @business.address.area %>
@@ -69,10 +70,39 @@
             </div>
           <% end %>
           <div class='row top-pad'>
-            <div class='row'>
-              <span class='col-sm-4  col-sm-offset-1 text-height-23'>Rating</span>
+            <div class='col-sm-6'>
+              <div class='row'>
+                <span class='col-sm-1  col-sm-offset-3 text-height-23'>Rating</span>
+              </div>
+              <div class='row height-60'>
+                <div class="rating col-sm-4">
+                  <div class="unfilled">
+                    <% 5.times do %>
+                      <%= image_tag 'star-unfilled.png' %>
+                    <% end %>
+                  </div>
+                  <div class='filled' style="clip: rect(0 ,<%= @business.average_rating * 20 * 2.56 %>px, 48px, 0px)" >
+                      <% 5.times do %>
+                        <%= image_tag 'star-filled.png' %>
+                      <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class='col-sm-4 col-sm-offset-1 text text-height-20'>★★★★★</div></span>
+            <div class='col-sm-6'>
+              <span class='col-sm-1  col-sm-offset-3 text-height-23'>
+                <% if user_signed_in? %>
+                  <% if @review %>
+                    <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
+                  <% else %>
+                    <span class='btn btn-primary' title='You have already posted reviews for this business'>Rate this Business
+                    </span>
+                  <% end %>
+                <% else %>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#review-login">Rate this Business</button>
+                <% end %>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -135,10 +165,107 @@
     </div>
   <% end %>
 
-  <%= image_tag 'bullet.jpg' %><span class='text-height-20'>Rate & Review </span>
+<span class='text-height-20'><u>Total Rating</u>: <%= @reviews.size %></span>
+  <div class='row rating-bar-container'>
+    <div class='col-sm-3 bar-name'>
+      <div class='row top-pad'>Excellent</div>
+      <div class='row top-pad'>Very Good
+      </div>
+      <div class='row top-pad'>Good
+      </div>
+      <div class='row top-pad'>Average
+      </div>
+      <div class='row top-pad'>Poor
+      </div>
+    </div>
+    <div class='col-sm-9 rating-bar'>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(5) %>%"></div><%= @business.percentage_rating_for(5) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(4) %>%"></div><%= @business.percentage_rating_for(4) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(3) %>%"></div><%= @business.percentage_rating_for(3) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(2) %>%"></div><%= @business.percentage_rating_for(2) %>%
+      </div>
+      <div class='row top-pad'>
+        <div style="width: <%= @business.percentage_rating_for(1) %>%"></div><%= @business.percentage_rating_for(1) %>%
+      </div>
+    </div>
+  </div>
+
+  <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
+    <div id='new-review'>
+      <% if @review %>
+        <%= form_for @review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
+          <div>
+            <ul class="rating-star col-sm-6">
+              <% (0..5).each do |x| %>
+                <li>
+                  <%= f.radio_button :rating, x %>
+                  <%= label_tag "review[rating]_#{x}", "★" %>
+                </li>
+              <% end %>
+            </ul>
+            <span id='rate-detail'>
+              <span id='0'>Very Poor</span>
+              <span id='1'>Poor</span>
+              <span id='2'>Average</span>
+              <span id='3'>Good</span>
+              <span id='4'>Very Good</span>
+              <span id='5'>Excellent</span>
+            </span>
+            <%= f.hidden_field :business_id, value: @business.id %>
+            <div class="field form-group">
+              <%= f.text_area :detail, rows: 2, class: 'control-controle col-sm-12', maxlength: "500" %>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-11 col-sm-1">
+                <%= f.submit "POST", class: 'btn btn-default' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div>
+      <% @reviews.each do |review| %>
+      <div class="review">
+        <div class='row'>
+          <span class='col-sm-2 h3'><%= review.user.name %></span>
+          <div class="rating-show col-sm-3">
+            <div class="unfilled">★★★★★</div>
+            <div class="filled" style="width: <%= review.rating * 20 %>%" >★★★★★</div>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='row review-block'><p class=' text text-30 col-sm-offset-1'><%= review.detail %></p></div>
+          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
+        </div>
+        <hr>
+      </div>
+    <% end %>
+    <%= paginate @reviews %>
+    </div>
   </div>
 
 </div>
 
 <% content_for :head do javascript_include_tag :user_businesses end %>
+
+<div class='container'>
+  <div class="modal fade" id="review-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body container-fluid">
+        Please <%= link_to 'Sign In', new_user_session_path %> or
+        <%= link_to 'Sign Up', new_user_registration_path %> first
+      </div>
+    </div>
+  </div>
+</div>

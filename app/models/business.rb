@@ -14,6 +14,7 @@ class Business < ActiveRecord::Base
     assoc.has_many :time_slots
   end
 
+  has_many :reviews
   has_and_belongs_to_many :keywords
 
   attr_reader :keywords_sentence, :workflow_event
@@ -31,7 +32,6 @@ class Business < ActiveRecord::Base
     reject_if: proc { |attributes| attributes[:info].blank? }
 
   validates :name, presence: true
-
   validates :year_of_establishment, numericality: { only_integer: true, greater_than: 0, less_than: 9999 }, allow_blank: true
 
   delegate :sentence, to: :address, prefix: true
@@ -67,6 +67,7 @@ class Business < ActiveRecord::Base
   scope :enabled, -> { where status: true }
   scope :category_enabled , -> { joins(:category).merge(Category.enabled) }
   scope :live, -> { enabled.with_published_state }
+
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
     ## FIXED
@@ -106,6 +107,14 @@ class Business < ActiveRecord::Base
 
   def phone_numbers_sentence
     phone_numbers.pluck(:info).join(', ')
+  end
+
+  def average_rating
+    reviews.average(:rating).to_f
+  end
+
+  def percentage_rating_for(rate_value)
+    (reviews.where(rating: rate_value).size * 100) / reviews.size
   end
 
 end

@@ -1,0 +1,117 @@
+div.rating {
+  position: relative;
+  width: 256px;
+  display: inline-block;
+}
+
+div.rating-show {
+  position: relative;
+  width: 62px;
+  display: inline-block;
+}
+
+div.rating-star {
+  height: 20px;
+}
+
+.height-60 {
+  height: 60px;
+}
+
+.filled {
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  color: orange;
+  height: 48px;
+}
+
+.filled img {
+  display: inline-block;
+}
+
+.unfilled {
+  width: 100%;
+  position: absolute;
+  color: black;
+  height: 48px;
+}
+
+.unfilled img {
+  display: inline;
+}
+
+.rating-star {
+  list-style: none;
+}
+
+.rating-star .rating-header {
+  display: inline-block;
+}
+
+.rating-star li {
+  display: inline-block;
+}
+
+.rating-star input[type="radio"] {
+  display: none;
+}
+
+.entry h3 {
+  display: inline-block;
+}
+
+.add-color {
+  color: orange
+}
+
+.text-30 {
+  font-size: 30px;
+}
+.review-block {
+  background-color: white;
+}
+
+.h3 {
+  margin-top: 0px;
+}
+
+.rating-bar-container {
+  border-bottom: 1px solid black;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bar-name {
+  border-right: 1px solid black;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bar-name div {
+  text-align: right;
+  margin-right: 15px;
+}
+
+.rating-bar {
+  padding: 0px;
+}
+
+.rating-bar div.row {
+  padding-left: 0px;
+  margin-left: 0px;
+  padding-right: 0px;
+  margin-right: 0px;
+  height: 24px;
+}
+
+.rating-bar div.row div {
+  height: 20px;
+  background-color: lightblue;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.rating-bar div.row div:hover {
+  background-color: blue;
+}

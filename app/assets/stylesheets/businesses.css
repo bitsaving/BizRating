@@ -56,7 +56,6 @@ input[type="radio"]:checked + label {
 }
 
 div.item {
-  /*display: table;*/
   vertical-align: middle;
 }
 

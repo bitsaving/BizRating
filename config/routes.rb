@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :home, only: :index
   resources :businesses, only: :show
   resources :categories, only: :show
+  resources :reviews, only: [:create, :update]
 
   namespace :admin do
     resources :categories, only: [:index, :update, :create] do

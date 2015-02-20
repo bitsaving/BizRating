@@ -113,18 +113,9 @@ class Business < ActiveRecord::Base
   end
 
   def update_percentage_star_rating
-    temp_percentage_rating = reviews.exists? ? percentage_star_rating_hash : { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0 }
-    update_column(:percentage_star_rating, temp_percentage_rating)
+    update_column(:percentage_star_rating, Hash[Business.last.reviews.group(:rating).average(:rating).map{ |k,v| [k, v.to_i * 20] }])
   end
 
   private
-
-    def percentage_star_rating_hash
-      temp_percentage_rating = {}
-      (1..5).each do |star|
-        temp_percentage_rating[star] = (reviews.where(rating: star).size * 100) / reviews.size
-      end
-      temp_percentage_rating
-    end
 
 end

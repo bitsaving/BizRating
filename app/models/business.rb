@@ -109,8 +109,4 @@ class Business < ActiveRecord::Base
     phone_numbers.pluck(:info).join(', ')
   end
 
-  def average_rating
-    reviews.average(:rating).to_f
-  end
-
 end

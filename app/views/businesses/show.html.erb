@@ -63,7 +63,7 @@
               </span>
             </div>
           <% end %>
-          <% if @business.phone_numbers.exists? %>
+          <% if @business.phone_numbers.present? %>
             <div class='row top-pad'>
               <span class='col-sm-2'><%= image_tag 'phone.jpg' %></span>
               <span class='col-sm-10 text-height-20'><%= @business.phone_numbers_sentence %></span>
@@ -92,7 +92,7 @@
             <div class='col-sm-6'>
               <span class='col-sm-1  col-sm-offset-3 text-height-23'>
                 <% if user_signed_in? %>
-                  <% if @review %>
+                  <% if @user_review %>
                     <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
                   <% else %>
                     <span class='btn btn-primary' title='You have already posted reviews for this business'>Rate this Business
@@ -109,7 +109,7 @@
     </div>
   </div>
 
-  <% if @business.time_slots.exists? %>
+  <% if @business.time_slots.present? %>
   <div>
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Working Hours</span>
   <div class='jumbotron table expandable'>
@@ -137,7 +137,7 @@
     </div>
   <% end %>
 
-  <% if @business.website.present? && @business.emails.exists? %>
+  <% if @business.website.present? && @business.emails.present? %>
     <div>
     <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Online Presence</span>
     <div class='jumbotron expandable'>
@@ -152,7 +152,7 @@
         <% end %>
       </div>
       <div class='row top-pad'>
-        <% if @business.emails.exists? %>
+        <% if @business.emails.present? %>
           <div class='col-sm-1'>
             <%= image_tag 'email.jpg' %>
           </div>
@@ -200,8 +200,8 @@
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
     <div id='new-review'>
-      <% if @review %>
-        <%= form_for @review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
+      <% if @user_review %>
+        <%= form_for @user_review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
           <div>
             <ul class="rating-star col-sm-6">
               <% (0..5).each do |x| %>

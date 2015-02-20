@@ -114,7 +114,7 @@ class Business < ActiveRecord::Base
   end
 
   def percentage_rating_for(rate_value)
-    (reviews.where(rating: rate_value).size * 100) / reviews.size
+    reviews.exists? ? (reviews.where(rating: rate_value).size * 100) / reviews.size : 0
   end
 
 end

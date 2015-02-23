@@ -92,7 +92,7 @@
             <div class='col-sm-6'>
               <span class='col-sm-1  col-sm-offset-3 text-height-23'>
                 <% if user_signed_in? %>
-                  <% if @reviews.where(user_id: current_user).present? %>
+                  <% if @user_review %>
                     <span class='btn btn-primary' title='You have already posted reviews for this business'>Rate this Business
                   <% else %>
                     <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
@@ -187,7 +187,7 @@
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
     <div id='new-review'>
-      <% if @user_review %>
+      <% unless @user_review %>
         <%= form_for @user_review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
           <div>
             <ul class="rating-star col-sm-6">

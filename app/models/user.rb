@@ -7,13 +7,26 @@ class User < ActiveRecord::Base
   has_many :reviews
 
   validates :name, presence: true
+  validates :active, inclusion: [true, false]
 
   #FIXME_AB: should be named as has_role?(:admin), since it is checking inclusion
   def admin?
     roles_names.include? 'admin'
   end
 
+  def active_for_authentication?
+    super and is_active?
+  end
+
+  def inactive_message
+    is_active? ? super : 'Your account has been disabled. Please contact with Bizrating Admin.'
+  end
+
   private
+
+    def is_active?
+      active
+    end
 
     def roles_names
       roles.pluck(:name)

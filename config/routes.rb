@@ -23,7 +23,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :password, only: [:edit, :update]
     resources :states, only: :index
     resources :businesses, path_names: { new: :step1 } do
       patch :fire, on: :member
@@ -44,7 +43,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  get 'search', to: 'search#search'
   root 'home#index'
 
 end

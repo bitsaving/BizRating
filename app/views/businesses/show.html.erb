@@ -81,7 +81,7 @@
                       <%= image_tag 'star-unfilled.png' %>
                     <% end %>
                   </div>
-                  <div class='filled' style="clip: rect(0 ,<%= @business.average_rating * 20 * 2.56 %>px, 48px, 0px)" >
+                  <div class='filled' style="clip: rect(0 ,<%= @business.average_rating * 20 * 2.56 if @business.average_rating.present? %>px, 48px, 0px)" >
                       <% 5.times do %>
                         <%= image_tag 'star-filled.png' %>
                       <% end %>

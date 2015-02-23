@@ -6,6 +6,10 @@
   </div>
 </div>
 
+<div class='top-pad'>
+  <p>List of Businesses in <%= @category.name.humanize %></p>
+</div>
+
 <div class="table table-striped top-pad-10">
   <% @businesses.each do |business| %>
     <div class='row top-pad'>

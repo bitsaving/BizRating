@@ -177,7 +177,7 @@
     <div class='col-sm-9 rating-bar'>
       <% (1..5).each do |star| %>
         <div class='row top-pad'>
-          <div style="width: <%= @business.percentage_star_rating[star] * 0.9 %>%"></div>
+          <div style="width: <%= @business.percentage_star_rating[star] %>%"></div>
           <%= @business.percentage_star_rating[star] %>%
         </div>
       <% end %>

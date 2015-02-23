@@ -93,9 +93,9 @@
               <span class='col-sm-1  col-sm-offset-3 text-height-23'>
                 <% if user_signed_in? %>
                   <% if @reviews.where(user_id: current_user).present? %>
-                    <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
-                  <% else %>
                     <span class='btn btn-primary' title='You have already posted reviews for this business'>Rate this Business
+                  <% else %>
+                    <%= link_to 'Rate this Business', '#new-review', id: 'new-review-btn', class: 'btn btn-primary' %>
                     </span>
                   <% end %>
                 <% else %>

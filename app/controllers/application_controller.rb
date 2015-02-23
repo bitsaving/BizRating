@@ -8,16 +8,8 @@ class ApplicationController < ActionController::Base
     if resource.admin?
       admin_businesses_path
     else
-      request.env['omniauth.origin'] || stored_location_for(resource) || root_url
+      super
     end
-  end
-
-  def after_sign_up_path_for(resource)
-    request.env['omniauth.origin'] || stored_location_for(resource) || root_url
-  end
-
-  def after_confirmation_path_for(resource)
-    root_path
   end
 
   private
@@ -27,8 +19,4 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name) }
     end
 
-    def store_location
-      debugger
-      store_location_for(:user, request.referer)
-    end
 end

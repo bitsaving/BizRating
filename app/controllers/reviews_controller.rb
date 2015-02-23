@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
       render json: [@review.detail, @review.user.name, @review.rating,
         @review.business.average_rating * 20], status: :created
     else
-      render json: @review.errors, status: :unprocessable_entity
+      render json: @review.errors.full_messages, status: :unprocessable_entity
     end
   end
 

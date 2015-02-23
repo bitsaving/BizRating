@@ -52,6 +52,7 @@ UserBusinesses.prototype.bindEvents = function() {
       .append("<p>" + data[0] + "</p>"));
     $("form.creation").hide();
     $(".rating div.filled").first().css({ width: data[3] + "%" });
+    location.reload();
   });
 
   $(document).on("ajax:error", function(e, data) {

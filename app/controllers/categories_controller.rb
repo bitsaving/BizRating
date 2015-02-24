@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   def show
     #FIXME_AB: @category.businesses.published.enabled. or just @category.businesses.live.
     ## FIXED
-    @businesses = @category.businesses.live.order(:created_at).page(params[:page]).per(15)
+    @businesses = @category.businesses.live.order(average_rating: :desc, created_at: :desc).page(params[:page]).per(15)
   end
 
   private

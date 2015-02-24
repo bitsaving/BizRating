@@ -1,11 +1,7 @@
 class SearchController < ApplicationController
 
   def search
-    if params[:q].nil?
-      @businesses = []
-    else
-      @businesses = Business.__elasticsearch__.search params[:q]
-    end
+    @businesses = params[:q].nil? ? [] : Business.search(params[:q]).records.order(average_rating: :desc, created_at: :asc).page(params[:page]).per(15)
   end
 
 end

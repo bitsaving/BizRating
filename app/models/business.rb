@@ -1,9 +1,6 @@
-require 'elasticsearch/model'
-
 class Business < ActiveRecord::Base
   include Workflow
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  include Searchable
 
   serialize :percentage_star_rating
   after_save :update_percentage_star_rating
@@ -120,10 +117,4 @@ class Business < ActiveRecord::Base
     update_column(:percentage_star_rating, Hash[reviews.group(:rating).count(:rating).map{ |k, v| [k, v * 100 /  reviews.length] } ])
   end
 
-  def as_indexed_json
-    self.as_json({ only: [:name] })
-  end
-
 end
-
-Business.import

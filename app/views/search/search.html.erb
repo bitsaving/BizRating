@@ -24,7 +24,7 @@
           </div>
           <div class="rating-show col-sm-3 col-sm-offset-1">
             <div class="unfilled">★★★★★</div>
-            <div class="filled" style="width: <%= business.average_rating.present? ? business.average_rating * 20 : 0 %>%" >★★★★★</div>
+            <div class="filled" style="width: <%= percentage_average_rating(business) %>%" >★★★★★</div>
           </div>
         </div>
       </div>

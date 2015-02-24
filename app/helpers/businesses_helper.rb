@@ -35,4 +35,8 @@ module BusinessesHelper
     [step(params[:step] + 1), :admin, business]
   end
 
+  def percentage_average_rating(business)
+    business.average_rating.present? ? business.average_rating * 20 : 0
+  end
+
 end

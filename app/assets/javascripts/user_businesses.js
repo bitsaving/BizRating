@@ -27,7 +27,7 @@ UserBusinesses.prototype.bindEvents = function() {
   });
 
   this.reviewForm.find("input[type='submit']").on('click', function(e) {
-    if (confirm('Do you want to post this review?')) {
+    if (_this.formFilled() && confirm('Do you want to post this review?')) {
       return true;
     } else {
       e.preventDefault();
@@ -58,6 +58,15 @@ UserBusinesses.prototype.bindEvents = function() {
     alert(data.responseText);
     _this.reviewForm.find('textarea').focus();
   });
+};
+
+UserBusinesses.prototype.formFilled = function() {
+  if ((this.reviewForm.find('textarea').val().trim().length == 0) || (this.reviewForm.find("ul.rating-star 'input[type=radio]:checked").size == 0)) {
+    alert('Provide both review and rating');
+    return false
+  } else {
+    return true
+  }
 };
 
 $(function() {

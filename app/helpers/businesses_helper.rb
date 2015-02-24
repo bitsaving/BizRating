@@ -39,4 +39,12 @@ module BusinessesHelper
     business.average_rating.present? ? business.average_rating * 20 : 0
   end
 
+  def percentage_average_rating_for_large_star(business)
+    percentage_average_rating(business) * 2.56
+  end
+
+  def percentage_star_rating_width(star)
+    @business.percentage_star_rating[star].to_i * 0.9
+  end
+
 end

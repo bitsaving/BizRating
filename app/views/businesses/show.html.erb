@@ -81,7 +81,7 @@
                       <%= image_tag 'star-unfilled.png' %>
                     <% end %>
                   </div>
-                  <div class='filled' style="clip: rect(0 ,<%= @business.average_rating * 20 * 2.56 if @business.average_rating.present? %>px, 48px, 0px)" >
+                  <div class='filled' style="clip: rect(0 ,<%= percentage_average_rating_for_large_star(@business) %>px, 48px, 0px)" >
                       <% 5.times do %>
                         <%= image_tag 'star-filled.png' %>
                       <% end %>
@@ -165,7 +165,8 @@
     </div>
   <% end %>
 
-<span class='text-height-20'><u>Total Reviews</u>: <%= @reviews.size %></span>
+<div class='bottom-pad-20'>
+  <span class='text-height-20'><u>Total Reviews</u>: <%= @reviews.size %></span>
   <div class='row rating-bar-container'>
     <div class='col-sm-3 bar-name'>
       <div class='row top-pad'>Excellent</div>
@@ -177,12 +178,13 @@
     <div class='col-sm-9 rating-bar'>
       <% (1..5).each do |star| %>
         <div class='row top-pad'>
-          <div style="width: <%= @business.percentage_star_rating[star] %>%"></div>
-          <%= @business.percentage_star_rating[star] %>%
+          <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
+          <%= @business.percentage_star_rating[star].to_i %>%
         </div>
       <% end %>
     </div>
   </div>
+</div>
 
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>
@@ -191,6 +193,7 @@
         <%= form_for @user_review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
           <div>
             <ul class="rating-star col-sm-6">
+              <li id='rate-label'>Rate</li>
               <% (0..5).each do |x| %>
                 <li>
                   <%= f.radio_button :rating, x %>
@@ -208,7 +211,7 @@
             </span>
             <%= f.hidden_field :business_id, value: @business.id %>
             <div class="field form-group">
-              <%= f.text_area :detail, rows: 2, class: 'control-controle col-sm-12', maxlength: "500" %>
+              <%= f.text_area :detail, rows: 2, class: 'control-controle col-sm-12', maxlength: "500", placeholder: 'Comment' %>
             </div>
             <div class="form-group">
               <div class="col-sm-offset-11 col-sm-1">
@@ -220,6 +223,7 @@
       <% end %>
     </div>
     <div>
+    <% if @reviews.present? %>
       <% @reviews.each do |review| %>
       <div class="review">
         <div class='row'>
@@ -228,16 +232,19 @@
             <div class="unfilled">★★★★★</div>
             <div class="filled" style="width: <%= review.rating * 20 %>%" >★★★★★</div>
           </div>
+          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
         </div>
         <div class='row'>
-          <div class='row review-block'><p class=' text text-30 col-sm-offset-1'><%= review.detail %></p></div>
-          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
+          <div class='row review-block'><pre class=' text text-30'><%= review.detail %></pre></div>
         </div>
         <hr>
       </div>
     <% end %>
     <%= paginate @reviews %>
     </div>
+    <% else %>
+      No Reviews please review now
+    <% end %>
   </div>
 
 </div>

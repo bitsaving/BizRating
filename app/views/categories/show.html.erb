@@ -31,7 +31,10 @@
                 <%= business.address_city_state_country %>
               <% end %>
             </div>
-            <div class='col-sm-3 col-sm-offset-1  text'>★★★★★</div>
+            <div class="rating-show col-sm-3 col-sm-offset-1">
+              <div class="unfilled">★★★★★</div>
+              <div class="filled" style="width: <%= business.average_rating * 20 %>%" >★★★★★</div>
+            </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 class Business < ActiveRecord::Base
   include Workflow
+  include Searchable
 
   serialize :percentage_star_rating
   after_save :update_percentage_star_rating

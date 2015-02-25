@@ -68,8 +68,14 @@ div.rating-star {
 .text-30 {
   font-size: 30px;
 }
+
 .review-block {
   background-color: white;
+}
+
+.review-block pre {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
 }
 
 .h3 {
@@ -114,4 +120,8 @@ div.rating-star {
 
 .rating-bar div.row div:hover {
   background-color: blue;
+}
+
+.bottom-pad-20 {
+  padding-bottom: 20px;
 }

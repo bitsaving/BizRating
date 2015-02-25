@@ -22,6 +22,8 @@ gem 'rails4-autocomplete'
 gem 'workflow'
 gem 'kaminari'
 gem 'ransack'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 group :production do
   gem 'rails_12factor'
   gem 'pg'

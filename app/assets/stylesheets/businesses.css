@@ -96,3 +96,7 @@ div.arrow {
   vertical-align: center;
   padding-top: 110px;
 }
+
+#rate-label {
+  color: black !important;
+}

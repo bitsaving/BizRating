@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources: :users, only: :index do
+    resources :users, only: :index do
       patch :update_status, on: :collection
     end
   end

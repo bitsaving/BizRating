@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     is_active? ? super : 'Your account has been disabled. Please contact with Bizrating Admin.'
   end
 
+  def set_status(status)
+    update(active: (status == 'true'))
+  end
+
   private
 
     def is_active?

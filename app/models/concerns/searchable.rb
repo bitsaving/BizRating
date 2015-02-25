@@ -4,7 +4,7 @@ module Searchable
 
   included do
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
+    # include Elasticsearch::Model::Callbacks
 
     def self.search(query)
       __elasticsearch__.search(

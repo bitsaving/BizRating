@@ -2,7 +2,7 @@ class Business < ActiveRecord::Base
   include Workflow
   include Searchable
 
-  serialize :percentage_star_rating
+  serialize :percentage_star_rating, Hash
 
   belongs_to :category, required: true
 

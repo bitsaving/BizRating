@@ -3,7 +3,6 @@ class Business < ActiveRecord::Base
   include Searchable
 
   serialize :percentage_star_rating
-  after_save :update_percentage_star_rating
 
   belongs_to :category, required: true
 
@@ -75,7 +74,7 @@ class Business < ActiveRecord::Base
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
     ## FIXED
-    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence.present?
+    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) if keyword.present? } if sentence.present?
   end
 
   def fire!(event)

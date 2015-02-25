@@ -20,7 +20,7 @@ class Review < ActiveRecord::Base
     end
 
     def update_percentage_star_rating
-      business.update_column(:percentage_star_rating, Hash[reviews.group(:rating).count(:rating).map{ |k,v| [k, v.to_i * 100 / reviews.count] }])
+      business.update_column(:percentage_star_rating, Hash[business.reviews.group(:rating).count(:rating).map{ |k,v| [k, v.to_i * 100 / business.reviews.count] }])
     end
 
 end

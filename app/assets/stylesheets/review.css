@@ -91,7 +91,11 @@ div.rating-star {
 .rating-bar-container {
   border-bottom: 1px solid black;
   padding: 0px;
-  margin: 0px;
+  margin-bottom: 0px;
+}
+
+.rating-bar-container div.row:last-child {
+  padding-bottom: 10px;
 }
 
 .bar-name {

@@ -42,6 +42,10 @@ Rails.application.routes.draw do
         patch :step3, to: :update, defaults: { step: 3 }
       end
     end
+
+    resources :users, only: :index do
+      patch :update_status, on: :collection
+    end
   end
   get 'search', to: 'search#search'
   root 'home#index'

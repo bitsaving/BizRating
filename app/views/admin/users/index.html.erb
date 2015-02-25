@@ -1,0 +1,36 @@
+<div class='.row bottom-padding-10'>
+  <%= search_form_for @q, url: admin_users_path, class: 'form form-horizontal top-pad-10' do |f| %>
+    <div class="col-sm-4 col-sm-offset-8">
+      <div class="input-group">
+        <%= f.text_field :name_or_email_cont, class: "form-control", placeholder: 'search name and email' %>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default">
+            <i class="icon-search">Go</i>
+          </button>
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<table class="table table-striped">
+  <tbody class="sortable">
+    <% @users.each do |user| %>
+      <tr>
+        <% #FIXME_AB: Use user.images.present? to save queries %>
+        <% ## FIXED -%>
+      <td class='col-sm-1 text'><%= user.name %></td>
+      <td class='col-sm-1 text'><%= user.email %></td>
+      <td class="col-sm-offset-1 col-sm-1">
+        <%= link_to 'Disable', '#', data: { :'user_active' => !user.active, id: user.id, :'user_name' => user.name }, class: "btn btn-xs edit #{ edit_button_class(user.active) }" %>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>
+<% #FIXME_AB: use @user.empty? -%>
+<% ## FIXED -%>
+<%= 'There are no users available'  if @users.empty? %>
+<% content_for :head do javascript_include_tag :admin_users end %>

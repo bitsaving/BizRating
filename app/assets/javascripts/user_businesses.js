@@ -42,7 +42,7 @@ UserBusinesses.prototype.bindEvents = function() {
       .siblings('input').checked = true;
     console.log($(this).parent('li').index());
     _this.reviewDetails.hide();
-    _this.reviewDetails.eq($(this).parent('li').index()).show();
+    _this.reviewDetails.eq($(this).parent('li').index() - 1).show();
   });
 
   $(document).on("ajax:success", function(e, data) {

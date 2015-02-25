@@ -24,6 +24,8 @@ div.rating-star {
   overflow: hidden;
   color: orange;
   height: 48px;
+  vertical-align: middle;
+  top: 4px;
 }
 
 .filled img {
@@ -35,6 +37,9 @@ div.rating-star {
   position: absolute;
   color: black;
   height: 48px;
+  vertical-align: middle;
+  top: 4px;
+
 }
 
 .unfilled img {
@@ -74,6 +79,7 @@ div.rating-star {
 }
 
 .review-block pre {
+  font-size: 16px;
   margin-bottom: 0px;
   padding-bottom: 10px;
 }

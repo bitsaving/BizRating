@@ -93,3 +93,14 @@
       </div>
     </div>
   <% end %>
+<div id='map-canvas'></div>
+
+<% content_for :head do %>
+  <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsihJMaLwegcz19Wfle-gDtTyAeBmaLK4">
+    </script>
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'gmap' %>
+<% end %>

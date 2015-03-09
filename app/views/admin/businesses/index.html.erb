@@ -47,10 +47,8 @@
       <td class='col-sm-3 text'>
         <% if business.address.latitude.present? %>
           <%= link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
-          <%=  business_latitude_longitude(business) %>
-        <% else %>
-          <%= business.address_sentence %>
         <% end %>
+          <%= business.address_sentence %>
       </td>
       <td class="col-sm-offset-3 col-sm-1">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),

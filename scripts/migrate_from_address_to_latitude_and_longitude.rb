@@ -12,7 +12,7 @@ Address.find_each do |address|
   if response['results'].empty?
     location = { latitude: 0, longitude: 0 }
   else
-    location = { latitude: response['results'][0]['geometry']['location'][:lng], longitude: response['results'][0]['geometry']['location']['lng']}
+    location = { latitude: response['results'][0]['geometry']['location']['lat'], longitude: response['results'][0]['geometry']['location']['lng']}
   end
-  p location
+  address.update_columns(location)
 end

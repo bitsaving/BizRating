@@ -11,20 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225073140) do
+ActiveRecord::Schema.define(version: 20150309063253) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",      limit: 255
     t.string   "building",    limit: 255
     t.string   "landmark",    limit: 255
-    t.string   "area",        limit: 255
     t.string   "city",        limit: 255
     t.string   "pin_code",    limit: 255
     t.string   "country",     limit: 255
     t.string   "state",       limit: 255
     t.integer  "business_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.decimal  "longitude",               precision: 9, scale: 6
+    t.decimal  "latitude",                precision: 9, scale: 6
   end
 
   add_index "addresses", ["business_id"], name: "index_addresses_on_business_id", using: :btree

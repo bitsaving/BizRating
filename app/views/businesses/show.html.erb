@@ -52,14 +52,14 @@
             <span class='col-sm-2'><%= image_tag 'home1.png' %></span>
             <span class='col-sm-10 text-height-20'><%= @business.address_sentence %></span>
           </div>
-          <% if @business.address.area.present? %>
+          <% if @business.address.latitude.present? %>
             <div class='row top-pad'>
               <span class='col-sm-2'>
                 <% #FIXME_AB: Make a helper for this. -%>
                 <% ## FIXED -%>
                 <%=link_to image_tag('marker1.jpg'), google_map_url(@business), :target => "_blank" %></span>
               <span class='col-sm-10 text-height-20'>
-                  <%= @business.address.area %>
+                  <%= @business.address.latitude %>
               </span>
             </div>
           <% end %>

@@ -7,7 +7,7 @@ class Address < ActiveRecord::Base
 
   validates :city, :country, :state, :pin_code, presence: true
   validates :pin_code, format: { with: PIN_CODE_REGEX, message: 'is not a zip code' }, allow_blank: true
-
+  validates :longitude, :latitude, numericality: true
   #FIXME_AB: Do not place extra lines between validations. just need to separate associations validations etc.
   ## FIXED
   ## FIXME_NISH Move this Regex in a constants.

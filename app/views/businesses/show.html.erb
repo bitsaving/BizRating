@@ -171,26 +171,34 @@
     </div>
   <% end %>
 
-<div class='bottom-pad-20'>
-  <span class='text-height-20'><u>Total Reviews</u>: <%= @reviews.size %></span>
-  <div class='row rating-bar-container'>
-    <div class='col-sm-3 bar-name'>
-      <div class='row top-pad'>Excellent</div>
-      <div class='row top-pad'>Very Good</div>
-      <div class='row top-pad'>Good</div>
-      <div class='row top-pad'>Average</div>
-      <div class='row top-pad'>Poor</div>
-    </div>
-    <div class='col-sm-9 rating-bar'>
-      <% (1..5).each do |star| %>
-        <div class='row top-pad'>
-          <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
-          <%= @business.percentage_star_rating[star].to_i %>%
+  <div class='row'>
+    <div class='bottom-pad-20 col-sm-7'>
+      <span class='text-height-20'><u>Total Reviews</u>: <%= @reviews.size %></span>
+      <div class='row rating-bar-container'>
+        <div class='col-sm-3 bar-name'>
+          <div class='row top-pad'>Excellent</div>
+          <div class='row top-pad'>Very Good</div>
+          <div class='row top-pad'>Good</div>
+          <div class='row top-pad'>Average</div>
+          <div class='row top-pad'>Poor</div>
         </div>
-      <% end %>
+        <div class='col-sm-9 rating-bar'>
+          <% (1..5).each do |star| %>
+            <div class='row top-pad'>
+              <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
+              <%= @business.percentage_star_rating[star].to_i %>%
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
+    <% if @business.address.latitude.present? %>
+      <div class='col-sm-5'>
+        <%= image_tag google_static_map_url(@business) %>
+        <%= link_to 'View on google map', google_map_url(@business), :target => "_blank"  %>
+      </div>
+    <% end %>
   </div>
-</div>
 
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
   <div class='jumbotron'>

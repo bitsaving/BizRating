@@ -26,7 +26,7 @@
               <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
               <% ## FIXED -%>
                 <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
-                <%= business.address.latitude %>
+                <%= business_latitude_longitude(business) %>
               <% else %>
                 <%= business.address_city_state_country %>
               <% end %>

@@ -9,5 +9,5 @@ Address.find_each do |address|
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   request = Net::HTTP::Get.new(uri.request_uri)
   response = http.request(request)
-  p Active::Support::JSON.decode(response.body)['results'][0]['geometry']['location']
+  p ActiveSupport::JSON.decode(response.body)['results'][0]['geometry']['location']
 end

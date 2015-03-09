@@ -9,10 +9,10 @@ Address.find_each do |address|
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   request = Net::HTTP::Get.new(uri.request_uri)
   response = ActiveSupport::JSON.decode(http.request(request).body)
-  p response['results']
   if response['results'].empty?
-    p [0,0]
+    location = { latitude: 0, longitude: 0 }
   else
-    p response['results'][0]['geometry']['location']
+    location = { latitude: response['results'][0]['geometry']['location'][:lng], longitude: response['results'][0]['geometry']['location']['lng']}
   end
+  p location
 end

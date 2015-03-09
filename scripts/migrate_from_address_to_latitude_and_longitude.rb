@@ -3,7 +3,7 @@ require 'net/http'
 
 puts 'transforming address to latitude and longitude'
 Address.find_each do |address|
-  uri = URI.parse("https://maps.googleapis.com/maps/api/geocode/json?address=" + address.area.to_s + "&key=AIzaSyDsihJMaLwegcz19Wfle-gDtTyAeBmaLK4")
+  uri = URI.parse("https://maps.googleapis.com/maps/api/geocode/json?" + address.area.to_query('address') + "&key=AIzaSyDsihJMaLwegcz19Wfle-gDtTyAeBmaLK4")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE

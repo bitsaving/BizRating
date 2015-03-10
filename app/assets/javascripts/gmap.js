@@ -1,5 +1,9 @@
 function Map(input) {
-  this.areaKey = input.areaKey;
+  this.searchBox = input.searchBox;
+  this.country = input.country;
+  this.form = input.form;
+  this.pinCode = input.pinCode;
+  this.componentRestrictions = {};
 }
 
 Map.prototype.initialize = function() {
@@ -9,12 +13,41 @@ Map.prototype.initialize = function() {
 
 Map.prototype.bindEvent = function() {
   var _this = this;
-  this.areaKey.on('keyup', function() {
+  this.searchBox.on('keyup', function() {
     _this.codeAddress();
   });
   google.maps.event.addListener(this.mapCanvas, 'click', function(event) {
     _this.addMarker(event.latLng);
   });
+  this.country.on('change', function(event) {
+    _this.componentRestrictions['country'] = $(this).val();
+    _this.centerMap($(this).val());
+    _this.mapCanvas.setZoom(4);
+  });
+  this.form.on('change', '#business_address_attributes_state', function(event) {
+    _this.componentRestrictions['administrativeArea'] = $(this).val();
+    _this.centerMap($(this).val());
+    _this.mapCanvas.setZoom(7);
+  });
+  this.pinCode.on('change', function(event) {
+    _this.componentRestrictions['postalCode'] = $(this).val();
+    _this.centerMap($(this).val());
+    _this.mapCanvas.setZoom(12);
+  });
+};
+
+Map.prototype.centerMap = function(value) {
+  var _this = this;
+  this.geocoder.geocode( { 'address': value,
+    componentRestrictions: _this.componentRestrictions
+      }, function(results, status) {
+        console.log(results);
+    if (status == google.maps.GeocoderStatus.OK) {
+        _this.mapCanvas.setCenter(results[0].geometry.location);
+    } else {
+        alert("Could not find location: " + location);
+    }
+});
 };
 
 Map.prototype.addMarker = function(location) {
@@ -34,24 +67,20 @@ Map.prototype.addMarker = function(location) {
           });
           $('#business_address_attributes_longitude').val(location.lng());
           $('#business_address_attributes_latitude').val(location.lat());
-          _this.areaKey.val(results[0].formatted_address);
+          _this.searchBox.val(results[0].formatted_address);
         }
       }
     );
   } else {
-    alert('Zoom level less than 16')
+    alert('Zoom level should be less than 16')
   }
 };
 
 Map.prototype.codeAddress = function() {
-  var address = this.areaKey.val(), _this = this;
+  var address = this.searchBox.val(), _this = this;
   _this.geocoder.geocode({
       'address': address,
-      componentRestrictions: {
-        country: $('#business_address_attributes_country option:selected').data('code'),
-        postalCode: $('#business_address_attributes_pin_code').val(),
-        administrativeArea: $('#business_address_attributes_state option:selected').val()
-      }
+      componentRestrictions: _this.componentRestrictions
     }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       _this.setMap(results);
@@ -78,7 +107,11 @@ Map.prototype.setupMap = function() {
 
 $(function() {
   var input = {
-      areaKey: $('#Search')
+      searchBox: $('#Search'),
+      country: $('#business_address_attributes_country'),
+      form: $('#new_business'),
+      pinCode: $('#business_address_attributes_pin_code'),
+
     },
     gmap = new Map(input);
     gmap.initialize();

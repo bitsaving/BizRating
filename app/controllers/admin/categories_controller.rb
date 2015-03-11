@@ -15,7 +15,7 @@ class Admin::CategoriesController < Admin::BaseController
       ## FIXME_NISH Pass notice as an option to redirect_to.
       ## FIXME_NISH Please pass newly created category name
       ## FIXED
-      redirect_to admin_categories_path, notice: 'Category #{ @category.name } added Successfully'
+      redirect_to admin_categories_path, notice: "Category #{ @category.name } added Successfully"
     else
       #FIXME_AB: Prefer symbol over string render :new
       ## FIXED

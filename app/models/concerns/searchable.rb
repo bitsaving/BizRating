@@ -35,7 +35,6 @@ module Searchable
     end
 
     def self.search_nearby(category, geolocation, sort_order)
-      debugger
       __elasticsearch__.search(
         {
           query: {
@@ -62,7 +61,6 @@ module Searchable
     end
 
     def self.sort_order_hash(geolocation, sort_order)
-      debugger
       if sort_order['average_rating'].present?
         {
           average_rating: {
@@ -73,7 +71,7 @@ module Searchable
         {
           _geo_distance: {
             location: geolocation,
-            order: sort_order['distance'] || 'asc',
+            order: 'asc',
             unit: :km,
             distance_type: :plane
           }

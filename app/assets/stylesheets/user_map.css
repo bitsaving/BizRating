@@ -1,4 +1,7 @@
-#user_map {
-  height: 100%;
-  width: 100%;
+#gmap {
+  height: 500px;
+}
+
+.marker {
+  background-color: grey !important;
 }

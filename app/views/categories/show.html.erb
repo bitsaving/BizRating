@@ -4,42 +4,54 @@
     <%= image_tag @category.image.url(:thumb), size: '80x30' %>
     <div id= 'business-name'><%= @category.name.humanize %></div>
   </div>
+  <div class='col-sm-3 col-sm-offset-2'>
+    <%= form_tag category_path, method: :get, class: "form form-horizontal", id: 'order_form' do |f| %>
+      <div "form-group">
+        <%= select_tag :order, options_for_select([['Distance low to high', 'distance, asc'], ['Distance high to low', 'distance, desc'], ['Rating low to high', 'average_rating, asc'], ['Rating high to low', 'average_rating, desc']]), class:'form-control' %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div class='top-pad'>
   <p>List of Businesses in <%= @category.name.humanize %></p>
 </div>
 
-<div class="table table-striped top-pad-10">
-  <% @businesses.each do |business| %>
-    <div class='row top-pad'>
-      <div class='col-sm-1'><%= image_tag business.images.first.image.url(:thumb), size: '65x45' if business.images.exists? %>
-      </div>
-      <div class='col-sm-11'>
-        <div class='row'>
-          <div class='col-sm-6 text'><%= link_to business.name.humanize, business_path(business) %></div>
-          <div class='col-sm-3 col-sm-offset-3  text'>Rating</div>
-        </div>
-        <div class='row'>
-            <div class='col-sm-8 text'>
-              <% if business.address.latitude.present? %>
-              <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
-              <% ## FIXED -%>
-                <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
-                <%= business.address_sentence %>
-              <% else %>
-                <%= business.address_city_state_country %>
-              <% end %>
+<div class='row'>
+  <div class='col-sm-6'>
+    <div class="table table-striped top-pad-10">
+      <% @businesses.each do |business| %>
+        <div class='row top-pad'>
+          <div class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb), size: '65x45' if business.images.exists? %>
+          </div>
+          <div class='col-sm-10'>
+            <div class='row'>
+              <div class='col-sm-6 text'><%= link_to business.name.humanize, business_path(business) %></div>
+              <div class='col-sm-3 col-sm-offset-3  text'>Rating</div>
             </div>
-            <div class="rating-show col-sm-3 col-sm-offset-1">
-              <div class="unfilled">★★★★★</div>
-              <div class="filled" style="width: <%= business.average_rating.to_i * 20 %>%" >★★★★★</div>
+            <div class='row'>
+                <div class='col-sm-8 text'>
+                  <% if business.address.latitude.present? %>
+                  <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
+                  <% ## FIXED -%>
+                    <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
+                    <%= business.address_sentence %>
+                  <% else %>
+                    <%= business.address_city_state_country %>
+                  <% end %>
+                </div>
+                <div class="rating-show col-sm-3 col-sm-offset-1">
+                  <div class="unfilled">★★★★★</div>
+                  <div class="filled" style="width: <%= business.average_rating.to_i * 20 %>%" >★★★★★</div>
+                </div>
             </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
-
 <%= 'No businesses available in the category' if @businesses.blank? %>
+
 <%= paginate @businesses %>
+<%= javascript_include_tag 'user_category' %>

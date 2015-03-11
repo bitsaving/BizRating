@@ -3,12 +3,13 @@
 <% else %>
   Displaying Business Results for <%= params[:q] %>
 <% end %>
+
 <div class="table table-striped top-pad-10">
   <% @businesses.each do |business| %>
     <div class='row top-pad'>
-      <div class='col-sm-1'><%= image_tag business.images.first.image.url(:thumb) if business.images.exists? %>
+      <div class='col-sm-2'><%= image_tag business.images.first.image.url(:thumb) if business.images.exists? %>
       </div>
-      <div class='col-sm-11'>
+      <div class='col-sm-10'>
         <div class='row'>
           <div class='col-sm-6 text'><%= link_to business.name.humanize, business_path(business) %></div>
           <div class='col-sm-3 col-sm-offset-3  text'><%= business.reviews.count %> Rating</div>
@@ -17,7 +18,7 @@
           <div class='col-sm-8 text'>
             <% if business.address.latitude.present? %>
               <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
-              <%= business.address.latitude.humanize %>
+              <%= business.address_sentence %>
             <% else %>
               <%= business.address_city_state_country %>
             <% end %>
@@ -31,4 +32,5 @@
     </div>
   <% end %>
 </div>
+
 <%= paginate @businesses %>

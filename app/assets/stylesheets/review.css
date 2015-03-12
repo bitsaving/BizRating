@@ -67,7 +67,7 @@ div.rating-star {
 }
 
 .add-color {
-  color: orange
+  color: orange;
 }
 
 .text-30 {
@@ -76,6 +76,7 @@ div.rating-star {
 
 .review-block {
   background-color: white;
+  margin-left: 0px;
 }
 
 .review-block pre {
@@ -134,4 +135,12 @@ div.rating-star {
 
 .bottom-pad-20 {
   padding-bottom: 20px;
+}
+
+.review-timmings {
+  text-align: right;
+}
+
+.reviewer-name {
+  padding-left: 0px;
 }

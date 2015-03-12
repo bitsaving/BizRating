@@ -172,7 +172,7 @@
           <div class='row top-pad'>Poor</div>
         </div>
         <div class='col-sm-9 rating-bar'>
-          <% (1..5).each do |star| %>
+          <% (0..4).each do |star| %>
             <div class='row top-pad'>
               <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
               <%= @business.percentage_star_rating[star].to_i %>%
@@ -230,12 +230,12 @@
       <% @reviews.each do |review| %>
       <div class="review">
         <div class='row'>
-          <span class='col-sm-2 h4'><%= review.user.name %></span>
+          <span class='col-sm-2 h3 reviewer-name'><%= review.user.name %></span>
           <div class="rating-show col-sm-3">
             <div class="unfilled">★★★★★</div>
             <div class="filled" style="width: <%= review.rating * 20 %>%" >★★★★★</div>
           </div>
-          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
+          <div class='col-sm-offset-9 row review-timmings'><%= review.created_at.to_formatted_s(:long) %></div>
         </div>
         <div class='row'>
           <div class='row review-block'><pre class=' text text-30'><%= review.detail %></pre></div>

@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::BaseController
 
   def index
     @q =  User.ransack(params[:q])
-    @users = @q.result(distinct: true).page(params[:page]).per(20)
+    @users = @q.result(distinct: true).order(:name).page(params[:page]).per(20)
   end
 
   def update_status

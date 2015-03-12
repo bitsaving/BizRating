@@ -20,7 +20,7 @@ User.prototype.bindStatusEvent = function() {
     e.preventDefault();
     var linkdata = $(this).data(),
         _this = this;
-  confirmText = 'Do you want to' + (linkdata['userName'] ? ' enable ' : ' disable ') + linkdata['userName'] + " ?";
+  confirmText = 'Do you want to' + (linkdata['userActive'] ? ' enable ' : ' disable ') + linkdata['userName'] + " ?";
   if (confirm(confirmText)) {
     $.ajax({
         url: _that.updateStatusUrl,
@@ -29,7 +29,7 @@ User.prototype.bindStatusEvent = function() {
         data: linkdata,
         success: function (e) {
           $(_this).data('userActive', !e[0]);
-          _this.text = (e[0] ? 'Disable' : "Enable");
+          $(_this).text = (e[0] ? 'Disable' : "Enable");
           $(_this).toggleClass('btn-danger btn-success')
         },
         error: function (e) {

@@ -32,7 +32,7 @@ Map.prototype.bindEvent = function() {
   this.pinCode.on('change', function(event) {
     _this.componentRestrictions['postalCode'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(14);
+    _this.mapCanvas.setZoom(15);
   });
 };
 

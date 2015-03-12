@@ -27,12 +27,12 @@ Map.prototype.bindEvent = function() {
   this.form.on('change', '#business_address_attributes_state', function(event) {
     _this.componentRestrictions['administrativeArea'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(7);
+    _this.mapCanvas.setZoom(11);
   });
   this.pinCode.on('change', function(event) {
     _this.componentRestrictions['postalCode'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(12);
+    _this.mapCanvas.setZoom(14);
   });
 };
 
@@ -51,29 +51,25 @@ Map.prototype.centerMap = function(value) {
 };
 
 Map.prototype.addMarker = function(location) {
-  if (this.mapCanvas.getZoom() >= 16){
-    var _this = this;
-    this.marker.setMap(null);
-    this.geocoder.geocode({
-        'latLng' : location
-      }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            _this.marker = new google.maps.Marker({
-            position: location,
-            map: _this.mapCanvas,
-            visible: true,
-            title: results[0].formatted_address,
-            zoom: 16
-          });
-          $('#business_address_attributes_longitude').val(location.lng());
-          $('#business_address_attributes_latitude').val(location.lat());
-          _this.searchBox.val(results[0].formatted_address);
-        }
+  var _this = this;
+  this.marker.setMap(null);
+  this.geocoder.geocode({
+      'latLng' : location
+    }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+          _this.marker = new google.maps.Marker({
+          position: location,
+          map: _this.mapCanvas,
+          visible: true,
+          title: results[0].formatted_address,
+          zoom: 16
+        });
+        $('#business_address_attributes_longitude').val(location.lng());
+        $('#business_address_attributes_latitude').val(location.lat());
+        _this.searchBox.val(results[0].formatted_address);
       }
-    );
-  } else {
-    alert('Zoom level should be less than 16')
-  }
+    }
+  );
 };
 
 Map.prototype.codeAddress = function() {
@@ -100,7 +96,8 @@ Map.prototype.setupMap = function() {
   var latlng = new google.maps.LatLng(45, 90);
   this.mapCanvas = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 1,
-    center: latlng
+    center: latlng,
+    scaleControl: true
   });
   this.marker = new google.maps.Marker();
 };

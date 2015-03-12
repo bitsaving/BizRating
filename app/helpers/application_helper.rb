@@ -8,8 +8,6 @@ module ApplicationHelper
   end
 
   def business_latitude_longitude(business)
-    if business.address.latitude && business.address.longitude
-      [business.address.latitude, business.address.longitude].join(',')
-    end
+    [business.address.latitude, business.address.longitude].join(',')
   end
 end

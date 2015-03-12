@@ -7,8 +7,15 @@ module Searchable
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
+    Kaminari::Hooks.init
+    Elasticsearch::Model::Response::Response.__send__ :include, Elasticsearch::Model::Response::Pagination::Kaminari
+
     def location
       "#{ address.latitude }, #{ address.longitude }"
+      {
+        lat: address.latitude,
+        lon: address.longitude
+      }
     end
 
     def self.search(query)
@@ -43,13 +50,19 @@ module Searchable
                 match_all: {}
               },
               filter: {
-                and: {
-                  must: [
+                and: [
+                  {
                     term: {
                       :'category.name' => category.name
                     }
-                  ]
-                }
+                  },
+                  {
+                    geo_distance: {
+                      distance: "10km",
+                      location: geolocation
+                    }
+                  }
+                ]
               }
             }
           },
@@ -81,11 +94,11 @@ module Searchable
 
     def as_indexed_json(options={})
       as_json({
-        only: [:name, :description, :workflow_state, :status, :average_rating],
+        methods: :location,
+        only: [:name, :description, :workflow_state, :status, :average_rating, :location],
         include: {
           keywords: { only: :name },
-          category: { only: [:name, :status] },
-          address: { only: [:longitude, :latitude] }
+          category: { only: [:name, :status] }
         }
       })
     end

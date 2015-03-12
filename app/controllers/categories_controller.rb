@@ -5,7 +5,9 @@ class CategoriesController < ApplicationController
   def show
     #FIXME_AB: @category.businesses.published.enabled. or just @category.businesses.live.
     ## FIXED
-    @businesses = Business.search_nearby(@category, geolocation, user_sort_order).records.live.page(params[:page]).per(10)
+    search = Business.search_nearby(@category, geolocation, user_sort_order)
+    @distance = search.response.hits.hits.map { |r| r['sort'][0] }
+    @businesses = search.records.live.page(params[:page]).per(10)
     # @category.businesses.live.order(average_rating: :desc, created_at: :asc).page(params[:page]).per(15)
   end
 

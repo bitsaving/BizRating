@@ -20,7 +20,7 @@
 <div class='row'>
   <div class='col-sm-6'>
     <div class="table table-striped top-pad-10" id='business_list'>
-      <% @businesses.each do |business| %>
+      <% @businesses.each_with_index do |business, index| %>
         <div class='row top-pad business'
         data-latitude=<%= "#{ business.address.latitude }"%> data-longitude=<%= "#{business.address.longitude }" %>
         data-name=<%= "#{business.name }" %>>
@@ -32,17 +32,20 @@
               <div class='col-sm-3 col-sm-offset-3  text'>Rating</div>
             </div>
             <div class='row'>
-                <div class='col-sm-8 text'>
+                <div class='col-sm-6 text'>
                   <% if business.address.latitude.present? %>
-                  <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
-                  <% ## FIXED -%>
+                    <% #FIXME_AB: Extract this in helper. Method for makig google map url -%>
+                    <% ## FIXED -%>
                     <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
                     <%= business.address_sentence %>
                   <% else %>
                     <%= business.address_city_state_country %>
                   <% end %>
                 </div>
-                <div class="rating-show col-sm-3 col-sm-offset-1">
+                <div class='col-sm-3'>
+                  <%= @distance[index].round(2) -%> km
+                </div>
+                <div class="rating-show col-sm-3">
                   <div class="unfilled">★★★★★</div>
                   <div class="filled" style="width: <%= business.average_rating.to_i * 20 %>%" >★★★★★</div>
                 </div>
@@ -59,6 +62,7 @@
 <%= 'No businesses available in the category' if @businesses.blank? %>
 
 <%= paginate @businesses %>
+
 <% content_for :head do %>
   <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsihJMaLwegcz19Wfle-gDtTyAeBmaLK4">

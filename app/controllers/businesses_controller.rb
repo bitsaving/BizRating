@@ -19,7 +19,7 @@ class BusinessesController < ApplicationController
     end
 
     def user_review
-      @user_review = @business.reviews.build if user_signed_in? && @business.reviews.exists?(user_id: current_user.id)
+      @user_review = @business.reviews.build if user_signed_in? && !@business.reviews.exists?(user_id: current_user.id)
     end
 
 end

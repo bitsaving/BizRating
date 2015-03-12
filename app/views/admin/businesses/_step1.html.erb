@@ -46,21 +46,6 @@
       </div>
     </div>
 
-    <div class="control-group field form-group <%= add_error_class :'address.pin_code' %>">
-      <%= l.label :pin_code, 'Zip Code*', :class => 'control-label col-sm-3' %>
-      <div class="controls col-sm-6">
-        <%= l.text_field :pin_code, :class => 'form-control' %>
-      </div>
-    <span><%= @business.errors['address.pin_code'].to_sentence %></span>
-    </div>
-
-    <div class="control-group field form-group <%= add_error_class :'address.city' %>">
-      <%= l.label :city, 'City*', :class => 'control-label col-sm-3' %>
-      <div class="controls col-sm-6">
-        <%= l.text_field :city, :class => 'form-control' %>
-      </div>
-    <span><%= @business.errors['address.city'].to_sentence %></span>
-    </div>
     <div class="control-group field form-group <%= add_error_class :'address.country' %>">
       <%= l.label :country, 'Country*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
@@ -84,12 +69,55 @@
   </span>
     </div>
 
-    <%= l.hidden_field :area%>
-
-    <div class="control-group field form-group <%= add_error_class :'address.area' %>">
-      <%= label_tag 'Area', nil,class: 'control-label col-sm-3' %>
+    <div class="control-group field form-group <%= add_error_class :'address.city' %>">
+      <%= l.label :city, 'City*', :class => 'control-label col-sm-3' %>
       <div class="controls col-sm-6">
-        <%= text_field_tag 'Area', @business.address.area, :class => 'form-control', placeholder: 'Please select country first, to get suggestions' %>
+        <%= l.text_field :city, :class => 'form-control' %>
+      </div>
+    <span><%= @business.errors['address.city'].to_sentence %></span>
+    </div>
+
+    <div class="control-group field form-group <%= add_error_class :'address.pin_code' %>">
+      <%= l.label :pin_code, 'Zip Code*', :class => 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= l.text_field :pin_code, :class => 'form-control' %>
+      </div>
+    <span><%= @business.errors['address.pin_code'].to_sentence %></span>
+    </div>
+</br></br>
+<p class='col-sm-offset-2 h4'> Mark Business on Google map </p>
+
+    <div class='row'>
+      <div class="control-group field form-group <%= add_error_class :'address.latitude' %>">
+        <%= l.label :latitude, class: "control-label col-sm-2 col-sm-offset-2" %>
+        <div class="controls col-sm-2">
+          <%= l.text_field :latitude, :class => 'form-control' %>
+        </div>
+        <%= l.label :longitude, 'Longitude',class: 'control-label col-sm-1' %>
+        <div class="controls col-sm-2">
+          <%= l.text_field :longitude, :class => 'form-control' %>
+        </div>
+      <span><%= @business.errors['address.latitude'].to_sentence %></span>
+      <span><%= @business.errors['address.longitude'].to_sentence %></span>
       </div>
     </div>
+
+    <div class="control-group field form-group">
+      <%= label_tag 'Search', nil, class: 'control-label col-sm-3' %>
+      <div class="controls col-sm-6">
+        <%= text_field_tag 'Search', nil, :class => 'form-control', placeholder: 'Provide country, state, city and zip to centralize map on the specific area' %>
+      </div>
+    </div>
+
   <% end %>
+  <div id='map-canvas'></div>
+
+<% content_for :head do %>
+  <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsihJMaLwegcz19Wfle-gDtTyAeBmaLK4">
+    </script>
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'gmap' %>
+<% end %>

@@ -3,7 +3,6 @@ function Business (input) {
   this.businessForms = input.forms;
   this.statusLink = input.statusLink;
   this.searchForm = input.searchForm;
-  this.autoCompleteField = input.autoCompleteField;
   this.countryField = input.countryField;
   this.countryCode = null;
   this.stateIndexUrl = input.stateIndexUrl;
@@ -14,7 +13,6 @@ Business.prototype.initialize = function() {
   $('#loader').hide();
   this.addStatus();
   this.bindEvents();
-  this.updateAutoComplete();
 };
 
 Business.prototype.addStatus = function() {
@@ -89,20 +87,6 @@ Business.prototype.bindFormEvents = function() {
         }
       },
     });
-    _this.updateAutoComplete();
-  });
-};
-
-Business.prototype.updateAutoComplete = function() {
-  var _this = this;
-  this.setCountryValue();
-  this.autoCompleteField.attr('placeholder', 'Enter a Place');
-  this.completeArea = new google.maps.places.Autocomplete(this.autoCompleteField[0], {
-    types: ['address'], componentRestrictions: { country: this.countryCode }
-  });
-  google.maps.event.addListener(this.completeArea, 'place_changed', function() {
-    $('#business_address_attributes_area').val(_this.autoCompleteField.val());
-    console.log(_this.autoCompleteField.val());
   });
 };
 
@@ -143,7 +127,6 @@ $( function() {
     forms: $("#new_business, .edit_business"),
     statusLink: $('td a.btn.btn-xs.edit'),
     searchForm: $('#business_search'),
-    autoCompleteField: $('#Area'),
     countryField: $('#business_address_attributes_country'),
     stateIndexUrl: "/admin/states/",
     updateStatusUrl: "businesses/update_status"

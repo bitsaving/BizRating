@@ -27,7 +27,7 @@ UserBusinesses.prototype.bindEvents = function() {
   });
 
   this.reviewForm.find("input[type='submit']").on('click', function(e) {
-    if (confirm('Do you want to post this review?')) {
+    if (_this.formFilled() && confirm('Do you want to post this review?')) {
       return true;
     } else {
       e.preventDefault();
@@ -42,7 +42,7 @@ UserBusinesses.prototype.bindEvents = function() {
       .siblings('input').checked = true;
     console.log($(this).parent('li').index());
     _this.reviewDetails.hide();
-    _this.reviewDetails.eq($(this).parent('li').index()).show();
+    _this.reviewDetails.eq($(this).parent('li').index() - 1).show();
   });
 
   $(document).on("ajax:success", function(e, data) {
@@ -52,12 +52,22 @@ UserBusinesses.prototype.bindEvents = function() {
       .append("<p>" + data[0] + "</p>"));
     $("form.creation").hide();
     $(".rating div.filled").first().css({ width: data[3] + "%" });
+    location.reload();
   });
 
   $(document).on("ajax:error", function(e, data) {
     alert(data.responseText);
     _this.reviewForm.find('textarea').focus();
   });
+};
+
+UserBusinesses.prototype.formFilled = function() {
+  if ((this.reviewForm.find('textarea').val().trim().length == 0) || (this.reviewForm.find("ul.rating-star 'input[type=radio]:checked").size == 0)) {
+    alert('Provide both review and rating');
+    return false
+  } else {
+    return true
+  }
 };
 
 $(function() {

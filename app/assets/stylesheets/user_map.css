@@ -1,0 +1,7 @@
+#gmap {
+  height: 500px;
+}
+
+.marker {
+  background-color: grey !important;
+}

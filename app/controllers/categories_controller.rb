@@ -5,7 +5,10 @@ class CategoriesController < ApplicationController
   def show
     #FIXME_AB: @category.businesses.published.enabled. or just @category.businesses.live.
     ## FIXED
-    @businesses = @category.businesses.live.order(:created_at).page(params[:page]).per(15)
+    search = Business.search_nearby(@category, geolocation, user_sort_order)
+    @distance = search.response.hits.hits.map { |r| r['sort'][0] }
+    @businesses = search.records.live.page(params[:page]).per(10)
+    # @category.businesses.live.order(average_rating: :desc, created_at: :asc).page(params[:page]).per(15)
   end
 
   private
@@ -15,6 +18,14 @@ class CategoriesController < ApplicationController
       ## FIXED
       @category = Category.find_by(id: params[:id])
       redirect_to home_index_path, alert: 'No category found' unless @category
+    end
+
+    def geolocation
+      { lat: cookies[:lat], lon: cookies[:lng] }
+    end
+
+    def user_sort_order
+      params[:order].present? ? Hash[*params[:order].split(', ')] : {}
     end
 
 end

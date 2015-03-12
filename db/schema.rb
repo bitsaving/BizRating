@@ -11,20 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223074837) do
+ActiveRecord::Schema.define(version: 20150309122045) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",      limit: 255
     t.string   "building",    limit: 255
     t.string   "landmark",    limit: 255
-    t.string   "area",        limit: 255
     t.string   "city",        limit: 255
     t.string   "pin_code",    limit: 255
     t.string   "country",     limit: 255
     t.string   "state",       limit: 255
     t.integer  "business_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "area",        limit: 255
+    t.decimal  "longitude",               precision: 9, scale: 6
+    t.decimal  "latitude",                precision: 9, scale: 6
   end
 
   add_index "addresses", ["business_id"], name: "index_addresses_on_business_id", using: :btree
@@ -39,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150223074837) do
     t.datetime "updated_at",                                                                  null: false
     t.boolean  "status",                 limit: 1,                             default: true, null: false
     t.string   "workflow_state",         limit: 255
-    t.decimal  "average_rating",                       precision: 4, scale: 2
+    t.decimal  "average_rating",                       precision: 4, scale: 2, default: 0.0
     t.text     "percentage_star_rating", limit: 65535
   end
 

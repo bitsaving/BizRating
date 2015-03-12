@@ -1,8 +1,8 @@
 class Business < ActiveRecord::Base
   include Workflow
+  include Searchable
 
-  serialize :percentage_star_rating
-  after_save :update_percentage_star_rating
+  serialize :percentage_star_rating, Hash
 
   belongs_to :category, required: true
 
@@ -74,7 +74,7 @@ class Business < ActiveRecord::Base
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
     ## FIXED
-    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) } if sentence.present?
+    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) if keyword.present? } if sentence.present?
   end
 
   def fire!(event)
@@ -113,7 +113,7 @@ class Business < ActiveRecord::Base
   end
 
   def update_percentage_star_rating
-    update_column(:percentage_star_rating, Hash[reviews.group(:rating).average(:rating).map{ |k,v| [k, v.to_i * 20] }])
+    update_column(:percentage_star_rating, Hash[reviews.group(:rating).count(:rating).map{ |k,v| [k, v.to_i * 100 / reviews.count] }])
   end
 
 end

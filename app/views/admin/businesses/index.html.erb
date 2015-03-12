@@ -45,12 +45,10 @@
       <td class='col-sm-1 text'><%= business.name %></td>
       <td class='col-sm-1 text'>City: <%= business.address.city %></td>
       <td class='col-sm-3 text'>
-        <% if business.address.area.present? %>
-          <%=link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
-        <%= business.address.area.humanize %>
-        <% else %>
-          <%= business.address_sentence %>
+        <% if business.address.latitude.present? %>
+          <%= link_to image_tag('marker.jpg'), google_map_url(business), :target => "_blank" %>
         <% end %>
+          <%= business.address_sentence %>
       </td>
       <td class="col-sm-offset-3 col-sm-1">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),

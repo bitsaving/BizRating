@@ -11,7 +11,7 @@
 <div class='container col-sm-10 col-sm-offset-1 top-pad-50'>
   <div class='row top-pad'>
       <span class='h1'>
-        <%= @business.name.humanize %>
+        Business Overview: <%= @business.name.humanize %>
       </span>
   </div>
 
@@ -52,21 +52,16 @@
             <span class='col-sm-2'><%= image_tag 'home1.png' %></span>
             <span class='col-sm-10 text-height-20'><%= @business.address_sentence %></span>
           </div>
-          <% if @business.address.area.present? %>
-            <div class='row top-pad'>
-              <span class='col-sm-2'>
-                <% #FIXME_AB: Make a helper for this. -%>
-                <% ## FIXED -%>
-                <%=link_to image_tag('marker1.jpg'), google_map_url(@business), :target => "_blank" %></span>
-              <span class='col-sm-10 text-height-20'>
-                  <%= @business.address.area %>
-              </span>
-            </div>
-          <% end %>
           <% if @business.phone_numbers.present? %>
             <div class='row top-pad'>
               <span class='col-sm-2'><%= image_tag 'phone.jpg' %></span>
               <span class='col-sm-10 text-height-20'><%= @business.phone_numbers_sentence %></span>
+            </div>
+          <% end %>
+          <% if @business.owner_name.present? %>
+            <div class='row top-pad'>
+              <span class='col-sm-2'>Owner</span>
+              <span class='col-sm-10 text-height-20'><%= @business.owner_name %></span>
             </div>
           <% end %>
           <div class='row top-pad'>
@@ -81,7 +76,7 @@
                       <%= image_tag 'star-unfilled.png' %>
                     <% end %>
                   </div>
-                  <div class='filled' style="clip: rect(0 ,<%= @business.average_rating * 20 * 2.56 %>px, 48px, 0px)" >
+                  <div class='filled' style="clip: rect(0 ,<%= percentage_average_rating_for_large_star(@business) %>px, 48px, 0px)" >
                       <% 5.times do %>
                         <%= image_tag 'star-filled.png' %>
                       <% end %>
@@ -165,23 +160,33 @@
     </div>
   <% end %>
 
-<span class='text-height-20'><u>Total Rating</u>: <%= @reviews.size %></span>
-  <div class='row rating-bar-container'>
-    <div class='col-sm-3 bar-name'>
-      <div class='row top-pad'>Excellent</div>
-      <div class='row top-pad'>Very Good</div>
-      <div class='row top-pad'>Good</div>
-      <div class='row top-pad'>Average</div>
-      <div class='row top-pad'>Poor</div>
-    </div>
-    <div class='col-sm-9 rating-bar'>
-      <% (1..5).each do |star| %>
-        <div class='row top-pad'>
-          <div style="width: <%= @business.percentage_star_rating[star] %>%"></div>
-          <%= @business.percentage_star_rating[star] %>%
+  <div class='row'>
+    <div class='bottom-pad-20 col-sm-7'>
+      <span class='text-height-20'><u>Total Reviews</u>: <%= @reviews.size %></span>
+      <div class='row rating-bar-container'>
+        <div class='col-sm-3 bar-name'>
+          <div class='row top-pad'>Excellent</div>
+          <div class='row top-pad'>Very Good</div>
+          <div class='row top-pad'>Good</div>
+          <div class='row top-pad'>Average</div>
+          <div class='row top-pad'>Poor</div>
         </div>
-      <% end %>
+        <div class='col-sm-9 rating-bar'>
+          <% (1..5).each do |star| %>
+            <div class='row top-pad'>
+              <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
+              <%= @business.percentage_star_rating[star].to_i %>%
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
+    <% if @business.address.latitude.present? %>
+      <div class='col-sm-5'>
+        <%= image_tag google_static_map_url(@business) %>
+        <%= link_to 'View on google map', google_map_url(@business), :target => "_blank"  %>
+      </div>
+    <% end %>
   </div>
 
   <%= image_tag 'bullet.jpg', class: 'sliders' %><span class='text-height-20 sliders'>Rate & Review </span>
@@ -191,6 +196,7 @@
         <%= form_for @user_review, remote: true, html: { class: "creation form form-horizontal", "data-type" => :json } do |f| %>
           <div>
             <ul class="rating-star col-sm-6">
+              <li id='rate-label'>Rate</li>
               <% (0..5).each do |x| %>
                 <li>
                   <%= f.radio_button :rating, x %>
@@ -208,7 +214,7 @@
             </span>
             <%= f.hidden_field :business_id, value: @business.id %>
             <div class="field form-group">
-              <%= f.text_area :detail, rows: 2, class: 'control-controle col-sm-12', maxlength: "500" %>
+              <%= f.text_area :detail, rows: 2, class: 'control-controle col-sm-12', maxlength: "500", placeholder: 'Comment' %>
             </div>
             <div class="form-group">
               <div class="col-sm-offset-11 col-sm-1">
@@ -220,24 +226,28 @@
       <% end %>
     </div>
     <div>
+    <% if @reviews.present? %>
       <% @reviews.each do |review| %>
       <div class="review">
         <div class='row'>
-          <span class='col-sm-2 h3'><%= review.user.name %></span>
+          <span class='col-sm-2 h4'><%= review.user.name %></span>
           <div class="rating-show col-sm-3">
             <div class="unfilled">★★★★★</div>
             <div class="filled" style="width: <%= review.rating * 20 %>%" >★★★★★</div>
           </div>
+          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
         </div>
         <div class='row'>
-          <div class='row review-block'><p class=' text text-30 col-sm-offset-1'><%= review.detail %></p></div>
-          <div class='col-sm-offset-8 row'><%= review.created_at.to_formatted_s(:long) %></div>
+          <div class='row review-block'><pre class=' text text-30'><%= review.detail %></pre></div>
         </div>
         <hr>
       </div>
     <% end %>
     <%= paginate @reviews %>
     </div>
+    <% else %>
+      No Reviews please review now
+    <% end %>
   </div>
 
 </div>

@@ -24,6 +24,8 @@ div.rating-star {
   overflow: hidden;
   color: orange;
   height: 48px;
+  vertical-align: middle;
+  top: 4px;
 }
 
 .filled img {
@@ -35,6 +37,9 @@ div.rating-star {
   position: absolute;
   color: black;
   height: 48px;
+  vertical-align: middle;
+  top: 4px;
+
 }
 
 .unfilled img {
@@ -68,8 +73,15 @@ div.rating-star {
 .text-30 {
   font-size: 30px;
 }
+
 .review-block {
   background-color: white;
+}
+
+.review-block pre {
+  font-size: 16px;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
 }
 
 .h3 {
@@ -79,7 +91,11 @@ div.rating-star {
 .rating-bar-container {
   border-bottom: 1px solid black;
   padding: 0px;
-  margin: 0px;
+  margin-bottom: 0px;
+}
+
+.rating-bar-container div.row:last-child {
+  padding-bottom: 10px;
 }
 
 .bar-name {
@@ -114,4 +130,8 @@ div.rating-star {
 
 .rating-bar div.row div:hover {
   background-color: blue;
+}
+
+.bottom-pad-20 {
+  padding-bottom: 20px;
 }

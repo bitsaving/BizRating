@@ -172,10 +172,11 @@
           <div class='row top-pad'>Poor</div>
         </div>
         <div class='col-sm-9 rating-bar'>
-          <% (0..4).each do |star| %>
+          <% 5.downto(1) do |star| %>
             <div class='row top-pad'>
               <div style="width: <%= percentage_star_rating_width(star) %>%"></div>
               <%= @business.percentage_star_rating[star].to_i %>%
+              <% p star; debugger %>
             </div>
           <% end %>
         </div>

@@ -5,7 +5,7 @@ module Searchable
   included do
 
     include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
+    # include Elasticsearch::Model::Callbacks
 
     Kaminari::Hooks.init
     Elasticsearch::Model::Response::Response.__send__ :include, Elasticsearch::Model::Response::Pagination::Kaminari

@@ -74,7 +74,7 @@ class Business < ActiveRecord::Base
   def keywords_sentence=(sentence)
     #FIXME_AB: you should check for sentence.present?
     ## FIXED
-    self.keywords = sentence.split(',').map { |keyword| Keyword.find_or_create_by(name: keyword.strip) if keyword.present? } if sentence.present?
+    self.keywords = sentence.split(',').map { |keyword| keyword.present? ? Keyword.find_or_create_by(name: keyword.strip) : nil }.compact if sentence.present?
   end
 
   def fire!(event)

@@ -8,7 +8,6 @@ class CategoriesController < ApplicationController
     search = Business.search_nearby(@category, geolocation, user_sort_order)
     @distance = search.response.hits.hits.map { |r| r['sort'][0] }
     @businesses = search.records.live.page(params[:page]).per(10)
-    # @category.businesses.live.order(average_rating: :desc, created_at: :asc).page(params[:page]).per(15)
   end
 
   private

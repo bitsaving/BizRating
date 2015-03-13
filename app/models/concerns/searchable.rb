@@ -11,7 +11,6 @@ module Searchable
     Elasticsearch::Model::Response::Response.__send__ :include, Elasticsearch::Model::Response::Pagination::Kaminari
 
     def location
-      "#{ address.latitude }, #{ address.longitude }"
       {
         lat: address.latitude,
         lon: address.longitude

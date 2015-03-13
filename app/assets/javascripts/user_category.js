@@ -13,7 +13,7 @@ UserCategory.prototype.initialize = function() {
     }
   );
   this.showMarker();
-  this.bindEvents();
+  this.bindEvent();
 };
 
 UserCategory.prototype.bindEvent = function() {

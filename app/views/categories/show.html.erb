@@ -43,7 +43,9 @@
                   <% end %>
                 </div>
                 <div class='col-sm-3'>
-                  <%#= @distance[index].round(2) -%>
+                  <% unless @distance[index].is_a? String %>
+                    <%= @distance[index].round(2) -%> km
+                  <% end %>
                 </div>
                 <div class="rating-show col-sm-3">
                   <div class="unfilled">★★★★★</div>

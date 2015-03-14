@@ -4,6 +4,9 @@ function Map(input) {
   this.form = input.form;
   this.pinCode = input.pinCode;
   this.componentRestrictions = {};
+  this.countryZoomLevel = input.countryZoomLevel;
+  this.stateZoomLevel = input.stateZoomLevel;
+  this.pinCodeZoomLevel = input.pinCodeZoomLevel;
 }
 
 Map.prototype.initialize = function() {
@@ -22,17 +25,17 @@ Map.prototype.bindEvent = function() {
   this.country.on('change', function(event) {
     _this.componentRestrictions['country'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(4);
+    _this.mapCanvas.setZoom(_this.countryZoomLevel);
   });
   this.form.on('change', '#business_address_attributes_state', function(event) {
     _this.componentRestrictions['administrativeArea'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(11);
+    _this.mapCanvas.setZoom(_this.stateZoomLevel);
   });
   this.pinCode.on('change', function(event) {
     _this.componentRestrictions['postalCode'] = $(this).val();
     _this.centerMap($(this).val());
-    _this.mapCanvas.setZoom(15);
+    _this.mapCanvas.setZoom(_this.pinCodeZoomLevel);
   });
 };
 
@@ -108,7 +111,9 @@ $(function() {
       country: $('#business_address_attributes_country'),
       form: $('#new_business'),
       pinCode: $('#business_address_attributes_pin_code'),
-
+      countryZoomLevel: 4,
+      stateZoomLevel: 11,
+      pinCodeZoomLevel: 15
     },
     gmap = new Map(input);
     gmap.initialize();
